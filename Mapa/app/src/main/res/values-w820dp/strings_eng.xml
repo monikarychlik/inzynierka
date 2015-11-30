@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Map</string>
+    <string name="faculty_of_mechanical_engineering">Mechanical Engineering</string>
+    <string name="faculty_of_electrical_electronic_computer_and_control_engineering">Electrical, Electronic, Computer and Control Engineering</string>
+    <string name="faculty_of_chemistry">Chemistry</string>
+    <string name="faculty_of_material_technologies_and_textile_design">Material Technologies and Textile Design</string>
+    <string name="faculty_of_biotechnology_and_food_sciences">Biotechnology and Food Sciences</string>
+    <string name="faculty_of_civil_engineering_architecture_and_environmental_engineering">Civil Engineering, Architecture and Environmental Engineering</string>
+    <string name="faculty_of_technical_physics_information_technology_and_applied_mathematics">Technical Physics, Information Technology and Applied Mathematics</string>
+    <string name="faculty_of_organization_and_management">Organization and Management</string>
+    <string name="faculty_of_process_and_environmental_engineering">Process and Environmental Engineering</string>
+</resources>
