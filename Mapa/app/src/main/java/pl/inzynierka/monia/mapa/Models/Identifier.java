@@ -7,7 +7,7 @@ public class Identifier extends RealmObject {
     private int id;
 
     private String name;
-    private char markLetter;
+    private String markLetter;
     private int markNumber;
 
     public String getName() {
@@ -26,11 +26,11 @@ public class Identifier extends RealmObject {
         this.id = id;
     }
 
-    public char getMarkLetter() {
+    public String getMarkLetter() {
         return markLetter;
     }
 
-    public void setMarkLetter(char markLetter) {
+    public void setMarkLetter(String markLetter) {
         this.markLetter = markLetter;
     }
 

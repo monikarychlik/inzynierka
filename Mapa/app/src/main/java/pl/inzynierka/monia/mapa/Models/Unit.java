@@ -7,7 +7,7 @@ public class Unit extends RealmObject {
     private Identifier identifier;
     private Contact contact;
     private int facultyID;
-    private int buildingID;
+    private int[] buildingsID;
 
     public Identifier getIdentifier() {
         return identifier;
@@ -33,11 +33,11 @@ public class Unit extends RealmObject {
         this.facultyID = facultyID;
     }
 
-    public int getBuildingID() {
-        return buildingID;
+    public int[] getBuildingsID() {
+        return buildingsID;
     }
 
-    public void setBuildingID(int buildingID) {
-        this.buildingID = buildingID;
+    public void setBuildingID(int[] buildingsID) {
+        this.buildingsID = buildingsID;
     }
 }

@@ -8,7 +8,7 @@ import pl.inzynierka.monia.mapa.Models.Identifier;
 import pl.inzynierka.monia.mapa.Models.Unit;
 
 public class Data {
-    private static final char facultyMarkLetter = 'w';
+    private static final String facultyMarkLetter = "w";
     private int facultyID;
     private int buildingID;
     private int unitID;
@@ -21,7 +21,7 @@ public class Data {
         this.realm = realm;
     }
 
-    private Identifier createIdentifier(int id, String name, char markLetter, int markNumber) {
+    private Identifier createIdentifier(int id, String name, String markLetter, int markNumber) {
         realm.beginTransaction();
 
         final Identifier identifier = realm.createObject(Identifier.class);
@@ -62,9 +62,9 @@ public class Data {
         realm.commitTransaction();
     }
 
-    public void createUnit(String name, char markLetter, int markNumber, String email,
+    public void createUnit(String name, String markLetter, int markNumber, String email,
                            String phoneNumber1, String phoneNumber2, String fax, int facultyID,
-                           int buildingID) {
+                           int[] buildingsID) {
         unitID++;
         realm.beginTransaction();
 
@@ -72,12 +72,12 @@ public class Data {
         unit.setIdentifier(createIdentifier(unitID, name, markLetter, markNumber));
         unit.setContact(createContact(email, phoneNumber1, phoneNumber2, fax));
         unit.setFacultyID(facultyID);
-        unit.setBuildingID(buildingID);
+        unit.setBuildingID(buildingsID);
 
         realm.commitTransaction();
     }
 
-    public void createBuilding(String name, char markLetter, int markNumber, double latitude,
+    public void createBuilding(String name, String markLetter, int markNumber, double latitude,
                                 double longtitude) {
         buildingID++;
         realm.beginTransaction();
