@@ -29,42 +29,24 @@ public class DataCreator {
     }
 
     private void addFaculties(Data data) {
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_mechanical_engineering),
-                1, "w-1@adm.p.lodz.pl", "42 636 46 83", "42 631 22 02", "42 631 27 02");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_electrical_electronic_computer_and_control_engineering),
-                2, "deanelec@adm.p.lodz.pl", "42 631 25 00", "42 631 25 02", "42 636 47 02");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_chemistry),
-                3, "w-3@adm.p.lodz.pl", "42 631 31 01", "42 631 31 02", "42 631 31 03");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_material_technologies_and_textile_design),
-                4, "w-4@adm.p.lodz.pl", "42 636 48 23", "42 631 33 00", "42 631 33 01");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_biotechnology_and_food_sciences),
-                5, "deanbiof@adm.p.lodz.pl", "42 631 34 00", "42 631 34 01", "42 631 34 02");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_civil_engineering_architecture_and_environmental_engineering),
-                6, "w-6@adm.p.lodz.pl", "42 631 35 00", "42 631 35 01", "42 631 35 02");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_technical_physics_information_technology_and_applied_mathematics),
-                7, "w-7@adm.p.lodz.pl", "42 631 36 00", "42 631 36 03", "42 631 36 02");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_organization_and_management),
-                9, "w-9@adm.p.lodz.pl", "42 631 37 51", "42 631 36 85", "42 684 79 93");
-        data.createFaculty(
-                context.getString(
-                        R.string.faculty_of_process_and_environmental_engineering),
-                10, "sekretariat@wipos.p.lodz.pl", "42 631 37 00", "42 631 37 01", "42 636 56 63");
+        data.createFaculty(context.getString(R.string.faculty_w1), 1,
+                "w-1@adm.p.lodz.pl", "42 636 46 83", "42 631 22 02", "42 631 27 02");
+        data.createFaculty(context.getString(R.string.faculty_w2), 2,
+                "deanelec@adm.p.lodz.pl", "42 631 25 00", "42 631 25 02", "42 636 47 02");
+        data.createFaculty(context.getString(R.string.faculty_w3), 3,
+                "w-3@adm.p.lodz.pl", "42 631 31 01", "42 631 31 02", "42 631 31 03");
+        data.createFaculty(context.getString(R.string.faculty_w4), 4,
+                "w-4@adm.p.lodz.pl", "42 636 48 23", "42 631 33 00", "42 631 33 01");
+        data.createFaculty(context.getString(R.string.faculty_w5), 5,
+                "deanbiof@adm.p.lodz.pl", "42 631 34 00", "42 631 34 01", "42 631 34 02");
+        data.createFaculty(context.getString(R.string.faculty_w6), 6,
+                "w-6@adm.p.lodz.pl", "42 631 35 00", "42 631 35 01", "42 631 35 02");
+        data.createFaculty(context.getString(R.string.faculty_w7), 7,
+                "w-7@adm.p.lodz.pl", "42 631 36 00", "42 631 36 03", "42 631 36 02");
+        data.createFaculty(context.getString(R.string.faculty_w9), 9,
+                "w-9@adm.p.lodz.pl", "42 631 37 51", "42 631 36 85", "42 684 79 93");
+        data.createFaculty(context.getString(R.string.faculty_w10), 10,
+                "sekretariat@wipos.p.lodz.pl", "42 631 37 00", "42 631 37 01", "42 636 56 63");
     }
 
     private void addBuildings(Data data) {
@@ -163,9 +145,9 @@ public class DataCreator {
     private void addInstitutes(Data data) {
         addW1Institutes(data);
         addW2Institutes(data);
-
-
-
+        addW3Institutes(data);
+        addW4Institutes(data);
+        addW5Institutes(data);
 
     }
 
@@ -176,69 +158,155 @@ public class DataCreator {
                 tempBuildingsTab);
         tempBuildingsTab = new int[]{15, 17, 19};
         data.createUnit(context.getString(R.string.institute_i8), institute, 8,
-                "i-8@adm.p.lodz.pl", "42 636 20 91", "42 631 22 99", "42 636 57 26", 1, tempBuildingsTab);
+                "i-8@adm.p.lodz.pl", "42 636 20 91", "42 631 22 99", "42 636 57 26", 1,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{38, 39};
         data.createUnit(context.getString(R.string.institute_i10), institute, 10,
-                "i-10@adm.p.lodz.pl", "42 631 23 64", "", "42 631 24 78", 1, tempBuildingsTab);
+                "i-10@adm.p.lodz.pl", "42 631 23 64", "", "42 631 24 78", 1,
+                tempBuildingsTab);
     }
 
     private void addW2Institutes(Data data) {
         int[] tempBuildingsTab = new int[]{8};
         data.createUnit(context.getString(R.string.institute_i12), institute, 12,
-                "i-12@adm.p.lodz.pl", "42 631 25 19", "42 636 22 81", "42 636 22 81", 2, tempBuildingsTab);
+                "i-12@adm.p.lodz.pl", "42 631 25 19", "42 636 22 81", "42 636 22 81", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{8, 10, 49};
         data.createUnit(context.getString(R.string.institute_i13), institute, 13,
-                "i-13@adm.p.lodz.pl", "42 631 25 60", "42 631 25 47", "42 631 25 51", 2, tempBuildingsTab);
+                "i-13@adm.p.lodz.pl", "42 631 25 60", "42 631 25 47", "42 631 25 51", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{10};
         data.createUnit(context.getString(R.string.institute_i14), institute, 14,
-                "i-14@adm.p.lodz.pl", "42 631 25 71", "42 631 25 81", "", 2, tempBuildingsTab);
+                "i-14@adm.p.lodz.pl", "42 631 25 71", "42 631 25 81", "", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{8, 9, 49};
         data.createUnit(context.getString(R.string.institute_i15), institute, 15,
-                "i-15@adm.p.lodz.pl", "42 631 25 90", "42 631 25 65", "42 631 26 06", 2, tempBuildingsTab);
+                "i-15@adm.p.lodz.pl", "42 631 25 90", "42 631 25 65", "42 631 26 06", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{34};
         data.createUnit(context.getString(R.string.institute_i16), institute, 16,
-                "i-16@adm.p.lodz.pl", "42 636 00 65", "42 631 26 26", "42 636 22 38", 2, tempBuildingsTab);
+                "i-16@adm.p.lodz.pl", "42 636 00 65", "42 631 26 26", "42 636 22 38", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{8, 52, 53};
         data.createUnit(context.getString(R.string.institute_i24), institute, 24,
-                "katedra@kis.p.lodz.pl", "42 631 27 50", "", "42 631 27 55", 2, tempBuildingsTab);
+                "katedra@kis.p.lodz.pl", "42 631 27 50", "", "42 631 27 55", 2,
+                tempBuildingsTab);
+    }
+
+    private void addW3Institutes(Data data) {
+        int[] tempBuildingsTab = new int[]{6, 21, 22, 26};
+        data.createUnit(context.getString(R.string.institute_i17), institute, 17,
+                "jacek.rynkowski@p.lodz.pl", "42 631 31 17", "", "42 631 31 03", 3,
+                tempBuildingsTab);
+        tempBuildingsTab = new int[]{22};
+        data.createUnit(context.getString(R.string.institute_i18), institute, 18,
+                "zbigniew.kaminski@p.lodz.pl", "42 631 31 40", "42 631 31 42", "42 636 55 30", 3,
+                tempBuildingsTab);
+        tempBuildingsTab = new int[]{22, 48};
+        data.createUnit(context.getString(R.string.institute_i19), institute, 19,
+                "mitr@mitr.p.lodz.pl", "42 631 31 88", "42 631 31 05", "42 631 30 84", 3,
+                tempBuildingsTab);
+        tempBuildingsTab = new int[]{20};
+        data.createUnit(context.getString(R.string.institute_i20), institute, 20,
+                "polbarw@p.lodz.pl", "42 631 32 09", "42 636 25 43", "42 636 25 43", 3,
+                tempBuildingsTab);
+    }
+
+    private void addW4Institutes(Data data) {
+        int[] tempBuildingsTab = new int[]{13, 26};
+        data.createUnit(context.getString(R.string.institute_i0), institute, 0,
+                "renata.szukalska@p.lodz.pl", "42 631 33 50", "42 631 33 43", "42 631 33 43", 4,
+                tempBuildingsTab);
+        // nie moge znalezc numeracji tego instytutu :/ wiec zostaje 0
+        // obstawiam jakies 21 (21, 22, 23, 25, 26, 27?)
+    }
+
+    private void addW5Institutes(Data data) {
+        int[] tempBuildingsTab = new int[]{1, 3};
+        data.createUnit(context.getString(R.string.institute_i28), institute, 28,
+                "i-28@adm.p.lodz.pl", "42 631 34 10", "", "42 631 28 42", 5,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.institute_i29), institute, 29,
+                "biochem@info.p.lodz.pl", "42 631 34 42", "42 631 34 33", "42 636 66 18", 5,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.institute_i30), institute, 30,
+                "i-30@adm.p.lodz.pl", "42 631 34 66", "42 631 32 43", "42 631 32 43", 5,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.institute_i31), institute, 31,
+                "itfim@p.lodz.pl", "42 636 36 39", "", "42 636 59 76", 5,
+                tempBuildingsTab);
     }
 
     private void addDepartments(Data data) {
         addW1Departments(data);
         addW2Departments(data);
-
-
+        addW3Departments(data);
+        addW4Departments(data);
     }
 
     private void addW1Departments(Data data) {
         int[] tempBuildingsTab = new int[]{15, 19, 25};
         data.createUnit(context.getString(R.string.department_k111), department, 111,
-                "k-111@adm.p.lodz.pl", "42 631 23 93", "", "", 1, tempBuildingsTab);
+                "k-111@adm.p.lodz.pl", "42 631 23 93", "", "", 1,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{19};
         data.createUnit(context.getString(R.string.department_k12), department, 12,
-                "k-12@adm.p.lodz.pl", "42 631 24 28", "", "", 1, tempBuildingsTab);
+                "k-12@adm.p.lodz.pl", "42 631 24 28", "", "", 1,
+                tempBuildingsTab);
         data.createUnit(context.getString(R.string.department_k13), department, 13,
-                "k-13@adm.p.lodz.pl", "42 631 22 31", "42 631 24 30", "42 631 27 02", 1, tempBuildingsTab);
+                "k-13@adm.p.lodz.pl", "42 631 22 31", "42 631 24 30", "42 631 27 02", 1,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{15, 17};
         data.createUnit(context.getString(R.string.department_k14), department, 14,
                 "andrzej.golabczak@p.lodz.pl", "42 631 22 95", "42 631 22 86", "42 636 79 63", 1,
                 tempBuildingsTab);
         tempBuildingsTab = new int[]{19};
         data.createUnit(context.getString(R.string.department_k16), department, 16,
-                "k16@info.p.lodz.pl", "42 631 22 25", "", "", 1, tempBuildingsTab);
+                "k16@info.p.lodz.pl", "42 631 22 25", "", "", 1,
+                tempBuildingsTab);
         data.createUnit(context.getString(R.string.department_k17), department, 17,
-                "agata.golnik@p.lodz.pl", "42 631 22 75", "", "42 636 51 05", 1, tempBuildingsTab);
+                "agata.golnik@p.lodz.pl", "42 631 22 75", "", "42 636 51 05", 1,
+                tempBuildingsTab);
     }
 
     private void addW2Departments(Data data) {
         int[] tempBuildingsTab = new int[]{43, 49};
         data.createUnit(context.getString(R.string.department_k25), department, 25,
-                "secretary@dmcs.p.lodz.pl", "42 631 27 27", "", "42 636 03 27", 2, tempBuildingsTab);
+                "secretary@dmcs.p.lodz.pl", "42 631 27 27", "", "42 636 03 27", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{9, 10};
         data.createUnit(context.getString(R.string.department_k26), department, 26,
-                "k-26@adm.p.lodz.pl", "42 631 26 61", "42 631 27 70", "42 631 27 71", 2, tempBuildingsTab);
+                "k-26@adm.p.lodz.pl", "42 631 26 61", "42 631 27 70", "42 631 27 71", 2,
+                tempBuildingsTab);
         tempBuildingsTab = new int[]{34};
         data.createUnit(context.getString(R.string.department_k27), department, 27,
-                "k-27@adm.p.lodz.pl", "42 636 79 99", "", "42 636 80 24", 2, tempBuildingsTab);
+                "k-27@adm.p.lodz.pl", "42 636 79 99", "", "42 636 80 24", 2,
+                tempBuildingsTab);
+    }
+
+    private void addW3Departments(Data data) {
+        int[] tempBuildingsTab = new int[]{22};
+        data.createUnit(context.getString(R.string.department_k32), department, 32,
+                "k-32@adm.p.lodz.pl", "42 631 32 05", "42 631 32 16", "42 631 32 18", 3,
+                tempBuildingsTab);
+    }
+
+    private void addW4Departments(Data data) {
+        int[] tempBuildingsTab = new int[]{26};
+        data.createUnit(context.getString(R.string.department_k41), department, 41,
+                "piotr.kulpiński@p.lodz.pl", "42 631 33 59", "", "42 637 20 40", 4,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.department_k46), department, 46,
+                "zbigniew.mikolajczyk@p.lodz.pl", "42-631-33-38", "", "", 4,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.department_k48), department, 48,
+                "jolanta.wojtyniak@p.lodz.pl", "42 631 33 17", "", "42 631 33 18", 4,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.department_k411), department, 411,
+                "edyta.kulik@p.lodz.pl", "42 631 33 83", "42 636 14 29", "", 4,
+                tempBuildingsTab);
+        data.createUnit(context.getString(R.string.department_k412), department, 412,
+                "", "42 631 33 84", "", "42 631 33 84", 4,
+                tempBuildingsTab);
     }
 }

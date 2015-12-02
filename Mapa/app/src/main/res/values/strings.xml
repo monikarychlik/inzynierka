@@ -1,14 +1,14 @@
 <resources>
     <string name="app_name">Mapa</string>
-    <string name="faculty_of_mechanical_engineering">Mechaniczny</string>
-    <string name="faculty_of_electrical_electronic_computer_and_control_engineering">Elektrotechniki, Elektroniki, Informatyki i Automatyki</string>
-    <string name="faculty_of_chemistry">Chemiczny</string>
-    <string name="faculty_of_material_technologies_and_textile_design">Technologii Materiałowych i Wzornictwa Tekstyliów</string>
-    <string name="faculty_of_biotechnology_and_food_sciences">Biotechnologii i Nauk o Żywności</string>
-    <string name="faculty_of_civil_engineering_architecture_and_environmental_engineering">Budownictwa, Architektury i Inżynierii Środowiska</string>
-    <string name="faculty_of_technicalt_physics_information_technology_and_applied_mathematics">Fizyki Technicznej, Informatyki i Matematyki Stosowanej</string>
-    <string name="faculty_of_organization_and_management">Organizacji i Zarządzania</string>
-    <string name="faculty_of_process_and_environmental_engineering">Inżynierii Procesowej i Ochrony Środowiska</string>
+    <string name="faculty_w1">Mechaniczny</string>
+    <string name="faculty_w2">Elektrotechniki, Elektroniki, Informatyki i Automatyki</string>
+    <string name="faculty_w3">Chemiczny</string>
+    <string name="faculty_w4">Technologii Materiałowych i Wzornictwa Tekstyliów</string>
+    <string name="faculty_w5">Biotechnologii i Nauk o Żywności</string>
+    <string name="faculty_w6">Budownictwa, Architektury i Inżynierii Środowiska</string>
+    <string name="faculty_w7">Fizyki Technicznej, Informatyki i Matematyki Stosowanej</string>
+    <string name="faculty_w9">Organizacji i Zarządzania</string>
+    <string name="faculty_w10">Inżynierii Procesowej i Ochrony Środowiska</string>
     <string name="building_a2">Budynek A2</string>
     <string name="building_a3">Budynek A3</string>
     <string name="building_a4">Budynek A4</string>
@@ -81,7 +81,16 @@
     <string name="institute_i14">Instytut Mechatroniki i Systemów Informatycznych</string>
     <string name="institute_i15">Instytut Elektroenergetyki</string>
     <string name="institute_i16">Instytut Elektroniki</string>
+    <string name="institute_i17">Instytut Chemii Ogólnej i Ekologicznej</string>
+    <string name="institute_i18">Instytut Chemii Organicznej</string>
+    <string name="institute_i19">Międzyresortowy Instytut Techniki Radiacyjnej</string>
+    <string name="institute_i20">Instytut Technologii Polimerów i Barwników</string>
+    <string name="institute_i0">Instytut Architektury Tekstyliów</string>
     <string name="institute_i24">Instytut Informatyki Stosowanej</string>
+    <string name="institute_i28">Instytut Podstaw Chemii Żywności</string>
+    <string name="institute_i29">Instytut Biochemii Technicznej</string>
+    <string name="institute_i30">Instytut Technologii i Analizy Żywności</string>
+    <string name="institute_i31">Instytut Technologii Fermentacji i Mikrobiologii</string>
     <string name="department_k111">Katedra Pojazdów i Podstaw Budowy Maszyn</string>
     <string name="department_k12">Katedra Wytrzymałości Materiałów i Konstrukcji</string>
     <string name="department_k13">Katedra Dynamiki Maszyn</string>
@@ -91,4 +100,10 @@
     <string name="department_k25">Katedra Mikroelektroniki i Technik Informatycznych</string>
     <string name="department_k26">Katedra Aparatów Elektrycznych</string>
     <string name="department_k27">Katedra Przyrządów Półprzewodnikowych i Optoelektronicznych</string>
+    <string name="department_k32">Katedra Fizyki Molekularnej</string>
+    <string name="department_k41">Katedra Włókien Sztucznych</string>
+    <string name="department_k46">Katedra Dziewiarstwa</string>
+    <string name="department_k48">Katedra Materiałoznawstwa, Towaroznawstwa i Metrologii Włókienniczej</string>
+    <string name="department_k411">Katedra Mechaniki i Informatyki Technicznej</string>
+    <string name="department_k412">Katedra Mechaniki Maszyn Włókienniczych</string>
 </resources>
