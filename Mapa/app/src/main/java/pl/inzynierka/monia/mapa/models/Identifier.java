@@ -1,10 +1,8 @@
-package pl.inzynierka.monia.mapa.Models;
+package pl.inzynierka.monia.mapa.models;
 
 import io.realm.RealmObject;
 
 public class Identifier extends RealmObject {
-
-    private int id;
 
     private String name;
     private String markLetter;
@@ -16,14 +14,6 @@ public class Identifier extends RealmObject {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getMarkLetter() {

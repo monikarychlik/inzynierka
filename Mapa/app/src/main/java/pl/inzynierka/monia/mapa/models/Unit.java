@@ -1,13 +1,26 @@
-package pl.inzynierka.monia.mapa.Models;
+package pl.inzynierka.monia.mapa.models;
 
+import io.realm.RealmList;
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Unit extends RealmObject {
+
+    @PrimaryKey
+    private int id;
 
     private Identifier identifier;
     private Contact contact;
     private int facultyID;
-    private int[] buildingsID;
+    private RealmList<BuildingID> buildingsID;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public Identifier getIdentifier() {
         return identifier;
@@ -33,11 +46,11 @@ public class Unit extends RealmObject {
         this.facultyID = facultyID;
     }
 
-    public int[] getBuildingsID() {
+    public RealmList<BuildingID> getBuildingsID() {
         return buildingsID;
     }
 
-    public void setBuildingID(int[] buildingsID) {
+    public void setBuildingsID(RealmList<BuildingID> buildingsID) {
         this.buildingsID = buildingsID;
     }
 }

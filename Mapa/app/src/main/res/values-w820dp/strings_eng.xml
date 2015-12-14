@@ -22,7 +22,7 @@
     <string name="building_a13">Section of Recruitment</string>
     <string name="building_a14">Building A14</string>
     <string name="building_a16">International Faculty of Engineering</string>
-    <string name="building_a17">Bursar's Office</string>
+    <string name="building_a17">Bursar\'s Office</string>
     <string name="building_a18">Factory of Engineers</string>
     <string name="building_a19">Building A19</string>
     <string name="building_a20">Building A20 (4M)</string>
@@ -52,7 +52,7 @@
     <string name="building_c14">I Dormitory (Jedynka)</string>
     <string name="building_c15">Building C15</string>
     <string name="building_c16">VIII Dormitory (Zwartek)</string>
-    <string name="building_b1">Rector's Office</string>
+    <string name="building_b1">Rector\'s Office</string>
     <string name="building_b2">Building B2</string>
     <string name="building_b3">Building B3</string>
     <string name="building_b4">Building B4</string>
@@ -136,17 +136,17 @@
     <string name="other_6">Management and Production Engineering Centre in Sieradz</string>
     <string name="other_7">Laser Diagnostic and Therapy Centre - Non-public Health Care</string>
     <string name="other_8">University of the Third Age</string>
-    <string name="other_9">Children's University of Lodz (Lodz University of Technology)</string>
+    <string name="other_9">Children\'s University of Lodz (Lodz University of Technology)</string>
     <string name="other_10">International Doctoral School</string>
     <string name="other_11">Gym</string>
     <string name="other_12">Section of Diplomas</string>
     <string name="other_13">Director of Finance</string>
     <string name="other_14">Bursar</string>
     <string name="other_15">Vice-Rector for University Development</string>
-    <string name="other_16">Sultan's Auditorium</string>
+    <string name="other_16">Sultan\'s Auditorium</string>
     <string name="other_17">Social Department</string>
     <string name="other_18">Public Orders Department</string>
-    <string name="other_19">Chancellor's Office</string>
+    <string name="other_19">Chancellor\'s Office</string>
     <string name="other_20">Chancellor</string>
     <string name="other_21">Secretariat of the Chancellor</string>
     <string name="other_22">Academic Centre of Trust</string>
@@ -167,7 +167,7 @@
     <string name="other_41">Biblio-Art Gallery</string>
     <string name="other_42">Academic Point of Personalization</string>
     <string name="other_43">Publications Department</string>
-    <string name="other_44">Children's University of Lodz</string>
+    <string name="other_44">Children\'s University of Lodz</string>
     <string name="other_45">Student Radio Zak 88,8 MHz</string>
     <string name="other_46">Medical Clinic</string>
     <string name="other_47">Post Office</string>

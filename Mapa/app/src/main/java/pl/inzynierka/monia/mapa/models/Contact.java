@@ -1,4 +1,4 @@
-package pl.inzynierka.monia.mapa.Models;
+package pl.inzynierka.monia.mapa.models;
 
 import io.realm.RealmObject;
 
