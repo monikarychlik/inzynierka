@@ -18,18 +18,16 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.realm.Realm;
-import io.realm.RealmResults;
 import pl.inzynierka.monia.mapa.adapters.DrawerListAdapter;
+import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
+import pl.inzynierka.monia.mapa.fragments.BuildingInfoFragment;
 import pl.inzynierka.monia.mapa.fragments.BuildingsListFragment;
 import pl.inzynierka.monia.mapa.fragments.LessonPlanFragment;
 import pl.inzynierka.monia.mapa.fragments.MapFragment;
-import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.utils.DrawerItem;
 
-public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener {
-    private RealmResults<Building> buildings;
+public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, MainActivityCallbacks {
     private Realm realm;
-    private Searcher searcher;
     private MapFragment mapFragment;
     private BuildingsListFragment buildingsListFragment;
     private LessonPlanFragment lessonPlanFragment;
@@ -46,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private ActionBarDrawerToggle drawerToggle;
     private AboutFragment aboutFragment;
     private ActionBar actionBar;
+    private BuildingInfoFragment buildingInfoFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -82,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         drawerHeader = (RelativeLayout) findViewById(R.id.drawerHeader);
 
         realm = Realm.getInstance(this);
-        buildings = realm.where(Building.class).findAll();
 
         final DataCreator dataCreator = new DataCreator(this, realm);
         dataCreator.addData();
@@ -93,31 +91,11 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void initFragments() {
         mapFragment = new MapFragment();
         buildingsListFragment = new BuildingsListFragment();
+        buildingInfoFragment = new BuildingInfoFragment();
         buildingsListFragment.passData(realm);
         lessonPlanFragment = new LessonPlanFragment();
         aboutFragment = new AboutFragment();
     }
-
-//
-//    public void onResultClick(String searchResult) {
-//        final String[] buildingSplit = searchResult.split("\\n")[0].split(":");
-//        final String buildingMarkLetter = buildingSplit[0].substring(0, 1);
-//        final String buildingMarkNumber = buildingSplit[0].substring(1);
-//        final String buildingName = buildingSplit[1];
-//
-//        for (Building building : buildings) {
-//            final Identifier buildingIdentifier = building.getIdentifier();
-//            if (buildingIdentifier.getMarkLetter().equals(buildingMarkLetter) &&
-//                    buildingIdentifier.getMarkNumber() == Integer.parseInt(buildingMarkNumber) &&
-//                    buildingIdentifier.getName().equals(buildingName)) {
-//
-//                if (toolbar.getTitle().equals(getString(R.string.map))) {
-//                    mapFragment.addMarker(
-//                            new GeoPoint(building.getLatitude(), building.getLongitude()));
-//                }
-//            }
-//        }
-//    }
 
     private void setupNavigationDrawer() {
         drawerItems.add(new DrawerItem("Mapa", "Widok mapy z budynkami", R.drawable.icon_arrow_left));
@@ -209,40 +187,53 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         drawerToggle.syncState();
     }
 
-    private void changeToMapFragment(String title){
+    public void changeToMapFragment(String title){
         setTitle(title);
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mapFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    private void changeToBuildingsListFragment(String title){
+    public void changeToBuildingsListFragment(String title){
         setTitle(title);
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, buildingsListFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    private void changeToLessonPlanFragment(String title){
+    public void changeToBuildingInfoFragment(String title){
+        setTitle(title);
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, buildingInfoFragment);
+        //transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void changeToLessonPlanFragment(String title){
         setTitle(title);
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, lessonPlanFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
-    private void changeToAboutFragment(String title){
+    public void changeToAboutFragment(String title){
         setTitle(title);
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, aboutFragment);
-        transaction.addToBackStack(null);
+        //transaction.addToBackStack(null);
         transaction.commit();
     }
 
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         return false;
+    }
+
+    @Override
+    public void passData(int buildingId) {
+        buildingInfoFragment.passData(buildingId, realm);
     }
 }

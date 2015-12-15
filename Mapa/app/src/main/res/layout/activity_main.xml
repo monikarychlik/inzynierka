@@ -34,7 +34,7 @@
                 android:id="@+id/avatar"
                 android:layout_width="80dp"
                 android:layout_height="50dp"
-                android:src="@drawable/icon_close"
+                android:src="@drawable/icon_map"
                 android:layout_marginTop="15dp"
                 android:contentDescription="@string/drawer_title" />
 
@@ -53,7 +53,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/example_text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorPrimaryText"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -64,7 +64,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginTop="4dp"
                     android:text="@string/example_text"
-                    android:textColor="@android:color/white"
+                    android:textColor="@color/colorSecondaryText"
                     android:textSize="12sp" />
             </LinearLayout>
         </RelativeLayout>
