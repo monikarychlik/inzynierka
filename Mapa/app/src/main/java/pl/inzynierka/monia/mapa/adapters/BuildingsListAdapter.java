@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -41,7 +42,17 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
 
         customViewHolder.textViewBuildingSign.setText(buildingSign);
         customViewHolder.textViewBuildingName.setText(buildingIdentifier.getName());
+        setListeners(customViewHolder, building, buildingSign);
+    }
 
+    private void setListeners(CustomViewHolder customViewHolder, final Building building, final String buildingSign) {
+        customViewHolder.imageViewShowOnMap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityCallbacks.passData(building.getId());
+                mainActivityCallbacks.changeToMapFragment("");
+            }
+        });
         customViewHolder.buildingItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,12 +70,14 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
     public class CustomViewHolder extends RecyclerView.ViewHolder {
         protected TextView textViewBuildingSign;
         protected TextView textViewBuildingName;
+        protected ImageView imageViewShowOnMap;
         protected CardView buildingItemLayout;
 
         public CustomViewHolder(View view) {
             super(view);
             this.textViewBuildingSign = (TextView) view.findViewById(R.id.textViewBuildingSign);
             this.textViewBuildingName = (TextView) view.findViewById(R.id.textViewBuildingName);
+            this.imageViewShowOnMap = (ImageView) view.findViewById(R.id.imageViewShowOnMap);
             this.buildingItemLayout = (CardView) view.findViewById(R.id.buildingItemLayout);
         }
     }

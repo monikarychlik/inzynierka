@@ -1,5 +1,7 @@
 package pl.inzynierka.monia.mapa;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -31,20 +33,21 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private MapFragment mapFragment;
     private BuildingsListFragment buildingsListFragment;
     private LessonPlanFragment lessonPlanFragment;
-    private String lastTitle = "";
+    private AboutFragment aboutFragment;
+    private BuildingInfoFragment buildingInfoFragment;
     private ImageView imageViewAvatar;
     private TextView textViewDrawerTitle;
     private TextView textViewDrawerSubTitle;
     private RelativeLayout drawerHeader;
-
-    ArrayList<DrawerItem> drawerItems = new ArrayList<>();
     private DrawerLayout drawerLayout;
     private RelativeLayout drawer;
     private ListView drawerList;
     private ActionBarDrawerToggle drawerToggle;
-    private AboutFragment aboutFragment;
     private ActionBar actionBar;
-    private BuildingInfoFragment buildingInfoFragment;
+    private ArrayList<DrawerItem> drawerItems = new ArrayList<>();
+    private String lastTitle = "";
+    private SharedPreferences sharedPreferences;
+    private boolean isDataCreatedDefault = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,11 +84,29 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         drawerHeader = (RelativeLayout) findViewById(R.id.drawerHeader);
 
         realm = Realm.getInstance(this);
+        sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
+                Context.MODE_PRIVATE);
 
-        final DataCreator dataCreator = new DataCreator(this, realm);
-        dataCreator.addData();
+        addData();
 
         initFragments();
+    }
+
+    private void addData() {
+        isDataCreatedDefault = sharedPreferences.getBoolean(getString(R.string.is_data_created_key), false);
+
+        if (!isDataCreatedDefault) {
+            final DataCreator dataCreator = new DataCreator(this, realm);
+            dataCreator.addData();
+
+            writeToSharedPref();
+        }
+    }
+
+    private void writeToSharedPref() {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(getString(R.string.is_data_created_key), !isDataCreatedDefault);
+        editor.apply();
     }
 
     private void initFragments() {
@@ -188,7 +209,12 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     public void changeToMapFragment(String title){
-        setTitle(title);
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.map));
+        } else {
+            setTitle(title);
+        }
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mapFragment);
         //transaction.addToBackStack(null);
@@ -196,7 +222,12 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     public void changeToBuildingsListFragment(String title){
-        setTitle(title);
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.building_list));
+        } else {
+            setTitle(title);
+        }
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, buildingsListFragment);
         //transaction.addToBackStack(null);
@@ -204,7 +235,12 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     public void changeToBuildingInfoFragment(String title){
-        setTitle(title);
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.building_info));
+        } else {
+            setTitle(title);
+        }
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, buildingInfoFragment);
         //transaction.addToBackStack(null);
@@ -212,7 +248,12 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     public void changeToLessonPlanFragment(String title){
-        setTitle(title);
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.plan));
+        } else {
+            setTitle(title);
+        }
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, lessonPlanFragment);
         //transaction.addToBackStack(null);
@@ -220,7 +261,12 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     public void changeToAboutFragment(String title){
-        setTitle(title);
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.about));
+        } else {
+            setTitle(title);
+        }
+
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, aboutFragment);
         //transaction.addToBackStack(null);
@@ -235,5 +281,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     @Override
     public void passData(int buildingId) {
         buildingInfoFragment.passData(buildingId, realm);
+        mapFragment.passData(buildingId, realm);
     }
 }

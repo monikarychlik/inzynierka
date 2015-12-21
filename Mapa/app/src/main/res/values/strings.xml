@@ -195,4 +195,7 @@
     <string name="drawer_close">Zamknij menu</string>
     <string name="buildings">Budynki</string>
     <string name="no_search_results">Brak wyników wyszukiwania</string>
+    <string name="preference_file_key">pl.inzynierka.monia.mapa</string>
+    <string name="is_data_created_key">isDataCreated</string>
+    <string name="building_info">Informacje o budynku</string>
 </resources>
