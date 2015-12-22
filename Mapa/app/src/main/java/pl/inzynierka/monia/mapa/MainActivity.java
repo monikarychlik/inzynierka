@@ -1,7 +1,9 @@
 package pl.inzynierka.monia.mapa;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
@@ -37,7 +39,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private BuildingInfoFragment buildingInfoFragment;
     private ImageView imageViewAvatar;
     private TextView textViewDrawerTitle;
-    private TextView textViewDrawerSubTitle;
     private RelativeLayout drawerHeader;
     private DrawerLayout drawerLayout;
     private RelativeLayout drawer;
@@ -80,7 +81,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         imageViewAvatar = (ImageView) findViewById(R.id.avatar);
         textViewDrawerTitle = (TextView) findViewById(R.id.drawerTitle);
-        textViewDrawerSubTitle = (TextView) findViewById(R.id.drawerSubTitle);
         drawerHeader = (RelativeLayout) findViewById(R.id.drawerHeader);
 
         realm = Realm.getInstance(this);
@@ -118,16 +118,20 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         aboutFragment = new AboutFragment();
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void setupNavigationDrawer() {
-        drawerItems.add(new DrawerItem("Mapa", "Widok mapy z budynkami", R.drawable.icon_arrow_left));
-        drawerItems.add(new DrawerItem("Budynki", "Lista budynków", R.drawable.icon_arrow_left));
-        drawerItems.add(new DrawerItem("Plan", "Twój plan zajęć", R.drawable.icon_arrow_left));
+        drawerItems.add(new DrawerItem(getString(R.string.map),
+                getString(R.string.view_map_with_buildings), R.drawable.icon_arrow_left));
+        drawerItems.add(new DrawerItem(getString(R.string.buildings),
+                getString(R.string.building_list), R.drawable.icon_arrow_left));
+        drawerItems.add(new DrawerItem(getString(R.string.plan),
+                getString(R.string.your_lesson_plan), R.drawable.icon_arrow_left));
 
-        drawerItems.add(new DrawerItem("O aplikacji", "Informacje o tej aplikacji", R.drawable.icon_arrow_left));
+        drawerItems.add(new DrawerItem(getString(R.string.about),
+                getString(R.string.app_info), R.drawable.icon_arrow_left));
 
-        imageViewAvatar.setImageResource(R.drawable.icon_close);
-        textViewDrawerTitle.setText("SUPER APPKA!!1!!!one!11one");
-        textViewDrawerSubTitle.setText("i nie straszne Ci kręte ścieżki!");
+        imageViewAvatar.setBackground(getResources().getDrawable(R.drawable.icon_map));
+        textViewDrawerTitle.setText(getString(R.string.drawer_title));
 
         drawerLayout = (DrawerLayout) findViewById(R.id.main);
         drawer = (RelativeLayout) findViewById(R.id.drawer);
@@ -217,7 +221,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, mapFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -230,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, buildingsListFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -243,7 +247,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, buildingInfoFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -256,7 +260,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, lessonPlanFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 
@@ -269,7 +273,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, aboutFragment);
-        //transaction.addToBackStack(null);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

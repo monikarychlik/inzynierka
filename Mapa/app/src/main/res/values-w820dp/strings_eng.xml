@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Map</string>
+
     <string name="faculty_w1">Mechanical Engineering</string>
     <string name="faculty_w2">Electrical, Electronic, Computer and Control Engineering</string>
     <string name="faculty_w3">Chemistry</string>
@@ -9,6 +10,7 @@
     <string name="faculty_w7">Technical Physics, Information Technology and Applied Mathematics</string>
     <string name="faculty_w9">Organization and Management</string>
     <string name="faculty_w10">Process and Environmental Engineering</string>
+
     <string name="building_a2">Building A2</string>
     <string name="building_a3">Building A3</string>
     <string name="building_a4">Building A4</string>
@@ -35,9 +37,12 @@
     <string name="building_a30">Building A30</string>
     <string name="building_a31">Building A31</string>
     <string name="building_a33">Building A33</string>
+
     <string name="building_e1">IX Dormitory</string>
     <string name="building_e2">V Dormitory (Tygrys)</string>
+
     <string name="building_d1">Building D1</string>
+
     <string name="building_c2">Building C2</string>
     <string name="building_c3">Building C3 (Aquarium)</string>
     <string name="building_c4">The Sport Centre</string>
@@ -52,6 +57,7 @@
     <string name="building_c14">I Dormitory (Jedynka)</string>
     <string name="building_c15">Building C15</string>
     <string name="building_c16">VIII Dormitory (Zwartek)</string>
+
     <string name="building_b1">Rector\'s Office</string>
     <string name="building_b2">Building B2</string>
     <string name="building_b3">Building B3</string>
@@ -72,6 +78,7 @@
     <string name="building_b19">Centre of Information Technology</string>
     <string name="building_b22">Library</string>
     <string name="building_b24_b25">The Language Centre</string>
+
     <string name="institute_i1">Institute of Information Technology</string>
     <string name="institute_i2">Institute of Mathematics</string>
     <string name="institute_i3">Institute of Physics</string>
@@ -96,6 +103,7 @@
     <string name="institute_i35">Institute of Architecture and Urban Planning</string>
     <string name="institute_i612">Institute of Environmental Engineering and Construction Installation</string>
     <string name="institute_i910">Institute of Social Sciences and Technology Management</string>
+
     <string name="department_k111">Department of Vehicles and Fundamentals of Machine Design</string>
     <string name="department_k12">Department of Strength of Materials</string>
     <string name="department_k13">Department of Dynamics</string>
@@ -128,6 +136,7 @@
     <string name="department_k107">Department of Safework Engineering</string>
     <string name="department_k108">Department of Environmental Engineering Systems</string>
     <string name="department_k109">Department of Molecular Engineering</string>
+
     <string name="other_1">Centre of Mathematics and Physics</string>
     <string name="other_2">Computer Centre "Lodman"</string>
     <string name="other_3">Commodity Science College</string>
@@ -176,4 +185,26 @@
     <string name="other_50">Entertainment and Conference Hall</string>
     <string name="other_51">Student Council</string>
     <string name="other_52">Student Canteen</string>
+
+    <string name="search">Search</string>
+    <string name="map">Map</string>
+    <string name="building_list">Building list</string>
+    <string name="plan">Plan</string>
+    <string name="about">About</string>
+    <string name="more">More</string>
+    <string name="drawer_title">Navigation system for the Lodz University of Technology campus</string>
+    <string name="icon">Icon</string>
+    <string name="line1">Line 1</string>
+    <string name="line2">Line 2</string>
+    <string name="example_text">Example text</string>
+    <string name="drawer_open">Show menu</string>
+    <string name="drawer_close">Close menu</string>
+    <string name="buildings">Buildings</string>
+    <string name="no_search_results">No search results</string>
+    <string name="preference_file_key">pl.inzynierka.monia.mapa</string>
+    <string name="is_data_created_key">isDataCreated</string>
+    <string name="building_info">Information about building</string>
+    <string name="view_map_with_buildings">Map view with buildings</string>
+    <string name="your_lesson_plan">Your lesson plan</string>
+    <string name="app_info">Information about application</string>
 </resources>

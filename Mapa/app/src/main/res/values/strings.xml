@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Mapa</string>
+
     <string name="faculty_w1">Mechaniczny</string>
     <string name="faculty_w2">Elektrotechniki, Elektroniki, Informatyki i Automatyki</string>
     <string name="faculty_w3">Chemiczny</string>
@@ -9,6 +10,7 @@
     <string name="faculty_w7">Fizyki Technicznej, Informatyki i Matematyki Stosowanej</string>
     <string name="faculty_w9">Organizacji i Zarządzania</string>
     <string name="faculty_w10">Inżynierii Procesowej i Ochrony Środowiska</string>
+
     <string name="building_a2">Budynek A2</string>
     <string name="building_a3">Budynek A3</string>
     <string name="building_a4">Budynek A4</string>
@@ -35,9 +37,12 @@
     <string name="building_a30">Budynek A30</string>
     <string name="building_a31">Budynek A31</string>
     <string name="building_a33">Budynek A33</string>
+
     <string name="building_e1">IX Dom Akademicki</string>
     <string name="building_e2">V Dom Akademicki (Tygrys)</string>
+
     <string name="building_d1">Budynek D1</string>
+
     <string name="building_c2">Budynek C2</string>
     <string name="building_c3">Budynek C3 (Akwarium)</string>
     <string name="building_c4">Centrum Sportu</string>
@@ -52,6 +57,7 @@
     <string name="building_c14">I Dom Akademicki (Jedynka)</string>
     <string name="building_c15">Budynek C15</string>
     <string name="building_c16">VIII Dom Akademicki (Zwartek)</string>
+
     <string name="building_b1">Rektorat Politechniki Łódzkiej</string>
     <string name="building_b2">Budynek B2</string>
     <string name="building_b3">Budynek B3</string>
@@ -72,6 +78,7 @@
     <string name="building_b19">Centrum Technologii Informatycznych</string>
     <string name="building_b22">Biblioteka Główna</string>
     <string name="building_b24_b25">Centrum Językowe</string>
+
     <string name="institute_i7">Instytut Inżynierii Materiałowej</string>
     <string name="institute_i8">Instytut Obrabiarek i Technologii Budowy Maszyn</string>
     <string name="institute_i10">Instytut Maszyn Przepływowych</string>
@@ -96,6 +103,7 @@
     <string name="institute_i2">Instytut Matematyki</string>
     <string name="institute_i3">Instytut Fizyki</string>
     <string name="institute_i910">Instytut Nauk Społecznych i Zarządzania Technologiami</string>
+
     <string name="department_k111">Katedra Pojazdów i Podstaw Budowy Maszyn</string>
     <string name="department_k12">Katedra Wytrzymałości Materiałów i Konstrukcji</string>
     <string name="department_k13">Katedra Dynamiki Maszyn</string>
@@ -128,6 +136,7 @@
     <string name="department_k107">Katedra Inżynierii Bezpieczeństwa Pracy</string>
     <string name="department_k108">Katedra Inżynierii Środowiska</string>
     <string name="department_k109">Katedra Inżynierii Molekularnej</string>
+
     <string name="other_1">Centrum Nauczania Matematyki i Fizyki</string>
     <string name="other_2">Centrum Komputerowe Lodman</string>
     <string name="other_3">Kolegium Towaroznawstwa</string>
@@ -176,21 +185,18 @@
     <string name="other_50">Sala Widowiskowo - Konferencyjna</string>
     <string name="other_51">Samorząd Studencki Politechniki Łódzkiej</string>
     <string name="other_52">Stołówka Studencka</string>
-    <string name="search">Szukaj</string>
 
-<!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="search">Szukaj</string>
     <string name="map">Mapa</string>
     <string name="building_list">Lista budynków</string>
     <string name="plan">Plan</string>
     <string name="about">O aplikacji</string>
     <string name="more">Więcej</string>
-    <string name="drawer_title">SUPER APPKA!!1!!!1oneone</string>
+    <string name="drawer_title">System nawigacyjny dla kampusu Politechniki Łódzkiej</string>
     <string name="icon">Ikona</string>
     <string name="line1">Line 1</string>
     <string name="line2">Line 2</string>
     <string name="example_text">Przykład</string>
-
     <string name="drawer_open">Otwórz menu</string>
     <string name="drawer_close">Zamknij menu</string>
     <string name="buildings">Budynki</string>
@@ -198,4 +204,7 @@
     <string name="preference_file_key">pl.inzynierka.monia.mapa</string>
     <string name="is_data_created_key">isDataCreated</string>
     <string name="building_info">Informacje o budynku</string>
+    <string name="view_map_with_buildings">Widok mapy z budynkami</string>
+    <string name="your_lesson_plan">Twój plan zajęć</string>
+    <string name="app_info">Informacje o tej aplikacji</string>
 </resources>
