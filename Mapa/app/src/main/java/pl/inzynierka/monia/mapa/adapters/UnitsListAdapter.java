@@ -13,15 +13,15 @@ import java.util.List;
 
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
-import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.Identifier;
+import pl.inzynierka.monia.mapa.models.Unit;
 
-public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdapter.CustomViewHolder> {
-    private List<Building> buildings = new ArrayList<>();
+public class UnitsListAdapter extends RecyclerView.Adapter<UnitsListAdapter.CustomViewHolder> {
+    private List<Unit> units = new ArrayList<>();
     private MainActivityCallbacks mainActivityCallbacks;
 
-    public BuildingsListAdapter(List<Building> buildings, MainActivityCallbacks mainActivityCallbacks) {
-        this.buildings = buildings;
+    public UnitsListAdapter(List<Unit> units, MainActivityCallbacks mainActivityCallbacks) {
+        this.units = units;
         this.mainActivityCallbacks = mainActivityCallbacks;
     }
 
@@ -35,50 +35,52 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
 
     @Override
     public void onBindViewHolder(CustomViewHolder customViewHolder, int position) {
-        final Building building = buildings.get(position);
-        final Identifier buildingIdentifier = building.getIdentifier();
-        final String buildingSign = buildingIdentifier.getMarkLetter().toUpperCase()
-                + buildingIdentifier.getMarkNumber();
+        final Unit unit = units.get(position);
+        final Identifier unitIdentifier = unit.getIdentifier();
+        final String unitSign = unitIdentifier.getMarkLetter().toUpperCase()
+                + unitIdentifier.getMarkNumber();
 
-        customViewHolder.textViewBuildingSign.setText(buildingSign);
-        customViewHolder.textViewBuildingName.setText(buildingIdentifier.getName());
-        setListeners(customViewHolder, building, buildingSign);
+        customViewHolder.textViewUnitSign.setText(unitSign);
+        customViewHolder.textViewUnitName.setText(unitIdentifier.getName());
+        setListeners(customViewHolder, unit, unitSign);
     }
 
-    private void setListeners(CustomViewHolder customViewHolder, final Building building, final String buildingSign) {
+    private void setListeners(CustomViewHolder customViewHolder, final Unit unit, final String unitSign) {
+
         customViewHolder.imageViewShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivityCallbacks.passBuildingsIdToMap(building.getId());
+                mainActivityCallbacks.passBuildingsIDs(unit.getBuildingsIDs());
                 mainActivityCallbacks.changeToMapFragment("");
             }
         });
-        customViewHolder.buildingItemLayout.setOnClickListener(new View.OnClickListener() {
+
+        customViewHolder.unitItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mainActivityCallbacks.passBuildingsIdToInfo(building.getId());
-                mainActivityCallbacks.changeToBuildingInfoFragment(buildingSign);
+                mainActivityCallbacks.passUnitId(unit.getId());
+                mainActivityCallbacks.changeToUnitInfoFragment(unitSign);
             }
         });
     }
 
     @Override
     public int getItemCount() {
-        return buildings.size();
+        return units.size();
     }
 
     public class CustomViewHolder extends RecyclerView.ViewHolder {
-        protected TextView textViewBuildingSign;
-        protected TextView textViewBuildingName;
+        protected TextView textViewUnitSign;
+        protected TextView textViewUnitName;
         protected ImageView imageViewShowOnMap;
-        protected CardView buildingItemLayout;
+        protected CardView unitItemLayout;
 
         public CustomViewHolder(View view) {
             super(view);
-            this.textViewBuildingSign = (TextView) view.findViewById(R.id.textViewSign);
-            this.textViewBuildingName = (TextView) view.findViewById(R.id.textViewName);
+            this.textViewUnitSign = (TextView) view.findViewById(R.id.textViewSign);
+            this.textViewUnitName = (TextView) view.findViewById(R.id.textViewName);
             this.imageViewShowOnMap = (ImageView) view.findViewById(R.id.imageViewShowOnMap);
-            this.buildingItemLayout = (CardView) view.findViewById(R.id.itemLayout);
+            this.unitItemLayout = (CardView) view.findViewById(R.id.itemLayout);
         }
     }
 }

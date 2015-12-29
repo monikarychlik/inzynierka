@@ -1,10 +1,11 @@
-package pl.inzynierka.monia.mapa;
+package pl.inzynierka.monia.mapa.utils;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
 
 import io.realm.Realm;
 import io.realm.RealmList;
+import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 
 public class DataCreator {

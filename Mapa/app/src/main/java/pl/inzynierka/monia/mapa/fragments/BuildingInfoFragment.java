@@ -15,6 +15,7 @@ import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.adapters.BuildingInfoAdapter;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.Identifier;
+import pl.inzynierka.monia.mapa.utils.Keyboard;
 
 public class BuildingInfoFragment extends Fragment {
     private View view;
@@ -24,6 +25,7 @@ public class BuildingInfoFragment extends Fragment {
     private ListView listViewUnits;
     private TextView textViewTitleBuildingSign;
     private TextView textViewTitleBuildingName;
+    private Keyboard keyboard;
 
     public BuildingInfoFragment() {}
     @Override
@@ -41,6 +43,8 @@ public class BuildingInfoFragment extends Fragment {
         textViewTitleBuildingSign = (TextView) view.findViewById(R.id.textViewTitleBuildingSign);
         textViewTitleBuildingName = (TextView) view.findViewById(R.id.textViewTitleBuildingName);
         building = realm.where(Building.class).equalTo("id", buildingId).findFirst();
+        keyboard = new Keyboard(getActivity());
+        keyboard.hideSoftKeyboard();
 
         setInfoTitle();
         setupAdapter();

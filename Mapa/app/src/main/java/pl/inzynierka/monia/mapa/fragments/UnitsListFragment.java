@@ -1,5 +1,6 @@
 package pl.inzynierka.monia.mapa.fragments;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -19,17 +21,17 @@ import java.util.List;
 
 import io.realm.Realm;
 import pl.inzynierka.monia.mapa.R;
+import pl.inzynierka.monia.mapa.models.Unit;
 import pl.inzynierka.monia.mapa.utils.Keyboard;
 import pl.inzynierka.monia.mapa.utils.Searcher;
-import pl.inzynierka.monia.mapa.adapters.BuildingsListAdapter;
+import pl.inzynierka.monia.mapa.adapters.UnitsListAdapter;
 import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
-import pl.inzynierka.monia.mapa.models.Building;
 
-public class BuildingsListFragment extends Fragment implements TextWatcher, View.OnClickListener {
+public class UnitsListFragment extends Fragment implements TextWatcher, View.OnClickListener {
     private View view;
     private Realm realm;
-    private List<Building> buildings;
-    private BuildingsListAdapter adapter;
+    private List<Unit> units;
+    private UnitsListAdapter adapter;
     private RecyclerView recyclerView;
     private EditText editTextSearch;
     private TextView textViewSearchInfo;
@@ -39,7 +41,6 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
     private MainActivityCallbacks mainActivityCallbacks;
     private Keyboard keyboard;
 
-    @SuppressWarnings("deprecation")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -51,19 +52,19 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
     }
 
     private void initView(LayoutInflater inflater, ViewGroup container) {
-        view = inflater.inflate(R.layout.fragment_buildings_list, container, false);
+        view = inflater.inflate(R.layout.fragment_units_list, container, false);
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
-        buildings = new ArrayList<>();
-        recyclerView = (RecyclerView) view.findViewById(R.id.list);
-        editTextSearch = (EditText) view.findViewById(R.id.editTextSearch);
-        textViewSearchInfo = (TextView) view.findViewById(R.id.searchInfo);
-        imageViewSearch = (ImageView) view.findViewById(R.id.imageViewSearch);
-        buildingListLayout = (LinearLayout) view.findViewById(R.id.buildingListLayout);
+        units = new ArrayList<>();
+        recyclerView = (RecyclerView) view.findViewById(R.id.listUnits);
+        editTextSearch = (EditText) view.findViewById(R.id.editTextSearchUnits);
+        textViewSearchInfo = (TextView) view.findViewById(R.id.searchInfoUnits);
+        imageViewSearch = (ImageView) view.findViewById(R.id.imageViewSearchUnits);
+        buildingListLayout = (LinearLayout) view.findViewById(R.id.unitsListLayout);
         searcher = new Searcher(realm);
         keyboard = new Keyboard(getActivity());
 
         setListeners();
-        findBuildings();
+        findUnits();
     }
 
     private void setListeners() {
@@ -72,15 +73,15 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
         buildingListLayout.setOnClickListener(this);
     }
 
-    private void findBuildings() {
-        final List<Building> tempBuildings = realm.where(Building.class).findAll();
-        for (Building building : tempBuildings) {
-            buildings.add(building);
+    private void findUnits() {
+        final List<Unit> tempUnits = realm.where(Unit.class).findAll();
+        for (Unit unit : tempUnits) {
+            units.add(unit);
         }
     }
 
     private void setupAdapter() {
-        adapter = new BuildingsListAdapter(buildings, mainActivityCallbacks);
+        adapter = new UnitsListAdapter(units, mainActivityCallbacks);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setBackgroundColor(getResources().getColor(R.color.cardview_light_background));
@@ -95,13 +96,13 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
         textViewSearchInfo.setVisibility(View.INVISIBLE);
 
         if (s.toString().isEmpty()) {
-            findBuildings();
+            findUnits();
         } else {
-            searcher.searchAll(s.toString(), buildings);
+            searcher.searchUnits(s.toString(), units);
         }
         adapter.notifyDataSetChanged();
 
-        if (buildings.isEmpty()) {
+        if (units.isEmpty()) {
             textViewSearchInfo.setVisibility(View.VISIBLE);
         }
     }
@@ -129,3 +130,4 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
         this.realm = realm;
     }
 }
+

@@ -12,7 +12,7 @@ public class Unit extends RealmObject {
     private Identifier identifier;
     private Contact contact;
     private int facultyID;
-    private RealmList<BuildingID> buildingsID;
+    private RealmList<BuildingID> buildingsIDs;
 
     public int getId() {
         return id;
@@ -46,11 +46,11 @@ public class Unit extends RealmObject {
         this.facultyID = facultyID;
     }
 
-    public RealmList<BuildingID> getBuildingsID() {
-        return buildingsID;
+    public RealmList<BuildingID> getBuildingsIDs() {
+        return buildingsIDs;
     }
 
-    public void setBuildingsID(RealmList<BuildingID> buildingsID) {
-        this.buildingsID = buildingsID;
+    public void setBuildingsIDs(RealmList<BuildingID> buildingsIDs) {
+        this.buildingsIDs = buildingsIDs;
     }
 }

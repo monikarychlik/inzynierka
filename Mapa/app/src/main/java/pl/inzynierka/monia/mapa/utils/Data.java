@@ -1,4 +1,4 @@
-package pl.inzynierka.monia.mapa;
+package pl.inzynierka.monia.mapa.utils;
 
 import android.support.annotation.NonNull;
 
@@ -80,7 +80,7 @@ public class Data {
         unit.setIdentifier(createIdentifier(name, markLetter, markNumber));
         unit.setContact(createContact(email, phoneNumber1, phoneNumber2, fax));
         unit.setFacultyID(facultyID);
-        unit.setBuildingsID(buildingsID);
+        unit.setBuildingsIDs(buildingsID);
 
         final RealmResults<Building> buildings = realm.where(Building.class).findAll();
         Faculty unitFaculty = getFaculty(facultyID);

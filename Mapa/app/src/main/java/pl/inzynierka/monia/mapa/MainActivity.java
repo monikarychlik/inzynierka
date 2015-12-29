@@ -1,6 +1,7 @@
 package pl.inzynierka.monia.mapa;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -22,21 +23,30 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import io.realm.Realm;
+import io.realm.RealmList;
 import pl.inzynierka.monia.mapa.adapters.DrawerListAdapter;
 import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
+import pl.inzynierka.monia.mapa.fragments.AboutFragment;
 import pl.inzynierka.monia.mapa.fragments.BuildingInfoFragment;
 import pl.inzynierka.monia.mapa.fragments.BuildingsListFragment;
 import pl.inzynierka.monia.mapa.fragments.LessonPlanFragment;
 import pl.inzynierka.monia.mapa.fragments.MapFragment;
+import pl.inzynierka.monia.mapa.fragments.UnitInfoFragment;
+import pl.inzynierka.monia.mapa.fragments.UnitsListFragment;
+import pl.inzynierka.monia.mapa.models.BuildingID;
+import pl.inzynierka.monia.mapa.utils.DataCreator;
 import pl.inzynierka.monia.mapa.utils.DrawerItem;
+import pl.inzynierka.monia.mapa.utils.Keyboard;
 
 public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, MainActivityCallbacks {
     private Realm realm;
     private MapFragment mapFragment;
     private BuildingsListFragment buildingsListFragment;
+    private UnitsListFragment unitsListFragment;
     private LessonPlanFragment lessonPlanFragment;
     private AboutFragment aboutFragment;
     private BuildingInfoFragment buildingInfoFragment;
+    private UnitInfoFragment unitInfoFragment;
     private ImageView imageViewAvatar;
     private TextView textViewDrawerTitle;
     private RelativeLayout drawerHeader;
@@ -49,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private String lastTitle = "";
     private SharedPreferences sharedPreferences;
     private boolean isDataCreatedDefault = false;
+    private Keyboard keyboard;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -78,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     @SuppressWarnings("deprecation")
     private void initView() {
         setContentView(R.layout.activity_main);
+        keyboard = new Keyboard(this);
 
         imageViewAvatar = (ImageView) findViewById(R.id.avatar);
         textViewDrawerTitle = (TextView) findViewById(R.id.drawerTitle);
@@ -112,10 +124,13 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void initFragments() {
         mapFragment = new MapFragment();
         buildingsListFragment = new BuildingsListFragment();
-        buildingInfoFragment = new BuildingInfoFragment();
         buildingsListFragment.passData(realm);
+        unitsListFragment = new UnitsListFragment();
+        unitsListFragment.passData(realm);
+        buildingInfoFragment = new BuildingInfoFragment();
         lessonPlanFragment = new LessonPlanFragment();
         aboutFragment = new AboutFragment();
+        unitInfoFragment = new UnitInfoFragment();
     }
 
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
@@ -124,6 +139,8 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 getString(R.string.view_map_with_buildings), R.drawable.icon_arrow_left));
         drawerItems.add(new DrawerItem(getString(R.string.buildings),
                 getString(R.string.building_list), R.drawable.icon_arrow_left));
+        drawerItems.add(new DrawerItem(getString(R.string.units),
+                getString(R.string.unit_list), R.drawable.icon_arrow_left));
         drawerItems.add(new DrawerItem(getString(R.string.plan),
                 getString(R.string.your_lesson_plan), R.drawable.icon_arrow_left));
 
@@ -163,6 +180,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
+                keyboard.hideSoftKeyboard();
             }
 
             @Override
@@ -190,15 +208,33 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 break;
 
             case 2:
-                changeToLessonPlanFragment(getString(R.string.plan));
+                changeToUnitsListFragment(getString(R.string.units));
                 drawerLayout.closeDrawer(drawer);
                 break;
 
             case 3:
+                changeToLessonPlanFragment(getString(R.string.plan));
+                drawerLayout.closeDrawer(drawer);
+                break;
+
+            case 4:
                 changeToAboutFragment(getString(R.string.about));
                 drawerLayout.closeDrawer(drawer);
                 break;
         }
+    }
+
+    private void changeToUnitsListFragment(String title) {
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.map));
+        } else {
+            setTitle(title);
+        }
+
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, unitsListFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     @Override
@@ -215,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     public void changeToMapFragment(String title){
         if (title.isEmpty()) {
             setTitle(getString(R.string.map));
+            keyboard.hideSoftKeyboard();
         } else {
             setTitle(title);
         }
@@ -264,6 +301,20 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         transaction.commit();
     }
 
+    @Override
+    public void changeToUnitInfoFragment(String title) {
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.units));
+        } else {
+            setTitle(title);
+        }
+
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, unitInfoFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     public void changeToAboutFragment(String title){
         if (title.isEmpty()) {
             setTitle(getString(R.string.about));
@@ -283,8 +334,22 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     @Override
-    public void passData(int buildingId) {
-        buildingInfoFragment.passData(buildingId, realm);
-        mapFragment.passData(buildingId, realm);
+    public void passBuildingsIdToMap(int id) {
+        mapFragment.passData(id, realm);
+    }
+
+    @Override
+    public void passBuildingsIdToInfo(int id) {
+        buildingInfoFragment.passData(id, realm);
+    }
+
+    @Override
+    public void passBuildingsIDs(RealmList<BuildingID> buildingIDs) {
+        mapFragment.passData(buildingIDs, realm);
+    }
+
+    @Override
+    public void passUnitId(int id) {
+        unitInfoFragment.passData(id, realm);
     }
 }

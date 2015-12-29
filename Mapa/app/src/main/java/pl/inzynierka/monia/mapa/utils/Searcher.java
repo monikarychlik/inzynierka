@@ -1,4 +1,4 @@
-package pl.inzynierka.monia.mapa;
+package pl.inzynierka.monia.mapa.utils;
 
 import java.util.List;
 
@@ -10,17 +10,42 @@ import pl.inzynierka.monia.mapa.models.Unit;
 
 public class Searcher {
     private RealmResults<Building> buildings;
+    private RealmResults<Unit> units;
 
     public Searcher(Realm realm) {
         this.buildings = realm.where(Building.class).findAll();
+        this.units = realm.where(Unit.class).findAll();
     }
 
-    public void search(String text, List<Building> resultBuildings) {
+    public void searchAll(String text, List<Building> resultBuildings) {
         resultBuildings.clear();
-        findBuildings(text, resultBuildings);
+        findBuildings(true, text, resultBuildings);
     }
 
-    private void findBuildings(String text, List<Building> resultBuildings) {
+    public void searchUnits(String text, List<Unit> resultUnits) {
+        resultUnits.clear();
+        findUnits(text, resultUnits);
+    }
+
+    private void findUnits(String text, List<Unit> resultUnits) {
+        String wholeSearchedText;
+
+        for (Unit unit : units) {
+            wholeSearchedText = unit.getIdentifier().getMarkLetter() +
+                    unit.getIdentifier().getMarkNumber() +
+                    unit.getIdentifier().getName();
+            if(wholeSearchedText.toUpperCase().contains(text.toUpperCase())){
+                resultUnits.add(unit);
+            }
+        }
+    }
+
+    public void searchBuildings(String text, List<Building> resultBuildings) {
+        resultBuildings.clear();
+        findBuildings(false, text, resultBuildings);
+    }
+
+    private void findBuildings(boolean findMore, String text, List<Building> resultBuildings) {
         String wholeSearchedTextBuilding;
 
         for (Building building : buildings) {
@@ -29,13 +54,13 @@ public class Searcher {
                     building.getIdentifier().getName();
             if(wholeSearchedTextBuilding.toUpperCase().contains(text.toUpperCase())){
                 resultBuildings.add(building);
-            } else {
-                findFaculties(text, building, resultBuildings);
+            } else if (findMore) {
+                findFacultiesInBuilding(text, building, resultBuildings);
             }
         }
     }
 
-    private void findUnits(String text, Building building, List<Building> resultBuildings) {
+    private void findUnitsInBuilding(String text, Building building, List<Building> resultBuildings) {
         String wholeSearchedText;
         for (Unit unit : building.getUnits()) {
             wholeSearchedText = unit.getIdentifier().getMarkLetter() +
@@ -47,7 +72,7 @@ public class Searcher {
         }
     }
 
-    private void findFaculties(String text, Building building, List<Building> resultBuildings) {
+    private void findFacultiesInBuilding(String text, Building building, List<Building> resultBuildings) {
         String wholeSearchedText;
         for (Faculty faculty : building.getFaculties()) {
             wholeSearchedText = faculty.getIdentifier().getMarkLetter() +
@@ -56,7 +81,7 @@ public class Searcher {
             if (wholeSearchedText.toUpperCase().contains(text.toUpperCase())) {
                 resultBuildings.add(building);
             } else {
-                findUnits(text, building, resultBuildings);
+                findUnitsInBuilding(text, building, resultBuildings);
             }
         }
     }

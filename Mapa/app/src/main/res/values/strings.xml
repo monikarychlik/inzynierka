@@ -207,4 +207,6 @@
     <string name="view_map_with_buildings">Widok mapy z budynkami</string>
     <string name="your_lesson_plan">Twój plan zajęć</string>
     <string name="app_info">Informacje o tej aplikacji</string>
+    <string name="units">Jednostki</string>
+    <string name="unit_list">Lista jednostek</string>
 </resources>

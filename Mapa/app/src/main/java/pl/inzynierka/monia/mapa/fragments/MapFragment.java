@@ -16,8 +16,12 @@ import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import io.realm.Realm;
+import io.realm.RealmList;
+import io.realm.RealmResults;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.Building;
+import pl.inzynierka.monia.mapa.models.BuildingID;
+import pl.inzynierka.monia.mapa.utils.Keyboard;
 
 public class MapFragment extends Fragment {
     private static final int ZOOM_LEVEL = 15;
@@ -25,6 +29,8 @@ public class MapFragment extends Fragment {
     private MapView map;
     private int buildingId = -1;
     private Realm realm;
+    private RealmList<BuildingID> buildingIDs;
+    private Keyboard keyboard;
 
     public MapFragment() {}
 
@@ -89,6 +95,11 @@ public class MapFragment extends Fragment {
 
     public void passData(int buildingId, Realm realm) {
         this.buildingId = buildingId;
+        this.realm = realm;
+    }
+
+    public void passData(RealmList<BuildingID> buildingIDs, Realm realm) {
+        this.buildingIDs = buildingIDs;
         this.realm = realm;
     }
 }
