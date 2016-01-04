@@ -68,6 +68,8 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         setupActionBar();
         setupNavigationDrawer();
+
+        mapFragment.passData(-1, realm);
         changeToMapFragment(getString(R.string.map));
     }
 

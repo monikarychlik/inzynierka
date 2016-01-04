@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/more"
+        android:title="@string/more"
+        android:icon="@drawable/icon_more"
+        android:visible="true">
+
+        <menu>
+            <group android:checkableBehavior="single">
+
+                <!-- Kampusy -->
+                <item android:id="@+id/campusesCategory"
+                    android:title="@string/campuses"
+                    android:checkable="false" />
+
+                <item android:id="@+id/campusA"
+                    android:title="@string/campusA"
+                    android:checkable="true" />
+
+                <item android:id="@+id/campusB"
+                    android:title="@string/campusB"
+                    android:checkable="true" />
+
+                <item android:id="@+id/campusC"
+                    android:title="@string/campusC"
+                    android:checkable="true" />
+
+                <item android:id="@+id/campusD"
+                    android:title="@string/campusD"
+                    android:checkable="true" />
+
+                <item android:id="@+id/otherCampus"
+                    android:title="@string/otherCampus"
+                    android:checkable="true" />
+
+
+                <!-- Wydziały -->
+                <item android:id="@+id/facultiesCategory"
+                    android:title="@string/faculties"
+                    android:checkable="false" />
+
+                <item android:id="@+id/facultyW1"
+                    android:title="@string/faculty_w1"
+                    android:checkable="true" />
+
+            </group>
+        </menu>
+    </item>
+</menu>

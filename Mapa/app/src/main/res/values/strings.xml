@@ -209,4 +209,12 @@
     <string name="app_info">Informacje o tej aplikacji</string>
     <string name="units">Jednostki</string>
     <string name="unit_list">Lista jednostek</string>
+    <string name="go_to">Wyznacz trasę...</string>
+    <string name="campuses">Kampusy</string>
+    <string name="campusA">Kampus A</string>
+    <string name="campusB">Kampus B</string>
+    <string name="campusC">Kampus D</string>
+    <string name="campusD">Kampus D</string>
+    <string name="otherCampus">Inne</string>
+    <string name="faculties">Wydziały</string>
 </resources>
