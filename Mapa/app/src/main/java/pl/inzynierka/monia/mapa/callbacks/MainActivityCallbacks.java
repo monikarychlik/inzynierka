@@ -14,4 +14,5 @@ public interface MainActivityCallbacks {
     void changeToAboutFragment(String title);
     void changeToLessonPlanFragment(String title);
     void changeToUnitInfoFragment(String title);
+    void changeToNavigationFragment(String title);
 }

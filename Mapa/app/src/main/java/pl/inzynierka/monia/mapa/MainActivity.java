@@ -1,16 +1,15 @@
 package pl.inzynierka.monia.mapa;
 
 import android.annotation.TargetApi;
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +30,7 @@ import pl.inzynierka.monia.mapa.fragments.BuildingInfoFragment;
 import pl.inzynierka.monia.mapa.fragments.BuildingsListFragment;
 import pl.inzynierka.monia.mapa.fragments.LessonPlanFragment;
 import pl.inzynierka.monia.mapa.fragments.MapFragment;
+import pl.inzynierka.monia.mapa.fragments.NavigationFragment;
 import pl.inzynierka.monia.mapa.fragments.UnitInfoFragment;
 import pl.inzynierka.monia.mapa.fragments.UnitsListFragment;
 import pl.inzynierka.monia.mapa.models.BuildingID;
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private AboutFragment aboutFragment;
     private BuildingInfoFragment buildingInfoFragment;
     private UnitInfoFragment unitInfoFragment;
+    private NavigationFragment navigationFragment;
     private ImageView imageViewAvatar;
     private TextView textViewDrawerTitle;
     private RelativeLayout drawerHeader;
@@ -56,7 +57,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private ActionBarDrawerToggle drawerToggle;
     private ActionBar actionBar;
     private ArrayList<DrawerItem> drawerItems = new ArrayList<>();
-    private String lastTitle = "";
     private SharedPreferences sharedPreferences;
     private boolean isDataCreatedDefault = false;
     private Keyboard keyboard;
@@ -133,12 +133,16 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         lessonPlanFragment = new LessonPlanFragment();
         aboutFragment = new AboutFragment();
         unitInfoFragment = new UnitInfoFragment();
+        navigationFragment = new NavigationFragment();
     }
 
+    @SuppressWarnings("deprecation")
     @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void setupNavigationDrawer() {
         drawerItems.add(new DrawerItem(getString(R.string.map),
                 getString(R.string.view_map_with_buildings), R.drawable.icon_arrow_left));
+        drawerItems.add(new DrawerItem(getString(R.string.navigation),
+                getString(R.string.navigation_point_to_point), R.drawable.icon_arrow_left));
         drawerItems.add(new DrawerItem(getString(R.string.buildings),
                 getString(R.string.building_list), R.drawable.icon_arrow_left));
         drawerItems.add(new DrawerItem(getString(R.string.units),
@@ -205,28 +209,46 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 break;
 
             case 1:
-                changeToBuildingsListFragment(getString(R.string.buildings));
+                changeToNavigationFragment(getString(R.string.navigation));
                 drawerLayout.closeDrawer(drawer);
                 break;
 
             case 2:
-                changeToUnitsListFragment(getString(R.string.units));
+                changeToBuildingsListFragment(getString(R.string.buildings));
                 drawerLayout.closeDrawer(drawer);
                 break;
 
             case 3:
-                changeToLessonPlanFragment(getString(R.string.plan));
+                changeToUnitsListFragment(getString(R.string.units));
                 drawerLayout.closeDrawer(drawer);
                 break;
 
             case 4:
+                changeToLessonPlanFragment(getString(R.string.plan));
+                drawerLayout.closeDrawer(drawer);
+                break;
+
+            case 5:
                 changeToAboutFragment(getString(R.string.about));
                 drawerLayout.closeDrawer(drawer);
                 break;
         }
     }
 
-    private void changeToUnitsListFragment(String title) {
+    public void changeToNavigationFragment(String title) {
+        if (title.isEmpty()) {
+            setTitle(getString(R.string.map));
+        } else {
+            setTitle(title);
+        }
+
+        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.container, navigationFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void changeToUnitsListFragment(String title) {
         if (title.isEmpty()) {
             setTitle(getString(R.string.map));
         } else {

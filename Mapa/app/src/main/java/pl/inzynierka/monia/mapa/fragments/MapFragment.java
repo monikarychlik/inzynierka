@@ -7,14 +7,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
-import android.widget.ZoomButton;
 
 import org.osmdroid.api.IMapController;
-import org.osmdroid.bonuspack.overlays.InfoWindow;
 import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
@@ -26,24 +22,31 @@ import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
-import io.realm.RealmResults;
 import pl.inzynierka.monia.mapa.CustomInfoWindow;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 import pl.inzynierka.monia.mapa.models.Identifier;
-import pl.inzynierka.monia.mapa.utils.Keyboard;
 
 public class MapFragment extends Fragment {
+    private static final GeoPoint defaultGeoPoint = new GeoPoint(51.753540, 19.452974);
+    private static final String campusA = "a";
+    private static final String campusB = "b";
+    private static final String campusC = "c";
+    private static final String campusD = "d";
+    private static final String other = "e";
     private static final int ZOOM_LEVEL = 17;
-    private static final String ID = "id";
     private View view;
     private MapView map;
     private int buildingId = -1;
     private Realm realm;
     private RealmList<BuildingID> buildingIDs;
-    private Keyboard keyboard;
     private List<Building> buildings;
+    private MenuItem menuItemCampusA;
+    private MenuItem menuItemCampusB;
+    private MenuItem menuItemCampusC;
+    private MenuItem menuItemCampusD;
+    private MenuItem menuItemOtherCampus;
 
     public MapFragment() {
     }
@@ -62,19 +65,57 @@ public class MapFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.map_menu, menu);
         super.onCreateOptionsMenu(menu, inflater);
+        setMenuItems(menu);
+    }
+
+    private void setMenuItems(Menu menu) {
+        menuItemCampusA = menu.findItem(R.id.campusA);
+        menuItemCampusB = menu.findItem(R.id.campusB);
+        menuItemCampusC = menu.findItem(R.id.campusC);
+        menuItemCampusD = menu.findItem(R.id.campusD);
+        menuItemOtherCampus = menu.findItem(R.id.otherCampus);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case 0:
-                break;
+        item.setChecked(!item.isChecked());
+
+        map.getOverlays().clear();
+
+        if (menuItemCampusA.isChecked()) {
+            addMarkersFromCampus(campusA);
+        }
+
+        if (menuItemCampusB.isChecked()) {
+            addMarkersFromCampus(campusB);
+        }
+
+        if (menuItemCampusC.isChecked()) {
+            addMarkersFromCampus(campusC);
+        }
+
+        if (menuItemCampusD.isChecked()) {
+            addMarkersFromCampus(campusD);
+        }
+
+        if (menuItemOtherCampus.isChecked()) {
+            addMarkersFromCampus(other);
         }
 
         return true;
     }
 
+    @SuppressWarnings("deprecation")
+    private void addMarkersFromCampus(String markLetter) {
+        for (Building building : buildings) {
+            if (building.getIdentifier().getMarkLetter().equals(markLetter)) {
+                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker), false, true);
+            }
+        }
+    }
+
     private void initView() {
+        setHasOptionsMenu(true);
         setMap();
         setViewOnPoint(map, new GeoPoint(51.745435, 19.451648), ZOOM_LEVEL);
         getBuildings();
@@ -110,6 +151,7 @@ public class MapFragment extends Fragment {
         map.invalidate();
     }
 
+    @SuppressWarnings("deprecation")
     private void addAllMarkers(int buildingId) {
         Building chosenBuilding = null;
 
@@ -117,14 +159,14 @@ public class MapFragment extends Fragment {
             if (buildingId != -1 && building.getId() == buildingId) {
                 chosenBuilding = building;
             } else {
-                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker), false);
+                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker), false, true);
             }
         }
 
-        addBuildingMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark), true);
+        addBuildingMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark), true, false);
     }
 
-    private void addBuildingMarker(Building building, Drawable icon, boolean showInfoWindow) {
+    private void addBuildingMarker(Building building, Drawable icon, boolean showInfoWindow, boolean defaultPosition) {
         if (building == null) return;
 
         final GeoPoint geoPoint = new GeoPoint(building.getLatitude(), building.getLongitude());
@@ -132,15 +174,20 @@ public class MapFragment extends Fragment {
         final String title = bIdentifier.getMarkLetter().toUpperCase() +
                 bIdentifier.getMarkNumber() + " " + bIdentifier.getName();
 
-        addMarker(geoPoint, icon, title, "", showInfoWindow);
+        if (defaultPosition) {
+            addMarker(geoPoint, defaultGeoPoint, icon, title, "", showInfoWindow);
+        } else {
+            addMarker(geoPoint, geoPoint, icon, title, "", showInfoWindow);
+        }
+
     }
 
     @SuppressWarnings("deprecation")
-    public void addMarker(GeoPoint geoPoint, Drawable icon,
+    public void addMarker(GeoPoint geoPoint, GeoPoint pointView, Drawable icon,
                           String title, String description, boolean showInfoWindow) {
         final Marker startMarker = new Marker(map);
 
-        setViewOnPoint(map, geoPoint, ZOOM_LEVEL);
+        setViewOnPoint(map, pointView, ZOOM_LEVEL);
 
         startMarker.setPosition(geoPoint);
         startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
