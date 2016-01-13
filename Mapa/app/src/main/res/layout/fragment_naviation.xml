@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_margin="12dp"
-        android:text="@string/navigation"/>
+        android:text="@string/navigation"
+        android:textColor="@color/colorPrimaryDark"/>
 
 </LinearLayout>

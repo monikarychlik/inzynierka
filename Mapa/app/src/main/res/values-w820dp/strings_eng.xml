@@ -209,4 +209,15 @@
     <string name="app_info">Information about application</string>
     <string name="units">Units</string>
     <string name="unit_list">List of units</string>
+    <string name="go_to">Go to…</string>
+    <string name="campuses">Chosen campuses</string>
+    <string name="campusA">Campus A</string>
+    <string name="campusB">Campus B</string>
+    <string name="campusC">Campus C</string>
+    <string name="campusD">Campus D</string>
+    <string name="otherCampus">Another</string>
+    <string name="faculties">Faculties</string>
+    <string name="navigation">Navigation</string>
+    <string name="navigation_point_to_point">Navigation from point to building</string>
+    <string name="show_on_map">Show on map</string>
 </resources>

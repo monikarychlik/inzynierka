@@ -29,7 +29,7 @@
     <string name="building_a19">Budynek A19</string>
     <string name="building_a20">Budynek A20 (4M)</string>
     <string name="building_a21">Budynek A21</string>
-    <string name="building_a22">Budynek A22 (1M, 2M</string>
+    <string name="building_a22">Budynek A22 (1M, 2M)</string>
     <string name="building_a24">Budynek A24</string>
     <string name="building_a26">Budynek A26</string>
     <string name="building_a27">Budynek A27</string>
@@ -213,11 +213,22 @@
     <string name="campuses">Podział na kampusy</string>
     <string name="campusA">Kampus A</string>
     <string name="campusB">Kampus B</string>
-    <string name="campusC">Kampus D</string>
+    <string name="campusC">Kampus C</string>
     <string name="campusD">Kampus D</string>
     <string name="otherCampus">Inne</string>
     <string name="faculties">Wydziały</string>
     <string name="navigation">Nawigacja</string>
     <string name="navigation_point_to_point">Nawigacja z danego punktu do budynku</string>
     <string name="show_on_map">Pokaż na mapie</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
+    <string name="bubble">bubble</string>
+    <string name="app_title">System nawigacyjny dla kampusu Politechniki Łódzkiej dla systemu operacyjnego Android</string>
+    <string name="about_me">Monika Rychlik\n\n2016</string>
+    <string name="about_info">Aplikacja została stworzona jako projekt pracy inżynierskiej:</string>
+    <string name="email">E-mail:</string>
+    <string name="phone1">Telefon 1:</string>
+    <string name="phone2">Telefon 2:</string>
+    <string name="fax">Fax:</string>
 </resources>

@@ -18,6 +18,10 @@ import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import io.realm.Realm;
@@ -36,17 +40,17 @@ public class MapFragment extends Fragment {
     private static final String campusD = "d";
     private static final String other = "e";
     private static final int ZOOM_LEVEL = 17;
-    private View view;
-    private MapView map;
-    private int buildingId = -1;
-    private Realm realm;
-    private RealmList<BuildingID> buildingIDs;
-    private List<Building> buildings;
+    private List<BuildingID> buildingIDs = new ArrayList<>();
+    private List<Building> buildings = new ArrayList<>();
     private MenuItem menuItemCampusA;
     private MenuItem menuItemCampusB;
     private MenuItem menuItemCampusC;
     private MenuItem menuItemCampusD;
     private MenuItem menuItemOtherCampus;
+    private View view;
+    private MapView map;
+    private int buildingId = -1;
+    private Realm realm;
 
     public MapFragment() {
     }
@@ -109,7 +113,8 @@ public class MapFragment extends Fragment {
     private void addMarkersFromCampus(String markLetter) {
         for (Building building : buildings) {
             if (building.getIdentifier().getMarkLetter().equals(markLetter)) {
-                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker), false, true);
+                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker),
+                        false, true);
             }
         }
     }
@@ -144,8 +149,8 @@ public class MapFragment extends Fragment {
     }
 
     private void showMyLocation() {
-        final MyLocationNewOverlay mLocationOverlay =
-                new MyLocationNewOverlay(view.getContext(), new GpsMyLocationProvider(view.getContext()), map);
+        final MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(view.getContext(),
+                new GpsMyLocationProvider(view.getContext()), map);
         mLocationOverlay.enableMyLocation();
         map.getOverlays().add(mLocationOverlay);
         map.invalidate();
@@ -153,22 +158,34 @@ public class MapFragment extends Fragment {
 
     @SuppressWarnings("deprecation")
     private void addAllMarkers(int buildingId) {
-        Building chosenBuilding = null;
+        final List<Building> chosenBuildings = new ArrayList<>();
 
         for (Building building : buildings) {
             if (buildingId != -1 && building.getId() == buildingId) {
-                chosenBuilding = building;
+                chosenBuildings.add(building);
+                buildingId = -1;
+            } else if (buildingIDs != null && !buildingIDs.isEmpty()) {
+                for (BuildingID buildingID : buildingIDs) {
+                    if (buildingID.getBuildingID() == building.getId()) {
+                        chosenBuildings.add(building);
+                    }
+                }
             } else {
-                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker), false, true);
+                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker),
+                        false, true);
             }
         }
 
-        addBuildingMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark), true, false);
+        for (Building chosenBuilding : chosenBuildings) {
+            addBuildingMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark),
+                    true, false);
+        }
+
+        if (buildingIDs != null ) buildingIDs.clear();
     }
 
-    private void addBuildingMarker(Building building, Drawable icon, boolean showInfoWindow, boolean defaultPosition) {
-        if (building == null) return;
-
+    private void addBuildingMarker(Building building, Drawable icon, boolean showInfoWindow,
+                                   boolean defaultPosition) {
         final GeoPoint geoPoint = new GeoPoint(building.getLatitude(), building.getLongitude());
         final Identifier bIdentifier = building.getIdentifier();
         final String title = bIdentifier.getMarkLetter().toUpperCase() +
@@ -196,9 +213,10 @@ public class MapFragment extends Fragment {
         startMarker.setSubDescription(description);
         startMarker.setInfoWindow(new CustomInfoWindow(view, map));
 
-        if (showInfoWindow) {
-            startMarker.showInfoWindow();
-        }
+//        if (showInfoWindow) {
+//            startMarker.showInfoWindow();
+//            map.invalidate();
+//        }
 
         map.getOverlays().add(startMarker);
 
@@ -207,11 +225,17 @@ public class MapFragment extends Fragment {
 
     public void passData(int buildingId, Realm realm) {
         this.buildingId = buildingId;
+        this.buildingIDs = null;
         this.realm = realm;
     }
 
-    public void passData(RealmList<BuildingID> buildingIDs, Realm realm) {
-        this.buildingIDs = buildingIDs;
+    public void passData(List<BuildingID> buildingIDs, Realm realm) {
+        this.buildingId = -1;
         this.realm = realm;
+
+        this.buildingIDs = new ArrayList<>();
+        for (BuildingID buildingID : buildingIDs) {
+            this.buildingIDs.add(buildingID);
+        }
     }
 }

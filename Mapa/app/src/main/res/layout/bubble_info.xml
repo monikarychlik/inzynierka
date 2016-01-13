@@ -4,48 +4,46 @@
     android:layout_height="120dp"
     android:orientation="vertical"
     android:background="@drawable/bubble_white_small" >
+
     <ImageView android:id="@+id/bubble_image"
         android:layout_width="65dp"
         android:layout_height="65dp"
-        android:visibility="gone" />
+        android:visibility="gone"
+        android:contentDescription="@string/bubble" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:orientation="vertical" >
-        <LinearLayout
+
+        <TextView android:id="@+id/bubble_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView android:id="@+id/bubble_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:maxEms="17"
-                android:layout_gravity="left"
-                android:layout_weight="1"
-                android:text="Title" />
+            android:textColor="#000000"
+            android:maxEms="17"
+            android:layout_gravity="start"
+            android:layout_weight="1"
+            android:text="@string/title" />
 
 
-            <TextView android:id="@+id/bubble_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="12dp"
-                android:maxEms="17"
-                android:text="Description"
-                android:visibility="gone"/>
+        <TextView android:id="@+id/bubble_description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:maxEms="17"
+            android:text="@string/description"
+            android:visibility="gone"/>
 
-            <TextView android:id="@+id/bubble_subdescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#000000"
-                android:textSize="10dp"
-                android:maxEms="17"
-                android:text="Address"
-                android:visibility="gone" />
-        </LinearLayout>
+        <TextView android:id="@+id/bubble_subdescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"
+            android:textSize="12sp"
+            android:maxEms="17"
+            android:text="@string/address"
+            android:visibility="gone" />
 
     </LinearLayout>
 

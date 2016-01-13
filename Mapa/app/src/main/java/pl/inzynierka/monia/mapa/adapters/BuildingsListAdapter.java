@@ -45,7 +45,8 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
         setListeners(customViewHolder, building, buildingSign);
     }
 
-    private void setListeners(CustomViewHolder customViewHolder, final Building building, final String buildingSign) {
+    private void setListeners(CustomViewHolder customViewHolder, final Building building,
+                              final String buildingSign) {
         customViewHolder.imageViewShowOnMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
