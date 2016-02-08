@@ -1,6 +1,8 @@
 package pl.inzynierka.monia.mapa.fragments;
 
 import android.graphics.drawable.Drawable;
+import android.nfc.Tag;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -9,9 +11,18 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.overlays.InfoWindow;
+import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
 import org.osmdroid.bonuspack.overlays.Marker;
+import org.osmdroid.bonuspack.overlays.Polyline;
+import org.osmdroid.bonuspack.routing.GraphHopperRoadManager;
+import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
@@ -23,6 +34,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -32,7 +44,7 @@ import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 import pl.inzynierka.monia.mapa.models.Identifier;
 
-public class MapFragment extends Fragment {
+public class MapFragment extends Fragment implements MapEventsReceiver {
     private static final GeoPoint defaultGeoPoint = new GeoPoint(51.753540, 19.452974);
     private static final String campusA = "a";
     private static final String campusB = "b";
@@ -51,9 +63,7 @@ public class MapFragment extends Fragment {
     private MapView map;
     private int buildingId = -1;
     private Realm realm;
-
-    public MapFragment() {
-    }
+    private int radioButtonTypeOfTravelId = -1;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -127,8 +137,71 @@ public class MapFragment extends Fragment {
 
         showMyLocation();
 
-        addAllMarkers(buildingId);
+        if (radioButtonTypeOfTravelId != -1) {
+            routing();
+        } else {
+            addAllMarkers(buildingId);
+        }
+    }
 
+    private void routing() {
+        final ArrayList<GeoPoint> wayPoints = new ArrayList<>();
+        final GeoPoint startPoint = new GeoPoint(51.752597, 19.453177);
+        final GeoPoint endPoint = new GeoPoint(51.746043, 19.455606);
+
+        wayPoints.add(startPoint);
+        wayPoints.add(endPoint);
+
+        new UpdateRoadTask().execute(wayPoints);
+    }
+
+
+    private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
+
+        protected Road doInBackground(Object... params) {
+            @SuppressWarnings("unchecked")
+            final ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
+
+            final RoadManager roadManager = new GraphHopperRoadManager(getString(R.string.graphHopperApiKey));
+            roadManager.addRequestOption("locale=" + Locale.getDefault().getLanguage());
+
+            if (radioButtonTypeOfTravelId == R.id.radioButtonBike) {
+                roadManager.addRequestOption("vehicle=bike");
+            } else if (radioButtonTypeOfTravelId == R.id.radioButtonFoot) {
+                roadManager.addRequestOption("vehicle=foot");
+            }
+
+            return roadManager.getRoad(wayPoints);
+        }
+        @Override
+        protected void onPostExecute(Road road) {
+            // showing distance and duration of the road
+//            Toast.makeText(getActivity(), "distance = " + road.mLength, Toast.LENGTH_LONG).show();
+//            Toast.makeText(getActivity(), "duration = " + road.mDuration, Toast.LENGTH_LONG).show();
+//
+//            if(road.mStatus != Road.STATUS_OK)
+//                Toast.makeText(getActivity(), "Error when loading the road - status = " + road.mStatus,
+//                        Toast.LENGTH_SHORT).show();
+
+            final Polyline roadOverlay = RoadManager.buildRoadOverlay(road, getActivity());
+
+            map.getOverlays().add(roadOverlay);
+            map.invalidate();
+        }
+    }
+
+
+    @Override
+    public boolean singleTapConfirmedHelper(GeoPoint p) {
+        //todo nie dziala
+        InfoWindow.closeAllInfoWindowsOn(map);
+        map.invalidate();
+        return true;
+    }
+
+    @Override
+    public boolean longPressHelper(GeoPoint geoPoint) {
+        return false;
     }
 
     private void getBuildings() {
@@ -202,24 +275,23 @@ public class MapFragment extends Fragment {
     @SuppressWarnings("deprecation")
     public void addMarker(GeoPoint geoPoint, GeoPoint pointView, Drawable icon,
                           String title, String description, boolean showInfoWindow) {
-        final Marker startMarker = new Marker(map);
+        final Marker marker = new Marker(map);
 
         setViewOnPoint(map, pointView, ZOOM_LEVEL);
 
-        startMarker.setPosition(geoPoint);
-        startMarker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
-        startMarker.setIcon(icon);
-        startMarker.setTitle(title);
-        startMarker.setSubDescription(description);
-        startMarker.setInfoWindow(new CustomInfoWindow(view, map));
+        marker.setPosition(geoPoint);
+        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        marker.setIcon(icon);
+        marker.setTitle(title);
+        marker.setSubDescription(description);
+        marker.setInfoWindow(new CustomInfoWindow(map));
 
-//        if (showInfoWindow) {
-//            startMarker.showInfoWindow();
-//            map.invalidate();
-//        }
+        if (showInfoWindow) {
+            marker.showInfoWindow();
+            map.getController().animateTo(marker.getPosition());
+        }
 
-        map.getOverlays().add(startMarker);
-
+        map.getOverlays().add(marker);
         map.invalidate();
     }
 
@@ -237,5 +309,9 @@ public class MapFragment extends Fragment {
         for (BuildingID buildingID : buildingIDs) {
             this.buildingIDs.add(buildingID);
         }
+    }
+
+    public void passData(int radioButtonTypeOfTravelId) {
+        this.radioButtonTypeOfTravelId = radioButtonTypeOfTravelId;
     }
 }

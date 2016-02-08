@@ -209,6 +209,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 break;
 
             case 1:
+                passDataToNavigation(realm);
                 changeToNavigationFragment(getString(R.string.navigation));
                 drawerLayout.closeDrawer(drawer);
                 break;
@@ -370,6 +371,16 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     @Override
     public void passBuildingsIDs(RealmList<BuildingID> buildingIDs) {
         mapFragment.passData(buildingIDs, realm);
+    }
+
+    @Override
+    public void passDataToNavigation(Realm realm) {
+        navigationFragment.passData(realm);
+    }
+
+    @Override
+    public void passTypeOfTravelToMap(int radioButtonTypeOfTravelId) {
+        mapFragment.passData(radioButtonTypeOfTravelId);
     }
 
     @Override

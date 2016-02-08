@@ -231,4 +231,13 @@
     <string name="phone1">Telefon 1:</string>
     <string name="phone2">Telefon 2:</string>
     <string name="fax">Fax:</string>
+    <string name="MapQuestRoadManagerAPIKey">W1U9JKo6HfGlCbYv9lo58fsvahE5SyWR</string>
+    <string name="graphHopperApiKey">479fd9bd-b715-474e-9f34-1e47523331a1</string>
+    <string name="navigate_from">Wyznacz trasę z:</string>
+    <string name="navigate_to">Do:</string>
+    <string name="choose_type_of_travel">Wybierz rodzaj trasy:</string>
+    <string name="travel_car">Samochodem</string>
+    <string name="travel_bike">Rowerem</string>
+    <string name="travel_on_foot">Pieszo</string>
+    <string name="navigate">Wyznacz</string>
 </resources>
