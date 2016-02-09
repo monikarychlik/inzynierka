@@ -33,6 +33,7 @@ import pl.inzynierka.monia.mapa.fragments.MapFragment;
 import pl.inzynierka.monia.mapa.fragments.NavigationFragment;
 import pl.inzynierka.monia.mapa.fragments.UnitInfoFragment;
 import pl.inzynierka.monia.mapa.fragments.UnitsListFragment;
+import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 import pl.inzynierka.monia.mapa.utils.DataCreator;
 import pl.inzynierka.monia.mapa.utils.DrawerItem;
@@ -379,8 +380,9 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     }
 
     @Override
-    public void passTypeOfTravelToMap(int radioButtonTypeOfTravelId) {
-        mapFragment.passData(radioButtonTypeOfTravelId);
+    public void passDataToMap(int radioButtonTypeOfTravelId, boolean navigateFromMyLocation,
+                              Building pointA, Building pointB) {
+        mapFragment.passData(radioButtonTypeOfTravelId, navigateFromMyLocation, pointA, pointB);
     }
 
     @Override

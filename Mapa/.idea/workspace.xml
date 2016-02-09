@@ -18,19 +18,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="5eed687e-f105-4673-bc50-989ca1cda47f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/icon_app.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/adapters/BuildingSpinnerAdapter.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_building_unit.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_naviation.xml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/CustomInfoWindow.java" afterPath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/CustomInfoWindow.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/MainActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/MainActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java" afterPath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/NavigationFragment.java" afterPath="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/NavigationFragment.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values-w820dp/strings_eng.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values-w820dp/strings_eng.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Mapa.iws" />
@@ -52,81 +46,98 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="MapFragment.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="MapFragment.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.678571">
-              <caret line="214" column="25" selection-start-line="214" selection-start-column="23" selection-end-line="214" selection-end-column="25" />
+            <state vertical-scroll-proportion="-6.4347825">
+              <caret line="149" column="53" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
               <folding>
-                <element signature="e#4059#4091#0" expanded="true" />
-                <element signature="e#5301#5331#0" expanded="true" />
-                <element signature="e#7023#7024#0" expanded="true" />
-                <element signature="e#7088#7089#0" expanded="true" />
+                <element signature="e#4205#4237#0" expanded="true" />
+                <element signature="e#4756#4788#0" expanded="true" />
+                <element signature="e#6025#6055#0" expanded="true" />
+                <element signature="e#6231#6268#0" expanded="true" />
+                <element signature="e#7781#7782#0" expanded="true" />
+                <element signature="e#7809#7810#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="BuildingsListFragment.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/BuildingsListFragment.java">
+      <file leaf-file-name="DataCreator.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/utils/DataCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-17.607143">
-              <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
-              <folding />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="111" column="103" selection-start-line="111" selection-start-column="83" selection-end-line="111" selection-end-column="103" />
+              <folding>
+                <element signature="e#7229#7269#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="NavigationFragment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NavigationFragment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/NavigationFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.821192">
-              <caret line="70" column="74" selection-start-line="70" selection-start-column="74" selection-end-line="70" selection-end-column="74" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="58" column="11" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#2254#2569#0" expanded="true" />
-                <element signature="e#2568#2569#0" expanded="true" />
-                <element signature="e#3099#3100#0" expanded="true" />
-                <element signature="e#3133#3134#0" expanded="true" />
+                <element signature="e#3388#3389#0" expanded="true" />
+                <element signature="e#3422#3423#0" expanded="true" />
+                <element signature="e#4553#4591#0" expanded="true" />
+                <element signature="e#4667#4690#0" expanded="true" />
+                <element signature="e#4692#4935#0" expanded="true" />
+                <element signature="e#4934#4935#0" expanded="true" />
+                <element signature="e#4973#4995#0" expanded="true" />
+                <element signature="e#4997#5229#0" expanded="true" />
+                <element signature="e#5228#5229#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MainActivityCallbacks.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
       <file leaf-file-name="fragment_navigation.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml">
-          <provider editor-type-id="android-designer">
-            <state />
-          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-6.857143">
-              <caret line="103" column="4" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="4" />
+            <state vertical-scroll-proportion="-3.0">
+              <caret line="32" column="56" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
               <folding>
-                <element signature="e#894#917#0" expanded="true" />
-                <element signature="e#1640#1661#0" expanded="true" />
-                <element signature="e#2389#2420#0" expanded="true" />
-                <element signature="e#2937#2957#0" expanded="true" />
-                <element signature="e#3170#3191#0" expanded="true" />
-                <element signature="e#3405#3429#0" expanded="true" />
-                <element signature="e#3997#4015#0" expanded="true" />
+                <element signature="e#997#1020#0" expanded="true" />
+                <element signature="e#1288#1313#0" expanded="true" />
+                <element signature="e#2119#2140#0" expanded="true" />
+                <element signature="e#2867#2898#0" expanded="true" />
+                <element signature="e#3415#3435#0" expanded="true" />
+                <element signature="e#3648#3669#0" expanded="true" />
+                <element signature="e#3883#3907#0" expanded="true" />
+                <element signature="e#4475#4493#0" expanded="true" />
               </folding>
             </state>
+          </provider>
+          <provider editor-type-id="android-designer">
+            <state />
           </provider>
         </entry>
       </file>
       <file leaf-file-name="fragment_building_unit.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_building_unit.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+              <folding />
+            </state>
+          </provider>
           <provider editor-type-id="android-designer">
             <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.285714">
-              <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-              <folding>
-                <element signature="e#938#953#0" expanded="true" />
-                <element signature="e#1362#1377#0" expanded="true" />
-              </folding>
-            </state>
           </provider>
         </entry>
       </file>
@@ -137,6 +148,7 @@
       <list>
         <option value="layoutResourceFile_vertical" />
         <option value="Class" />
+        <option value="valueResourceFile" />
       </list>
     </option>
   </component>
@@ -1771,7 +1783,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_main.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_list_row.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/map_menu.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/values-w820dp/strings_eng.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/bubble_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/adapters/BuildingsListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
@@ -1784,12 +1795,13 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_naviation.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_building_unit.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/adapters/BuildingsExpandableListAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/MainActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/adapters/BuildingSpinnerAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/MainActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/values-w820dp/strings_eng.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/NavigationFragment.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java" />
       </list>
     </option>
   </component>
@@ -1832,7 +1844,7 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -2051,9 +2063,9 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -2063,10 +2075,11 @@
     <property name="FullScreen" value="false" />
     <property name="OverrideImplement.combined" value="true" />
     <property name="OverrideImplement.overriding.sorted" value="false" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="WUJ01JSWSK" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="192.168.0.2:5555" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="Nexus_5_API_23_x86" />
     <property name="extract.method.default.visibility" value="private" />
     <property name="UI_DESIGNER_EDITOR_MODE.UIDesignerToolWindowManager2.WIDTH" value="434" />
+    <property name="extractMethod.generateAnnotations" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
@@ -2289,10 +2302,10 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32934928" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17082785" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.36005256" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.229069" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.22076215" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -2363,8 +2376,88 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <caret line="214" column="25" selection-start-line="214" selection-start-column="23" selection-end-line="214" selection-end-column="25" />
+          <folding>
+            <element signature="e#4205#4237#0" expanded="true" />
+            <element signature="e#4756#4788#0" expanded="true" />
+            <element signature="e#6025#6055#0" expanded="true" />
+            <element signature="e#6231#6268#0" expanded="true" />
+            <element signature="e#7781#7782#0" expanded="true" />
+            <element signature="e#7809#7810#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/BuildingsListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/NavigationFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3388#3389#0" expanded="true" />
+            <element signature="e#3422#3423#0" expanded="true" />
+            <element signature="e#4553#4591#0" expanded="true" />
+            <element signature="e#4667#4690#0" expanded="true" />
+            <element signature="e#4692#4935#0" expanded="true" />
+            <element signature="e#4934#4935#0" expanded="true" />
+            <element signature="e#4973#4995#0" expanded="true" />
+            <element signature="e#4997#5229#0" expanded="true" />
+            <element signature="e#5228#5229#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="103" column="4" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="4" />
+          <folding>
+            <element signature="e#997#1020#0" expanded="true" />
+            <element signature="e#1288#1313#0" expanded="true" />
+            <element signature="e#2119#2140#0" expanded="true" />
+            <element signature="e#2867#2898#0" expanded="true" />
+            <element signature="e#3415#3435#0" expanded="true" />
+            <element signature="e#3648#3669#0" expanded="true" />
+            <element signature="e#3883#3907#0" expanded="true" />
+            <element signature="e#4475#4493#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_building_unit.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#4205#4237#0" expanded="true" />
+            <element signature="e#4756#4788#0" expanded="true" />
+            <element signature="e#6025#6055#0" expanded="true" />
+            <element signature="e#6231#6268#0" expanded="true" />
+            <element signature="e#7781#7782#0" expanded="true" />
+            <element signature="e#7809#7810#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2390,7 +2483,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4205#4237#0" expanded="true" />
+            <element signature="e#4756#4788#0" expanded="true" />
+            <element signature="e#6025#6055#0" expanded="true" />
+            <element signature="e#6231#6268#0" expanded="true" />
+            <element signature="e#7781#7782#0" expanded="true" />
+            <element signature="e#7809#7810#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2416,7 +2516,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="e#4205#4237#0" expanded="true" />
+            <element signature="e#4756#4788#0" expanded="true" />
+            <element signature="e#6025#6055#0" expanded="true" />
+            <element signature="e#6231#6268#0" expanded="true" />
+            <element signature="e#7781#7782#0" expanded="true" />
+            <element signature="e#7809#7810#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2438,23 +2545,23 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_unit_info.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_buildings_list.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_buildings_list.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="26" column="39" selection-start-line="26" selection-start-column="39" selection-end-line="26" selection-end-column="39" />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/adapters/BuildingInfoAdapter.java">
@@ -2478,25 +2585,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/osmbonuspack_v5.5/jars/classes.jar!/org/osmdroid/bonuspack/routing/RoadManager.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.4491363">
-          <caret line="5" column="36" selection-start-line="5" selection-start-column="36" selection-end-line="5" selection-end-column="36" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.34790528">
-          <caret line="76" column="18" selection-start-line="76" selection-start-column="18" selection-end-line="76" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/android/widget/Toast.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3321739">
           <caret line="257" column="24" selection-start-line="257" selection-start-column="24" selection-end-line="257" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2515,26 +2607,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/bubble_info.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.13872832">
           <caret line="4" column="19" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="19" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/CustomInfoWindow.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.2504348">
-          <caret line="8" column="30" selection-start-line="8" selection-start-column="30" selection-end-line="8" selection-end-column="30" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#231#232#0" expanded="false" />
-            <element signature="e#283#284#0" expanded="false" />
-          </folding>
-        </state>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$USER_HOME$/Android/Sdk/sources/android-23/android/app/ActivityThread.java">
@@ -2558,16 +2638,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/utils/DataCreator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="103" selection-start-line="111" selection-start-column="83" selection-end-line="111" selection-end-column="103" />
-          <folding>
-            <element signature="e#3487#3527#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2579,14 +2649,6 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/icon_map_green.png">
       <provider selected="true" editor-type-id="images">
         <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.09625668">
-          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
-          <folding />
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml">
@@ -2606,82 +2668,42 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_building_info_unit.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_list_row.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_building_info.xml">
       <provider editor-type-id="android-designer">
         <state />
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_building_info.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.2254025">
           <caret line="7" column="4" selection-start-line="7" selection-start-column="4" selection-end-line="41" selection-end-column="41" />
           <folding />
         </state>
       </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/BuildingInfoFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-0.5212947">
           <caret line="19" column="13" selection-start-line="19" selection-start-column="13" selection-end-line="19" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.678571">
-          <caret line="214" column="25" selection-start-line="214" selection-start-column="23" selection-end-line="214" selection-end-column="25" />
-          <folding>
-            <element signature="e#4059#4091#0" expanded="true" />
-            <element signature="e#5301#5331#0" expanded="true" />
-            <element signature="e#7023#7024#0" expanded="true" />
-            <element signature="e#7088#7089#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="11" column="41" selection-start-line="11" selection-start-column="41" selection-end-line="11" selection-end-column="41" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/MainActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.56657225">
-          <caret line="377" column="33" selection-start-line="377" selection-start-column="33" selection-end-line="377" selection-end-column="33" />
-          <folding>
-            <element signature="e#13333#13334#0" expanded="false" />
-            <element signature="e#13383#13384#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/BuildingsListFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-17.607143">
-          <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
           <folding />
         </state>
       </provider>
@@ -2695,36 +2717,14 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_building_unit.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-5.285714">
+        <state vertical-scroll-proportion="0.0">
           <caret line="16" column="12" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding>
-            <element signature="e#938#953#0" expanded="true" />
-            <element signature="e#1362#1377#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml">
       <provider editor-type-id="android-designer">
         <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.857143">
-          <caret line="103" column="4" selection-start-line="103" selection-start-column="4" selection-end-line="103" selection-end-column="4" />
-          <folding>
-            <element signature="e#894#917#0" expanded="true" />
-            <element signature="e#1640#1661#0" expanded="true" />
-            <element signature="e#2389#2420#0" expanded="true" />
-            <element signature="e#2937#2957#0" expanded="true" />
-            <element signature="e#3170#3191#0" expanded="true" />
-            <element signature="e#3405#3429#0" expanded="true" />
-            <element signature="e#3997#4015#0" expanded="true" />
-          </folding>
-        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/adapters/DrawerListAdapter.java">
@@ -2745,16 +2745,147 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/BuildingsListFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="55" column="38" selection-start-line="55" selection-start-column="38" selection-end-line="55" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/CustomInfoWindow.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.17880794">
+          <caret line="7" column="11" selection-start-line="7" selection-start-column="11" selection-end-line="7" selection-end-column="11" />
+          <folding>
+            <element signature="e#231#232#0" expanded="true" />
+            <element signature="e#283#284#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/fragment_navigation.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.0">
+          <caret line="32" column="56" selection-start-line="32" selection-start-column="56" selection-end-line="32" selection-end-column="56" />
+          <folding>
+            <element signature="e#997#1020#0" expanded="true" />
+            <element signature="e#1288#1313#0" expanded="true" />
+            <element signature="e#2119#2140#0" expanded="true" />
+            <element signature="e#2867#2898#0" expanded="true" />
+            <element signature="e#3415#3435#0" expanded="true" />
+            <element signature="e#3648#3669#0" expanded="true" />
+            <element signature="e#3883#3907#0" expanded="true" />
+            <element signature="e#4475#4493#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/callbacks/MainActivityCallbacks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="13" column="20" selection-start-line="13" selection-start-column="20" selection-end-line="13" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-w820dp/strings_eng.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7977528">
+          <caret line="249" column="24" selection-start-line="249" selection-start-column="24" selection-end-line="249" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.106299214">
+          <caret line="3" column="17" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6968504">
+          <caret line="243" column="112" selection-start-line="243" selection-start-column="112" selection-end-line="245" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/MainActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="3.0692885">
+          <caret line="384" column="94" selection-start-line="384" selection-start-column="94" selection-end-line="384" selection-end-column="94" />
+          <folding>
+            <element signature="e#13382#13383#0" expanded="true" />
+            <element signature="e#13432#13433#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/NavigationFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.821192">
-          <caret line="70" column="74" selection-start-line="70" selection-start-column="74" selection-end-line="70" selection-end-column="74" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="58" column="11" selection-start-line="58" selection-start-column="11" selection-end-line="58" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#2254#2569#0" expanded="true" />
-            <element signature="e#2568#2569#0" expanded="true" />
-            <element signature="e#3099#3100#0" expanded="true" />
-            <element signature="e#3133#3134#0" expanded="true" />
+            <element signature="e#3388#3389#0" expanded="true" />
+            <element signature="e#3422#3423#0" expanded="true" />
+            <element signature="e#4553#4591#0" expanded="true" />
+            <element signature="e#4667#4690#0" expanded="true" />
+            <element signature="e#4692#4935#0" expanded="true" />
+            <element signature="e#4934#4935#0" expanded="true" />
+            <element signature="e#4973#4995#0" expanded="true" />
+            <element signature="e#4997#5229#0" expanded="true" />
+            <element signature="e#5228#5229#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/osmbonuspack_v5.5/jars/classes.jar!/org/osmdroid/bonuspack/routing/RoadManager.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14285715">
+          <caret line="29" column="0" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/utils/DataCreator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="111" column="103" selection-start-line="111" selection-start-column="83" selection-end-line="111" selection-end-column="103" />
+          <folding>
+            <element signature="e#7229#7269#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.osmdroid/osmdroid-android/5.0.1/749ce4fd1f09833a0de4721bd70ab5ccbefe1bd1/osmdroid-android-5.0.1-sources.jar!/org/osmdroid/views/overlay/mylocation/MyLocationNewOverlay.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.33333334">
+          <caret line="549" column="31" selection-start-line="549" selection-start-column="12" selection-end-line="549" selection-end-column="31" />
+          <folding>
+            <element signature="e#16771#16772#0" expanded="true" />
+            <element signature="e#16822#16823#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/pl/inzynierka/monia/mapa/fragments/MapFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.4347825">
+          <caret line="149" column="53" selection-start-line="149" selection-start-column="53" selection-end-line="149" selection-end-column="53" />
+          <folding>
+            <element signature="e#4205#4237#0" expanded="true" />
+            <element signature="e#4756#4788#0" expanded="true" />
+            <element signature="e#6025#6055#0" expanded="true" />
+            <element signature="e#6231#6268#0" expanded="true" />
+            <element signature="e#7781#7782#0" expanded="true" />
+            <element signature="e#7809#7810#0" expanded="true" />
           </folding>
         </state>
       </provider>

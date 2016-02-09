@@ -3,6 +3,7 @@ package pl.inzynierka.monia.mapa.callbacks;
 import io.realm.Realm;
 import io.realm.RealmList;
 import pl.inzynierka.monia.mapa.MainActivity;
+import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 
 public interface MainActivityCallbacks {
@@ -10,7 +11,8 @@ public interface MainActivityCallbacks {
     void passBuildingsIdToInfo(int buildingId);
     void passBuildingsIDs(RealmList<BuildingID> buildingIDs);
     void passDataToNavigation(Realm realm);
-    void passTypeOfTravelToMap(int radioButtonTypeOfTravelId);
+    void passDataToMap(int radioButtonTypeOfTravelId, boolean navigateFromMyLocation,
+                       Building pointA, Building pointB);
     void passUnitId(int id);
     void changeToBuildingInfoFragment(String title);
     void changeToMapFragment(String title);

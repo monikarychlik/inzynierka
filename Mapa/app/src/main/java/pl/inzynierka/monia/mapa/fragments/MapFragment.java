@@ -1,7 +1,7 @@
 package pl.inzynierka.monia.mapa.fragments;
 
 import android.graphics.drawable.Drawable;
-import android.nfc.Tag;
+import android.location.Location;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,7 +11,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.overlays.InfoWindow;
@@ -19,25 +18,20 @@ import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
 import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.bonuspack.overlays.Polyline;
 import org.osmdroid.bonuspack.routing.GraphHopperRoadManager;
-import org.osmdroid.bonuspack.routing.MapQuestRoadManager;
-import org.osmdroid.bonuspack.routing.OSRMRoadManager;
 import org.osmdroid.bonuspack.routing.Road;
 import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
+import org.osmdroid.views.overlay.MyLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import pl.inzynierka.monia.mapa.CustomInfoWindow;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.Building;
@@ -61,9 +55,13 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     private MenuItem menuItemOtherCampus;
     private View view;
     private MapView map;
-    private int buildingId = -1;
+    private int chosenBuildingId = -1;
     private Realm realm;
     private int radioButtonTypeOfTravelId = -1;
+    private boolean navigateFromMyLocation;
+    private Building pointA;
+    private Building pointB;
+    private MyLocationNewOverlay myLocationOverlay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -71,6 +69,14 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         view = inflater.inflate(R.layout.fragment_map, container, false);
 
         initView();
+        getBuildings();
+        showMyLocation();
+
+        if (radioButtonTypeOfTravelId != -1) {
+            routing();
+        } else {
+            addAllMarkers();
+        }
 
         return view;
     }
@@ -133,21 +139,29 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         setHasOptionsMenu(true);
         setMap();
         setViewOnPoint(map, new GeoPoint(51.745435, 19.451648), ZOOM_LEVEL);
-        getBuildings();
-
-        showMyLocation();
-
-        if (radioButtonTypeOfTravelId != -1) {
-            routing();
-        } else {
-            addAllMarkers(buildingId);
-        }
     }
 
+    @SuppressWarnings("deprecation")
     private void routing() {
         final ArrayList<GeoPoint> wayPoints = new ArrayList<>();
-        final GeoPoint startPoint = new GeoPoint(51.752597, 19.453177);
-        final GeoPoint endPoint = new GeoPoint(51.746043, 19.455606);
+        GeoPoint startPoint;
+
+        if (navigateFromMyLocation) {
+            //TODO: nie dziala pobieranie lokalizacji
+            final Location myLocation = myLocationOverlay.getMyLocationProvider().getLastKnownLocation();
+
+            if (myLocation == null) {
+                startPoint = new GeoPoint(51.753663, 19.451716);
+            } else {
+                startPoint = new GeoPoint(myLocation.getLatitude(), myLocation.getLongitude());
+            }
+        } else {
+            startPoint = new GeoPoint(pointA.getLatitude(), pointA.getLongitude());
+            addBuildingMarker(pointA, getResources().getDrawable(R.drawable.icon_marker), false, true);
+        }
+
+        final GeoPoint endPoint = new GeoPoint(pointB.getLatitude(), pointB.getLongitude());
+        addBuildingMarker(pointB, getResources().getDrawable(R.drawable.icon_marker), false, true);
 
         wayPoints.add(startPoint);
         wayPoints.add(endPoint);
@@ -155,14 +169,14 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         new UpdateRoadTask().execute(wayPoints);
     }
 
-
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
 
         protected Road doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
             final ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
 
-            final RoadManager roadManager = new GraphHopperRoadManager(getString(R.string.graphHopperApiKey));
+            final RoadManager roadManager =
+                    new GraphHopperRoadManager(getString(R.string.graphHopperApiKey));
             roadManager.addRequestOption("locale=" + Locale.getDefault().getLanguage());
 
             if (radioButtonTypeOfTravelId == R.id.radioButtonBike) {
@@ -175,6 +189,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         }
         @Override
         protected void onPostExecute(Road road) {
+            // // TODO: dodaj informacje o drodze i sprawdz ewentualne bledy
             // showing distance and duration of the road
 //            Toast.makeText(getActivity(), "distance = " + road.mLength, Toast.LENGTH_LONG).show();
 //            Toast.makeText(getActivity(), "duration = " + road.mDuration, Toast.LENGTH_LONG).show();
@@ -222,21 +237,21 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     }
 
     private void showMyLocation() {
-        final MyLocationNewOverlay mLocationOverlay = new MyLocationNewOverlay(view.getContext(),
+        myLocationOverlay = new MyLocationNewOverlay(view.getContext(),
                 new GpsMyLocationProvider(view.getContext()), map);
-        mLocationOverlay.enableMyLocation();
-        map.getOverlays().add(mLocationOverlay);
+        myLocationOverlay.enableMyLocation();
+        map.getOverlays().add(myLocationOverlay);
         map.invalidate();
     }
 
     @SuppressWarnings("deprecation")
-    private void addAllMarkers(int buildingId) {
+    private void addAllMarkers() {
         final List<Building> chosenBuildings = new ArrayList<>();
 
         for (Building building : buildings) {
-            if (buildingId != -1 && building.getId() == buildingId) {
+            if (chosenBuildingId != -1 && building.getId() == chosenBuildingId) {
                 chosenBuildings.add(building);
-                buildingId = -1;
+                chosenBuildingId = -1;
             } else if (buildingIDs != null && !buildingIDs.isEmpty()) {
                 for (BuildingID buildingID : buildingIDs) {
                     if (buildingID.getBuildingID() == building.getId()) {
@@ -296,13 +311,13 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     }
 
     public void passData(int buildingId, Realm realm) {
-        this.buildingId = buildingId;
+        this.chosenBuildingId = buildingId;
         this.buildingIDs = null;
         this.realm = realm;
     }
 
     public void passData(List<BuildingID> buildingIDs, Realm realm) {
-        this.buildingId = -1;
+        this.chosenBuildingId = -1;
         this.realm = realm;
 
         this.buildingIDs = new ArrayList<>();
@@ -311,7 +326,11 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         }
     }
 
-    public void passData(int radioButtonTypeOfTravelId) {
+    public void passData(int radioButtonTypeOfTravelId, boolean navigateFromMyLocation,
+                         Building pointA, Building pointB) {
         this.radioButtonTypeOfTravelId = radioButtonTypeOfTravelId;
+        this.navigateFromMyLocation = navigateFromMyLocation;
+        this.pointA = pointA;
+        this.pointB = pointB;
     }
 }

@@ -240,4 +240,8 @@
     <string name="travel_bike">Rowerem</string>
     <string name="travel_on_foot">Pieszo</string>
     <string name="navigate">Wyznacz</string>
+    <string name="my_localization">Mojej lokalizacji</string>
+    <string name="no_gps_want_enable">Wygląda na to, że masz wyłączoną usługę GPS, chcesz ją aktywować?</string>
+    <string name="yes">Tak</string>
+    <string name="no">Nie</string>
 </resources>

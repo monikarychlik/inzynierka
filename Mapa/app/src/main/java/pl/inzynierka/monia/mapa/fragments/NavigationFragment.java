@@ -1,15 +1,20 @@
 package pl.inzynierka.monia.mapa.fragments;
 
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.SpinnerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,9 +26,10 @@ import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.Identifier;
 
-public class NavigationFragment extends Fragment {
+public class NavigationFragment extends Fragment implements View.OnClickListener {
 
     private View view;
+    private CheckBox checkBoxMyLocalization;
     private Spinner spinnerPointA;
     private Spinner spinnerPointB;
     private RadioGroup radioGroupTypeOfTravel;
@@ -31,6 +37,7 @@ public class NavigationFragment extends Fragment {
     private Realm realm;
     private MainActivityCallbacks mainActivityCallbacks;
     private List<Building> buildings;
+    private boolean isMyLocalizationChecked = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,12 +46,34 @@ public class NavigationFragment extends Fragment {
 
         initView();
         setSpinners();
-        setButtonListener();
+        setListeners();
 
         return view;
     }
 
+    private void initView() {
+        mainActivityCallbacks = (MainActivityCallbacks) getActivity();
+        buildings = realm.where(Building.class).findAll();
+
+        checkBoxMyLocalization = (CheckBox) view.findViewById(R.id.checkBoxMyLocalization);
+        spinnerPointA = (Spinner) view.findViewById(R.id.spinnerPointA);
+        spinnerPointB = (Spinner) view.findViewById(R.id.spinnerPointB);
+        radioGroupTypeOfTravel = (RadioGroup) view.findViewById(R.id.radioGroupTypeOfTravel);
+        buttonNavigate = (Button) view.findViewById(R.id.buttonNavigate);
+    }
+
     private void setSpinners() {
+        final List<String> list = getBuildingsNames();
+
+        final BuildingSpinnerAdapter buildingSpinnerAdapter =
+                new BuildingSpinnerAdapter(getContext(), R.layout.fragment_building_unit, list);
+
+        spinnerPointA.setAdapter(buildingSpinnerAdapter);
+        spinnerPointB.setAdapter(buildingSpinnerAdapter);
+    }
+
+    @NonNull
+    private List<String> getBuildingsNames() {
         final List<String> list = new ArrayList<>();
 
         for (Building building : buildings) {
@@ -55,36 +84,78 @@ public class NavigationFragment extends Fragment {
 
             list.add(buildingTitle);
         }
-
-        final BuildingSpinnerAdapter buildingSpinnerAdapter =
-                new BuildingSpinnerAdapter(getContext(), R.layout.fragment_building_unit, list);
-
-        spinnerPointA.setAdapter(buildingSpinnerAdapter);
-        spinnerPointB.setAdapter(buildingSpinnerAdapter);
+        return list;
     }
 
-    private void setButtonListener() {
-        buttonNavigate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mainActivityCallbacks.passTypeOfTravelToMap(
-                        radioGroupTypeOfTravel.getCheckedRadioButtonId());
-                mainActivityCallbacks.changeToMapFragment("");
-            }
-        });
-    }
-
-    private void initView() {
-        mainActivityCallbacks = (MainActivityCallbacks) getActivity();
-        buildings = realm.where(Building.class).findAll();
-
-        spinnerPointA = (Spinner) view.findViewById(R.id.spinnerPointA);
-        spinnerPointB = (Spinner) view.findViewById(R.id.spinnerPointB);
-        radioGroupTypeOfTravel = (RadioGroup) view.findViewById(R.id.radioGroupTypeOfTravel);
-        buttonNavigate = (Button) view.findViewById(R.id.buttonNavigate);
+    private void setListeners() {
+        checkBoxMyLocalization.setOnClickListener(this);
+        buttonNavigate.setOnClickListener(this);
     }
 
     public void passData(Realm realm) {
         this.realm = realm;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.buttonNavigate:
+                onButtonNavigateClick();
+                break;
+
+            case R.id.checkBoxMyLocalization:
+                onCheckBoxClick();
+                break;
+        }
+    }
+
+    private void onButtonNavigateClick() {
+        final LocationManager manager =
+                (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+        if (isMyLocalizationChecked && !manager.isProviderEnabled( LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
+            return;
+        }
+
+        mainActivityCallbacks.passDataToMap(radioGroupTypeOfTravel.getCheckedRadioButtonId(),
+                isMyLocalizationChecked, buildings.get(spinnerPointA.getSelectedItemPosition()),
+                buildings.get(spinnerPointB.getSelectedItemPosition()));
+        mainActivityCallbacks.changeToMapFragment("");
+    }
+
+    private void buildAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setMessage(getString(R.string.no_gps_want_enable));
+        builder.setCancelable(false);
+
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int id) {
+                startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int id) {
+                dialog.cancel();
+                checkBoxMyLocalization.setChecked(false);
+            }
+        });
+
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    private void onCheckBoxClick() {
+        isMyLocalizationChecked = !isMyLocalizationChecked;
+        checkBoxMyLocalization.setChecked(isMyLocalizationChecked);
+
+        if (isMyLocalizationChecked) {
+            spinnerPointA.setVisibility(View.GONE);
+        } else {
+            spinnerPointA.setVisibility(View.VISIBLE);
+        }
     }
 }

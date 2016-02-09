@@ -220,4 +220,32 @@
     <string name="navigation">Navigation</string>
     <string name="navigation_point_to_point">Navigation from point to building</string>
     <string name="show_on_map">Show on map</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="address">Address</string>
+    <string name="bubble">bubble</string>
+
+    <string name="app_title">Navigation system for the campus Lodz University of Technology for Android OS</string>
+    <string name="about_me">Monika Rychlik\n\n2016</string>
+    <string name="about_info">Application has been created as Engineering Thesis Project:</string>
+
+    <string name="email">E-mail:</string>
+    <string name="phone1">Phone 1:</string>
+    <string name="phone2">Phone 2:</string>
+    <string name="fax">Fax:</string>
+
+    <string name="MapQuestRoadManagerAPIKey">W1U9JKo6HfGlCbYv9lo58fsvahE5SyWR</string>
+    <string name="graphHopperApiKey">479fd9bd-b715-474e-9f34-1e47523331a1</string>
+
+    <string name="navigate_from">Navigate from:</string>
+    <string name="navigate_to">To:</string>
+    <string name="choose_type_of_travel">Choose type of travel:</string>
+    <string name="travel_car">Car</string>
+    <string name="travel_bike">Bike</string>
+    <string name="travel_on_foot">On foot</string>
+    <string name="navigate">Navigate</string>
+    <string name="my_localization">My localization</string>
+    <string name="no_gps_want_enable">Your GPS seems to be disabled, do you want to enable it?</string>
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
 </resources>
