@@ -49,6 +49,7 @@ public class UnitInfoFragment extends Fragment {
         final Keyboard keyboard = new Keyboard(getActivity());
         keyboard.hideSoftKeyboard();
 
+        realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
 
         textViewUnitSign = (TextView) view.findViewById(R.id.textViewTitleUnitSign);
@@ -94,8 +95,7 @@ public class UnitInfoFragment extends Fragment {
         }
     }
 
-    public void passData(int id, Realm realm) {
+    public void passData(int id) {
         this.unitId = id;
-        this.realm = realm;
     }
 }

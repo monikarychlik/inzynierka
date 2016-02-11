@@ -10,7 +10,6 @@ import pl.inzynierka.monia.mapa.R;
 
 
 public class Container extends Fragment {
-    public Container() {}
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

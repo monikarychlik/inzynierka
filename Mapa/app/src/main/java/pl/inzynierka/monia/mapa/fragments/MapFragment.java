@@ -1,16 +1,24 @@
 package pl.inzynierka.monia.mapa.fragments;
 
+import android.Manifest;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.overlays.InfoWindow;
@@ -23,7 +31,6 @@ import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
-import org.osmdroid.views.overlay.MyLocationOverlay;
 import org.osmdroid.views.overlay.mylocation.GpsMyLocationProvider;
 import org.osmdroid.views.overlay.mylocation.MyLocationNewOverlay;
 
@@ -32,7 +39,7 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
-import pl.inzynierka.monia.mapa.CustomInfoWindow;
+import pl.inzynierka.monia.mapa.utils.CustomInfoWindow;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
@@ -136,6 +143,8 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     }
 
     private void initView() {
+        realm = Realm.getInstance(getActivity());
+
         setHasOptionsMenu(true);
         setMap();
         setViewOnPoint(map, new GeoPoint(51.745435, 19.451648), ZOOM_LEVEL);
@@ -147,14 +156,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         GeoPoint startPoint;
 
         if (navigateFromMyLocation) {
-            //TODO: nie dziala pobieranie lokalizacji
-            final Location myLocation = myLocationOverlay.getMyLocationProvider().getLastKnownLocation();
-
-            if (myLocation == null) {
-                startPoint = new GeoPoint(51.753663, 19.451716);
-            } else {
-                startPoint = new GeoPoint(myLocation.getLatitude(), myLocation.getLongitude());
-            }
+            startPoint = checkPermissionsAndGetMyLocation();
         } else {
             startPoint = new GeoPoint(pointA.getLatitude(), pointA.getLongitude());
             addBuildingMarker(pointA, getResources().getDrawable(R.drawable.icon_marker), false, true);
@@ -169,8 +171,41 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         new UpdateRoadTask().execute(wayPoints);
     }
 
-    private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
+    @Nullable
+    private GeoPoint checkPermissionsAndGetMyLocation() {
+        if (ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission(getActivity(),
+                Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
+            final LocationManager locationManager =
+                    (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+
+            Location myLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (myLocation == null) {
+                myLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+            }
+
+            if (myLocation != null) {
+                return new GeoPoint(myLocation.getLatitude(), myLocation.getLongitude());
+            }
+
+        }
+//        else {
+            // TODO: Consider calling
+            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for Activity#requestPermissions for more details.
+//        }
+
+        return new GeoPoint(51.753663, 19.451716);
+    }
+
+    private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
         protected Road doInBackground(Object... params) {
             @SuppressWarnings("unchecked")
             final ArrayList<GeoPoint> wayPoints = (ArrayList<GeoPoint>) params[0];
@@ -310,15 +345,13 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         map.invalidate();
     }
 
-    public void passData(int buildingId, Realm realm) {
+    public void passData(int buildingId) {
         this.chosenBuildingId = buildingId;
         this.buildingIDs = null;
-        this.realm = realm;
     }
 
-    public void passData(List<BuildingID> buildingIDs, Realm realm) {
+    public void passData(List<BuildingID> buildingIDs) {
         this.chosenBuildingId = -1;
-        this.realm = realm;
 
         this.buildingIDs = new ArrayList<>();
         for (BuildingID buildingID : buildingIDs) {

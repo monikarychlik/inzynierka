@@ -1,5 +1,6 @@
 package pl.inzynierka.monia.mapa.utils;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import io.realm.Realm;
@@ -21,11 +22,11 @@ public class Data {
     private RealmList<Unit> units = new RealmList<>();
     private RealmList<Faculty> faculties = new RealmList<>();
 
-    public Data(Realm realm) {
+    public Data(Context context) {
         this.facultyID = 0;
         this.buildingID = 0;
         this.unitID = 0;
-        this.realm = realm;
+        this.realm = Realm.getInstance(context);
     }
 
     private Identifier createIdentifier(String name, String markLetter, int markNumber) {

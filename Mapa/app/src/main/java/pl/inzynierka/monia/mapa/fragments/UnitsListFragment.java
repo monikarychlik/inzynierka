@@ -1,6 +1,5 @@
 package pl.inzynierka.monia.mapa.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,7 +9,6 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -45,22 +43,26 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        initView(inflater, container);
+        view = inflater.inflate(R.layout.fragment_units_list, container, false);
+
+        initView();
         setupAdapter();
 
         return view;
     }
 
-    private void initView(LayoutInflater inflater, ViewGroup container) {
-        view = inflater.inflate(R.layout.fragment_units_list, container, false);
+    private void initView() {
+        realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
         units = new ArrayList<>();
+
         recyclerView = (RecyclerView) view.findViewById(R.id.listUnits);
         editTextSearch = (EditText) view.findViewById(R.id.editTextSearchUnits);
         textViewSearchInfo = (TextView) view.findViewById(R.id.searchInfoUnits);
         imageViewSearch = (ImageView) view.findViewById(R.id.imageViewSearchUnits);
         buildingListLayout = (LinearLayout) view.findViewById(R.id.unitsListLayout);
-        searcher = new Searcher(realm);
+
+        searcher = new Searcher(getActivity());
         keyboard = new Keyboard(getActivity());
 
         setListeners();
@@ -80,6 +82,7 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void setupAdapter() {
         adapter = new UnitsListAdapter(units, mainActivityCallbacks);
 
@@ -124,10 +127,6 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
                 keyboard.hideSoftKeyboard();
                 break;
         }
-    }
-
-    public void passData(Realm realm){
-        this.realm = realm;
     }
 }
 

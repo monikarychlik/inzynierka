@@ -21,13 +21,13 @@ public class DataCreator {
     private Context context;
     private Realm realm;
 
-    public DataCreator(Context context, Realm realm) {
+    public DataCreator(Context context) {
         this.context = context;
-        this.realm = realm;
+        this.realm = Realm.getInstance(context);
     }
 
     public void addData() {
-        final Data data = new Data(realm);
+        final Data data = new Data(context);
 
         addFaculties(data);
         addBuildings(data);

@@ -39,7 +39,7 @@
     <string name="building_a33">Building A33</string>
 
     <string name="building_e1">IX Dormitory</string>
-    <string name="building_e2">V Dormitory (Tygrys)</string>
+    <string name="building_e2">V Dormitory (Tiger)</string>
 
     <string name="building_d1">Building D1</string>
 
@@ -49,12 +49,12 @@
     <string name="building_c5">VI Dormitory (Aquarium)</string>
     <string name="building_c6">Building C6</string>
     <string name="building_c7">Building C7</string>
-    <string name="building_c9">VII Dormitory (Siódemka)</string>
+    <string name="building_c9">VII Dormitory (Seven)</string>
     <string name="building_c10">Underground</string>
-    <string name="building_c11">IV Dormitory (Czwórka)</string>
-    <string name="building_c12">III Dormitory (Trójka)</string>
+    <string name="building_c11">IV Dormitory (Four)</string>
+    <string name="building_c12">III Dormitory (Three)</string>
     <string name="building_c13">II Dormitory (Mikrus)</string>
-    <string name="building_c14">I Dormitory (Jedynka)</string>
+    <string name="building_c14">I Dormitory (One)</string>
     <string name="building_c15">Building C15</string>
     <string name="building_c16">VIII Dormitory (Zwartek)</string>
 
@@ -248,4 +248,6 @@
     <string name="no_gps_want_enable">Your GPS seems to be disabled, do you want to enable it?</string>
     <string name="yes">Yes</string>
     <string name="no">No</string>
+    <string name="loading_database">Loading database</string>
+    <string name="loading_database_message">The first time you start this application or after you change the system language - reloading of the database is necessary. Typically it takes a several seconds, please wait.</string>
 </resources>

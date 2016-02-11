@@ -52,6 +52,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView() {
+        realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
         buildings = realm.where(Building.class).findAll();
 
@@ -90,10 +91,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private void setListeners() {
         checkBoxMyLocalization.setOnClickListener(this);
         buttonNavigate.setOnClickListener(this);
-    }
-
-    public void passData(Realm realm) {
-        this.realm = realm;
     }
 
     @Override

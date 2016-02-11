@@ -1,5 +1,7 @@
 package pl.inzynierka.monia.mapa.utils;
 
+import android.content.Context;
+
 import java.util.List;
 
 import io.realm.Realm;
@@ -12,7 +14,8 @@ public class Searcher {
     private RealmResults<Building> buildings;
     private RealmResults<Unit> units;
 
-    public Searcher(Realm realm) {
+    public Searcher(Context context) {
+        final Realm realm = Realm.getInstance(context);
         this.buildings = realm.where(Building.class).findAll();
         this.units = realm.where(Unit.class).findAll();
     }

@@ -9,7 +9,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import io.realm.Realm;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.Faculty;
@@ -20,7 +19,7 @@ public class BuildingInfoAdapter extends BaseAdapter {
     private Building building;
     private List<Unit> units;
 
-    public BuildingInfoAdapter(Context context, Realm realm, Building building) {
+    public BuildingInfoAdapter(Context context, Building building) {
         this.context = context;
         this.building = building;
         this.units = building.getUnits();

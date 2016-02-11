@@ -10,8 +10,6 @@ import pl.inzynierka.monia.mapa.R;
 
 public class LessonPlanFragment extends Fragment {
 
-    public LessonPlanFragment() {}
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

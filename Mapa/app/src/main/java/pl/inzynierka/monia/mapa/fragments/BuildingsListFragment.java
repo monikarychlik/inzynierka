@@ -44,22 +44,26 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        initView(inflater, container);
+        view = inflater.inflate(R.layout.fragment_buildings_list, container, false);
+
+        initView();
         setupAdapter();
 
         return view;
     }
 
-    private void initView(LayoutInflater inflater, ViewGroup container) {
-        view = inflater.inflate(R.layout.fragment_buildings_list, container, false);
+    private void initView() {
+        realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
         buildings = new ArrayList<>();
+
         recyclerView = (RecyclerView) view.findViewById(R.id.list);
         editTextSearch = (EditText) view.findViewById(R.id.editTextSearch);
         textViewSearchInfo = (TextView) view.findViewById(R.id.searchInfo);
         imageViewSearch = (ImageView) view.findViewById(R.id.imageViewSearch);
         buildingListLayout = (LinearLayout) view.findViewById(R.id.buildingListLayout);
-        searcher = new Searcher(realm);
+
+        searcher = new Searcher(getActivity());
         keyboard = new Keyboard(getActivity());
 
         setListeners();
@@ -79,6 +83,7 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
         }
     }
 
+    @SuppressWarnings("deprecation")
     private void setupAdapter() {
         adapter = new BuildingsListAdapter(buildings, mainActivityCallbacks);
 
@@ -123,9 +128,5 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
                 keyboard.hideSoftKeyboard();
                 break;
         }
-    }
-
-    public void passData(Realm realm){
-        this.realm = realm;
     }
 }

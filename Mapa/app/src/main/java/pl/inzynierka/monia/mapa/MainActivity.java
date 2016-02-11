@@ -1,8 +1,12 @@
 package pl.inzynierka.monia.mapa;
 
 import android.annotation.TargetApi;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -39,7 +43,9 @@ import pl.inzynierka.monia.mapa.utils.DataCreator;
 import pl.inzynierka.monia.mapa.utils.DrawerItem;
 import pl.inzynierka.monia.mapa.utils.Keyboard;
 
-public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener, MainActivityCallbacks {
+public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuItemClickListener,
+        MainActivityCallbacks {
+
     private Realm realm;
     private MapFragment mapFragment;
     private BuildingsListFragment buildingsListFragment;
@@ -61,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private SharedPreferences sharedPreferences;
     private boolean isDataCreatedDefault = false;
     private Keyboard keyboard;
+    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,8 +77,27 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         setupActionBar();
         setupNavigationDrawer();
 
-        mapFragment.passData(-1, realm);
+        checkData();
+
+        mapFragment.passData(-1);
         changeToMapFragment(getString(R.string.map));
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+
+        realm = null;
+        checkData();
+        restartActivity();
+    }
+
+    private void checkData() {
+        if (realm == null) {
+            isDataCreatedDefault = true;
+            writeToSharedPref();
+            addData();
+        }
     }
 
     private void setupActionBar() {
@@ -87,6 +113,15 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         if(actionBar != null){
             actionBar.setTitle(title);
         }
+    }
+
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
+    private void restartActivity() {
+        final Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        this.finishAffinity();
+        startActivity(intent);
     }
 
     @SuppressWarnings("deprecation")
@@ -111,10 +146,47 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         isDataCreatedDefault = sharedPreferences.getBoolean(getString(R.string.is_data_created_key), false);
 
         if (!isDataCreatedDefault) {
-            final DataCreator dataCreator = new DataCreator(this, realm);
+
+            final DataCreator dataCreator = new DataCreator(this);
             dataCreator.addData();
 
+            //TODO: wywala blad przy postExecute
+            //TODO: +sprawdzac jezyk przy uruchomieniu!
+            //initProgressDialog();
+            //new AddDataTask().execute(this);
+
             writeToSharedPref();
+        }
+    }
+
+    private void initProgressDialog() {
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle(getString(R.string.loading_database));
+        progressDialog.setMessage(getString(R.string.loading_database_message));
+        progressDialog.setCancelable(false);
+        progressDialog.setCanceledOnTouchOutside(false);
+    }
+
+    private class AddDataTask extends AsyncTask<Object, Void, Void> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected Void doInBackground(Object... params) {
+
+            final DataCreator dataCreator = new DataCreator((Context) params[0]);
+            dataCreator.addData();
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            progressDialog.dismiss();
         }
     }
 
@@ -127,9 +199,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void initFragments() {
         mapFragment = new MapFragment();
         buildingsListFragment = new BuildingsListFragment();
-        buildingsListFragment.passData(realm);
         unitsListFragment = new UnitsListFragment();
-        unitsListFragment.passData(realm);
         buildingInfoFragment = new BuildingInfoFragment();
         lessonPlanFragment = new LessonPlanFragment();
         aboutFragment = new AboutFragment();
@@ -210,7 +280,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 break;
 
             case 1:
-                passDataToNavigation(realm);
                 changeToNavigationFragment(getString(R.string.navigation));
                 drawerLayout.closeDrawer(drawer);
                 break;
@@ -361,22 +430,17 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     @Override
     public void passBuildingsIdToMap(int id) {
-        mapFragment.passData(id, realm);
+        mapFragment.passData(id);
     }
 
     @Override
     public void passBuildingsIdToInfo(int id) {
-        buildingInfoFragment.passData(id, realm);
+        buildingInfoFragment.passData(id);
     }
 
     @Override
     public void passBuildingsIDs(RealmList<BuildingID> buildingIDs) {
-        mapFragment.passData(buildingIDs, realm);
-    }
-
-    @Override
-    public void passDataToNavigation(Realm realm) {
-        navigationFragment.passData(realm);
+        mapFragment.passData(buildingIDs);
     }
 
     @Override
@@ -387,6 +451,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     @Override
     public void passUnitId(int id) {
-        unitInfoFragment.passData(id, realm);
+        unitInfoFragment.passData(id);
     }
 }
