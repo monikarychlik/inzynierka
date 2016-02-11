@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         setupActionBar();
         setupNavigationDrawer();
 
-        checkData();
+        checkData(false);
 
         mapFragment.passData(-1);
         changeToMapFragment(getString(R.string.map));
@@ -88,15 +88,14 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         super.onConfigurationChanged(newConfig);
 
         realm = null;
-        checkData();
-        restartActivity();
+        checkData(true);
     }
 
-    private void checkData() {
+    private void checkData(boolean restartActivity) {
         if (realm == null) {
             isDataCreatedDefault = true;
             writeIsDataCreatedToSharedPref();
-            addData();
+            addData(restartActivity);
         }
     }
 
@@ -137,17 +136,17 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
         sharedPreferences = getSharedPreferences(getString(R.string.preference_file_key),
                 Context.MODE_PRIVATE);
 
-        addData();
+        addData(false);
 
         initFragments();
     }
 
-    private void addData() {
+    private void addData(boolean restartActivity) {
         isDataCreatedDefault = sharedPreferences.getBoolean(getString(R.string.is_data_created_key), false);
         checkLanguage();
 
         if (!isDataCreatedDefault) {
-            new AddDataTask(this).execute();
+            new AddDataTask(this, restartActivity).execute();
             writeIsDataCreatedToSharedPref();
         }
     }
@@ -172,19 +171,22 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private class AddDataTask extends AsyncTask<Object, Void, Void> {
         private ProgressDialog progressDialog;
         private Context context;
+        private boolean restartActivity;
 
-        public AddDataTask(Context context) {
+        public AddDataTask(Context context, boolean restartActivity) {
             this.progressDialog = new ProgressDialog(context);
             this.context = context;
+            this.restartActivity = restartActivity;
         }
 
         @Override
         protected void onPreExecute() {
-            progressDialog.setTitle(getString(R.string.loading_database));
-            progressDialog.setMessage(getString(R.string.loading_database_message));
-            progressDialog.setCancelable(false);
-            progressDialog.setCanceledOnTouchOutside(false);
-            progressDialog.show();
+            this.progressDialog.setTitle(getString(R.string.loading_database));
+            this.progressDialog.setMessage(getString(R.string.loading_database_message));
+            this.progressDialog.setCancelable(false);
+            this.progressDialog.setCanceledOnTouchOutside(false);
+            this.progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+            this.progressDialog.show();
         }
 
         @Override
@@ -197,12 +199,16 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            if (progressDialog.isShowing()) {
-                progressDialog.dismiss();
+            if (this.progressDialog != null && this.progressDialog.isShowing()) {
+                this.progressDialog.dismiss();
             }
 
-            changeToAboutFragment("");
-            changeToMapFragment("");
+            if (this.restartActivity) {
+                restartActivity();
+            } else {
+                changeToAboutFragment("");
+                changeToMapFragment("");
+            }
         }
     }
 
