@@ -1,7 +1,6 @@
 package pl.inzynierka.monia.mapa.fragments;
 
 import android.Manifest;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
@@ -18,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.overlays.InfoWindow;
@@ -68,7 +66,6 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     private boolean navigateFromMyLocation;
     private Building pointA;
     private Building pointB;
-    private MyLocationNewOverlay myLocationOverlay;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -190,17 +187,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
             if (myLocation != null) {
                 return new GeoPoint(myLocation.getLatitude(), myLocation.getLongitude());
             }
-
         }
-//        else {
-            // TODO: Consider calling
-            //    public void requestPermissions(@NonNull String[] permissions, int requestCode)
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for Activity#requestPermissions for more details.
-//        }
 
         return new GeoPoint(51.753663, 19.451716);
     }
@@ -224,7 +211,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         }
         @Override
         protected void onPostExecute(Road road) {
-            // // TODO: dodaj informacje o drodze i sprawdz ewentualne bledy
+            // // TODO: add info about road and check errors (is internet on?)
             // showing distance and duration of the road
 //            Toast.makeText(getActivity(), "distance = " + road.mLength, Toast.LENGTH_LONG).show();
 //            Toast.makeText(getActivity(), "duration = " + road.mDuration, Toast.LENGTH_LONG).show();
@@ -243,7 +230,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
-        //todo nie dziala
+        //TODO: does not work
         InfoWindow.closeAllInfoWindowsOn(map);
         map.invalidate();
         return true;
@@ -272,7 +259,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     }
 
     private void showMyLocation() {
-        myLocationOverlay = new MyLocationNewOverlay(view.getContext(),
+        final MyLocationNewOverlay myLocationOverlay = new MyLocationNewOverlay(view.getContext(),
                 new GpsMyLocationProvider(view.getContext()), map);
         myLocationOverlay.enableMyLocation();
         map.getOverlays().add(myLocationOverlay);

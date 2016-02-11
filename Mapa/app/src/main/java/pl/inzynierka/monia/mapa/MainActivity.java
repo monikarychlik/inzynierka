@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Locale;
 
 import io.realm.Realm;
 import io.realm.RealmList;
@@ -67,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private SharedPreferences sharedPreferences;
     private boolean isDataCreatedDefault = false;
     private Keyboard keyboard;
-    private ProgressDialog progressDialog;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -95,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
     private void checkData() {
         if (realm == null) {
             isDataCreatedDefault = true;
-            writeToSharedPref();
+            writeIsDataCreatedToSharedPref();
             addData();
         }
     }
@@ -144,40 +144,52 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
     private void addData() {
         isDataCreatedDefault = sharedPreferences.getBoolean(getString(R.string.is_data_created_key), false);
+        checkLanguage();
 
         if (!isDataCreatedDefault) {
-
-            final DataCreator dataCreator = new DataCreator(this);
-            dataCreator.addData();
-
-            //TODO: wywala blad przy postExecute
-            //TODO: +sprawdzac jezyk przy uruchomieniu!
-            //initProgressDialog();
-            //new AddDataTask().execute(this);
-
-            writeToSharedPref();
+            new AddDataTask(this).execute();
+            writeIsDataCreatedToSharedPref();
         }
     }
 
-    private void initProgressDialog() {
-        progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle(getString(R.string.loading_database));
-        progressDialog.setMessage(getString(R.string.loading_database_message));
-        progressDialog.setCancelable(false);
-        progressDialog.setCanceledOnTouchOutside(false);
+    private void checkLanguage() {
+        final String currentLanguage = Locale.getDefault().getLanguage();
+        final String savedLanguage =
+                sharedPreferences.getString(getString(R.string.current_language), "");
+
+        if (!savedLanguage.equals(currentLanguage)) {
+            writeLanguageToSharedPref(currentLanguage);
+            isDataCreatedDefault = false;
+        }
+    }
+
+    private void writeLanguageToSharedPref(String currentLanguage) {
+        final SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(getString(R.string.current_language), currentLanguage);
+        editor.apply();
     }
 
     private class AddDataTask extends AsyncTask<Object, Void, Void> {
+        private ProgressDialog progressDialog;
+        private Context context;
+
+        public AddDataTask(Context context) {
+            this.progressDialog = new ProgressDialog(context);
+            this.context = context;
+        }
 
         @Override
         protected void onPreExecute() {
-            super.onPreExecute();
+            progressDialog.setTitle(getString(R.string.loading_database));
+            progressDialog.setMessage(getString(R.string.loading_database_message));
+            progressDialog.setCancelable(false);
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
         }
 
         @Override
         protected Void doInBackground(Object... params) {
-
-            final DataCreator dataCreator = new DataCreator((Context) params[0]);
+            final DataCreator dataCreator = new DataCreator(context);
             dataCreator.addData();
 
             return null;
@@ -185,12 +197,16 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
 
         @Override
         protected void onPostExecute(Void aVoid) {
-            super.onPostExecute(aVoid);
-            progressDialog.dismiss();
+            if (progressDialog.isShowing()) {
+                progressDialog.dismiss();
+            }
+
+            changeToAboutFragment("");
+            changeToMapFragment("");
         }
     }
 
-    private void writeToSharedPref() {
+    private void writeIsDataCreatedToSharedPref() {
         final SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(getString(R.string.is_data_created_key), !isDataCreatedDefault);
         editor.apply();
