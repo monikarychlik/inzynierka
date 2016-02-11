@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -25,6 +26,7 @@ import pl.inzynierka.monia.mapa.adapters.BuildingSpinnerAdapter;
 import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.Identifier;
+import pl.inzynierka.monia.mapa.utils.NetworkUtils;
 
 public class NavigationFragment extends Fragment implements View.OnClickListener {
 
@@ -111,8 +113,15 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         final LocationManager manager =
                 (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        if (isMyLocalizationChecked && !manager.isProviderEnabled( LocationManager.GPS_PROVIDER)) {
+        if (isMyLocalizationChecked && !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
             buildAlertMessageNoGps();
+            return;
+        }
+
+        final NetworkUtils networkUtils = new NetworkUtils();
+
+        if (!networkUtils.hasWifiOrNetworkEnabled(getActivity())) {
+            buildAlertMessageNoInternet();
             return;
         }
 
@@ -120,6 +129,28 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 isMyLocalizationChecked, buildings.get(spinnerPointA.getSelectedItemPosition()),
                 buildings.get(spinnerPointB.getSelectedItemPosition()));
         mainActivityCallbacks.changeToMapFragment("");
+    }
+
+    private void buildAlertMessageNoInternet() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        builder.setMessage(getString(R.string.no_internet_want_enable));
+        builder.setCancelable(false);
+
+        builder.setPositiveButton(getString(R.string.yes), new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int id) {
+                startActivity(new Intent(Settings.ACTION_SETTINGS));
+            }
+        });
+
+        builder.setNegativeButton(getString(R.string.no), new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int id) {
+                dialog.cancel();
+            }
+        });
+
+        final AlertDialog alert = builder.create();
+        alert.show();
     }
 
     private void buildAlertMessageNoGps() {

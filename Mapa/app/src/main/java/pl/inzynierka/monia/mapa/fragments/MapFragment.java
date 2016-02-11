@@ -211,14 +211,10 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         }
         @Override
         protected void onPostExecute(Road road) {
-            // // TODO: add info about road and check errors (is internet on?)
+            // // TODO: add info about road
             // showing distance and duration of the road
 //            Toast.makeText(getActivity(), "distance = " + road.mLength, Toast.LENGTH_LONG).show();
 //            Toast.makeText(getActivity(), "duration = " + road.mDuration, Toast.LENGTH_LONG).show();
-//
-//            if(road.mStatus != Road.STATUS_OK)
-//                Toast.makeText(getActivity(), "Error when loading the road - status = " + road.mStatus,
-//                        Toast.LENGTH_SHORT).show();
 
             final Polyline roadOverlay = RoadManager.buildRoadOverlay(road, getActivity());
 

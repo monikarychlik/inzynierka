@@ -250,4 +250,6 @@
     <string name="no">No</string>
     <string name="loading_database">Loading database</string>
     <string name="loading_database_message">The first time you start this application or after you change the system language - reloading of the database is necessary. Typically it takes a several seconds, please wait.</string>
+    <string name="current_language">currentLanguage</string>
+    <string name="no_internet_want_enable">You don't have internet access, do you want to activate it?</string>
 </resources>

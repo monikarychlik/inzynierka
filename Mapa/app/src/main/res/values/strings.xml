@@ -247,4 +247,5 @@
     <string name="loading_database">Wczytywanie bazy</string>
     <string name="loading_database_message">Przy pierwszym uruchomieniu aplikacji lub zmianie języka systemu potrzebne jest wczytanie bazy danych. Zwykle trwa to kilkanaście sekund, proszę czekać.</string>
     <string name="current_language">currentLanguage</string>
+    <string name="no_internet_want_enable">Wygląda na to, że nie masz dostępu do Internetu, chcesz go uzyskać?</string>
 </resources>
