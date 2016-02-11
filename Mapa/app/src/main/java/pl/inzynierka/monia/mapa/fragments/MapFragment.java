@@ -66,6 +66,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
     private boolean navigateFromMyLocation;
     private Building pointA;
     private Building pointB;
+    private boolean isDrawerOpen = false;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -83,6 +84,18 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         }
 
         return view;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        hideMenuItems(menu, !isDrawerOpen);
+        super.onPrepareOptionsMenu(menu);
+    }
+
+    private void hideMenuItems(Menu menu, boolean visible) {
+        for (int i = 0; i < menu.size(); i++) {
+            menu.getItem(i).setVisible(visible);
+        }
     }
 
     @Override
@@ -348,5 +361,9 @@ public class MapFragment extends Fragment implements MapEventsReceiver {
         this.navigateFromMyLocation = navigateFromMyLocation;
         this.pointA = pointA;
         this.pointB = pointB;
+    }
+
+    public void passData(boolean isDrawerOpen) {
+        this.isDrawerOpen = isDrawerOpen;
     }
 }

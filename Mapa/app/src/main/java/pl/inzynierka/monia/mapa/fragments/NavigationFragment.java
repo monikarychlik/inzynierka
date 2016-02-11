@@ -36,7 +36,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private Spinner spinnerPointB;
     private RadioGroup radioGroupTypeOfTravel;
     private Button buttonNavigate;
-    private Realm realm;
     private MainActivityCallbacks mainActivityCallbacks;
     private List<Building> buildings;
     private boolean isMyLocalizationChecked = false;
@@ -54,7 +53,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     private void initView() {
-        realm = Realm.getInstance(getActivity());
+        final Realm realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
         buildings = realm.where(Building.class).findAll();
 

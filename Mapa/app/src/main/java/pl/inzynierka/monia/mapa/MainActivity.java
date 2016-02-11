@@ -280,12 +280,14 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 super.onDrawerOpened(drawerView);
                 invalidateOptionsMenu();
                 keyboard.hideSoftKeyboard();
+                mapFragment.passData(true);
             }
 
             @Override
             public void onDrawerClosed(View drawerView) {
                 super.onDrawerClosed(drawerView);
                 invalidateOptionsMenu();
+                mapFragment.passData(false);
             }
         };
 
@@ -326,6 +328,18 @@ public class MainActivity extends AppCompatActivity implements Toolbar.OnMenuIte
                 drawerLayout.closeDrawer(drawer);
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (drawerLayout.isDrawerOpen(drawer)) {
+            drawerLayout.closeDrawer(drawer);
+            return;
+        }
+
+        super.onBackPressed();
+
+
     }
 
     public void changeToNavigationFragment(String title) {
