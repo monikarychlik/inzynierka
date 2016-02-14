@@ -128,6 +128,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 isMyLocalizationChecked, buildings.get(spinnerPointA.getSelectedItemPosition()),
                 buildings.get(spinnerPointB.getSelectedItemPosition()));
         mainActivityCallbacks.changeToMapFragment("");
+
+        checkBoxMyLocalization.setChecked(false);
     }
 
     private void buildAlertMessageNoInternet() {

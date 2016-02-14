@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Map</string>
+    <string name="app_name">NaviCampus</string>
 
     <string name="faculty_w1">Mechanical Engineering</string>
     <string name="faculty_w2">Electrical, Electronic, Computer and Control Engineering</string>
@@ -218,7 +218,7 @@
     <string name="otherCampus">Another</string>
     <string name="faculties">Faculties</string>
     <string name="navigation">Navigation</string>
-    <string name="navigation_point_to_point">Navigation from point to building</string>
+    <string name="navigation_point_to_point">Route from point to point</string>
     <string name="show_on_map">Show on map</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -252,4 +252,6 @@
     <string name="loading_database_message">The first time you start this application or after you change the system language - reloading of the database is necessary. Typically it takes a several seconds, please wait.</string>
     <string name="current_language">currentLanguage</string>
     <string name="no_internet_want_enable">You don\'t have internet access, do you want to activate it?</string>
+    <string name="routing">Routing</string>
+    <string name="routing_message">Please wait</string>
 </resources>

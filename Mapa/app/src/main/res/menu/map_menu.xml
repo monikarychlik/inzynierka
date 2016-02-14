@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:icon="@drawable/icon_campus"
     android:id="@+id/menuGroup">
 
@@ -8,6 +9,7 @@
         <!-- Kampusy -->
         <item android:id="@+id/campusesCategory"
             android:title="@string/campuses"
+            app:showAsAction="never"
             android:checkable="false" />
 
         <item android:id="@+id/campusA"

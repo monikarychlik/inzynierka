@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Mapa</string>
+    <string name="app_name">NaviKampus</string>
 
     <string name="faculty_w1">Mechaniczny</string>
     <string name="faculty_w2">Elektrotechniki, Elektroniki, Informatyki i Automatyki</string>
@@ -218,7 +218,7 @@
     <string name="otherCampus">Inne</string>
     <string name="faculties">Wydziały</string>
     <string name="navigation">Nawigacja</string>
-    <string name="navigation_point_to_point">Nawigacja z danego punktu do budynku</string>
+    <string name="navigation_point_to_point">Trasa z punktu do punktu</string>
     <string name="show_on_map">Pokaż na mapie</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
@@ -248,4 +248,6 @@
     <string name="loading_database_message">Przy pierwszym uruchomieniu aplikacji lub zmianie języka systemu potrzebne jest wczytanie bazy danych. Zwykle trwa to kilkanaście sekund, proszę czekać.</string>
     <string name="current_language">currentLanguage</string>
     <string name="no_internet_want_enable">Wygląda na to, że nie masz dostępu do Internetu, chcesz go uzyskać?</string>
+    <string name="routing">Wyznaczanie trasy</string>
+    <string name="routing_message">Proszę czekać</string>
 </resources>

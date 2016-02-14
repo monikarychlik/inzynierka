@@ -11,6 +11,7 @@ public interface MainActivityCallbacks {
     void passDataToMap(int radioButtonTypeOfTravelId, boolean navigateFromMyLocation,
                        Building pointA, Building pointB);
     void passUnitId(int id);
+    void stopNavigation();
     void changeToBuildingInfoFragment(String title);
     void changeToMapFragment(String title);
     void changeToBuildingsListFragment(String title);
