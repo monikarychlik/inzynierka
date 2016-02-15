@@ -78,13 +78,15 @@ public class Searcher {
     private void findFacultiesInBuilding(String text, Building building, List<Building> resultBuildings) {
         String wholeSearchedText;
         for (Faculty faculty : building.getFaculties()) {
-            wholeSearchedText = faculty.getIdentifier().getMarkLetter() +
-                    faculty.getIdentifier().getMarkNumber() +
-                    faculty.getIdentifier().getName();
-            if (wholeSearchedText.toUpperCase().contains(text.toUpperCase())) {
-                resultBuildings.add(building);
-            } else {
-                findUnitsInBuilding(text, building, resultBuildings);
+            if (faculty.getId() != 0) {
+                wholeSearchedText = faculty.getIdentifier().getMarkLetter() +
+                        faculty.getIdentifier().getMarkNumber() +
+                        faculty.getIdentifier().getName();
+                if (wholeSearchedText.toUpperCase().contains(text.toUpperCase())) {
+                    resultBuildings.add(building);
+                } else {
+                    findUnitsInBuilding(text, building, resultBuildings);
+                }
             }
         }
     }

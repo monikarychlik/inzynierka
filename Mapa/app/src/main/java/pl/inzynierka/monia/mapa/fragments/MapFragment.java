@@ -168,6 +168,8 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
             addMarkersFromCampus(other);
         }
 
+        map.invalidate();
+
         return true;
     }
 
@@ -307,10 +309,9 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
         }
         @Override
         protected void onPostExecute(Road road) {
-//             // TODO: add info about road
-//             showing distance and duration of the road
-//            Toast.makeText(getActivity(), "distance = " + road.mLength, Toast.LENGTH_LONG).show();
-//            Toast.makeText(getActivity(), "duration = " + road.mDuration, Toast.LENGTH_LONG).show();
+//          TODO: dodaj info o drodze
+//          distance = road.mLength
+//          duration = road.mDuration
 
             final Polyline roadOverlay = RoadManager.buildRoadOverlay(road, this.context);
 
@@ -334,7 +335,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
-        //TODO: does not work
+        //TODO: naprawić, bo nie działa
         InfoWindow.closeAllInfoWindowsOn(map);
         map.invalidate();
         return true;
@@ -375,7 +376,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
 
         for (Building chosenBuilding : chosenBuildings) {
             addBuildingMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark),
-                    true, false);
+                    false, false);
         }
 
         if (buildingIDs != null ) buildingIDs.clear();

@@ -250,4 +250,6 @@
     <string name="no_internet_want_enable">Wygląda na to, że nie masz dostępu do Internetu, chcesz go uzyskać?</string>
     <string name="routing">Wyznaczanie trasy</string>
     <string name="routing_message">Proszę czekać</string>
+    <string name="faculty">Wydział:</string>
+    <string name="no_units">Brak jednostek</string>
 </resources>

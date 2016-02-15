@@ -254,4 +254,6 @@
     <string name="no_internet_want_enable">You don\'t have internet access, do you want to activate it?</string>
     <string name="routing">Routing</string>
     <string name="routing_message">Please wait</string>
+    <string name="faculty">Faculty of:</string>
+    <string name="no_units">No units</string>
 </resources>

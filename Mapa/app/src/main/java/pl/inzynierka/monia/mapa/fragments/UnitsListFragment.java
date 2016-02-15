@@ -34,10 +34,11 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
     private EditText editTextSearch;
     private TextView textViewSearchInfo;
     private ImageView imageViewSearch;
-    private LinearLayout buildingListLayout;
+    private LinearLayout unitListLayout;
     private Searcher searcher;
     private MainActivityCallbacks mainActivityCallbacks;
     private Keyboard keyboard;
+    private LinearLayoutManager layoutManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +52,23 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        clearSearching();
+        refreshAdapter();
+    }
+
+    private void clearSearching() {
+        editTextSearch.setText("");
+        unitListLayout.requestFocus();
+    }
+
+    private void refreshAdapter() {
+        layoutManager.scrollToPosition(0);
+    }
+
     private void initView() {
         realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
@@ -60,7 +78,7 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
         editTextSearch = (EditText) view.findViewById(R.id.editTextSearchUnits);
         textViewSearchInfo = (TextView) view.findViewById(R.id.searchInfoUnits);
         imageViewSearch = (ImageView) view.findViewById(R.id.imageViewSearchUnits);
-        buildingListLayout = (LinearLayout) view.findViewById(R.id.unitsListLayout);
+        unitListLayout = (LinearLayout) view.findViewById(R.id.unitsListLayout);
 
         searcher = new Searcher(getActivity());
         keyboard = new Keyboard(getActivity());
@@ -72,7 +90,7 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
     private void setListeners() {
         editTextSearch.addTextChangedListener(this);
         imageViewSearch.setOnClickListener(this);
-        buildingListLayout.setOnClickListener(this);
+        unitListLayout.setOnClickListener(this);
     }
 
     private void findUnits() {
@@ -86,7 +104,8 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
     private void setupAdapter() {
         adapter = new UnitsListAdapter(units, mainActivityCallbacks);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setBackgroundColor(getResources().getColor(R.color.cardview_light_background));
         recyclerView.setAdapter(adapter);
     }
@@ -96,7 +115,8 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        textViewSearchInfo.setVisibility(View.INVISIBLE);
+        textViewSearchInfo.setVisibility(View.GONE);
+        recyclerView.bringToFront();
 
         if (s.toString().isEmpty()) {
             findUnits();
@@ -107,6 +127,7 @@ public class UnitsListFragment extends Fragment implements TextWatcher, View.OnC
 
         if (units.isEmpty()) {
             textViewSearchInfo.setVisibility(View.VISIBLE);
+            textViewSearchInfo.bringToFront();
         }
     }
 

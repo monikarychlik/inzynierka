@@ -3,7 +3,6 @@ package pl.inzynierka.monia.mapa.utils;
 import android.content.Context;
 import android.support.annotation.NonNull;
 
-import io.realm.Realm;
 import io.realm.RealmList;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.BuildingID;
@@ -19,19 +18,17 @@ public class DataCreator {
     private int[] tempBuildingsTab;
     private RealmList<BuildingID> tempBuildingsID;
     private Context context;
-    private Realm realm;
 
     public DataCreator(Context context) {
         this.context = context;
-        this.realm = Realm.getInstance(context);
     }
 
     public void addData() {
         final Data data = new Data(context);
 
         addFaculties(data);
-        addBuildings(data);
         addUnits(data);
+        addBuildings(data);
     }
 
     private void addFaculties(Data data) {
@@ -53,93 +50,6 @@ public class DataCreator {
                 "w-9@adm.p.lodz.pl", "42 631 37 51", "42 631 36 85", "42 684 79 93");
         data.createFaculty(context.getString(R.string.faculty_w10), 10,
                 "sekretariat@wipos.p.lodz.pl", "42 631 37 00", "42 631 37 01", "42 636 56 63");
-    }
-
-    private void addBuildings(Data data) {
-        addCampusA(data);
-        addCampusB(data);
-        addCampusC(data);
-        addCampusD(data);
-        addOther(data);
-    }
-
-    private void addCampusA(Data data) {
-        data.createBuilding(context.getString(R.string.building_a2), campusA, 2, 51.754678, 19.452766);
-        data.createBuilding(context.getString(R.string.building_a3), campusA, 3, 51.754739, 19.453269);
-        data.createBuilding(context.getString(R.string.building_a4), campusA, 4, 51.754540, 19.454675);
-        data.createBuilding(context.getString(R.string.building_a5), campusA, 5, 51.754258, 19.454889);
-        data.createBuilding(context.getString(R.string.building_a6), campusA, 6, 51.754135, 19.453981);
-        data.createBuilding(context.getString(R.string.building_a8), campusA, 8, 51.753540, 19.452974);
-        data.createBuilding(context.getString(R.string.building_a9), campusA, 9, 51.753489, 19.453387);
-        data.createBuilding(context.getString(R.string.building_a10), campusA, 10, 51.752597, 19.453177);
-        data.createBuilding(context.getString(R.string.building_a11), campusA, 11, 51.753129, 19.453547);
-        data.createBuilding(context.getString(R.string.building_a12), campusA, 12, 51.753058, 19.454687);
-        data.createBuilding(context.getString(R.string.building_a13), campusA, 13, 51.752442, 19.453767);
-        data.createBuilding(context.getString(R.string.building_a14), campusA, 14, 51.753094, 19.455118);
-        data.createBuilding(context.getString(R.string.building_a16), campusA, 16, 51.755109, 19.451514);
-        data.createBuilding(context.getString(R.string.building_a17), campusA, 17, 51.755100, 19.450621);
-        data.createBuilding(context.getString(R.string.building_a18), campusA, 18, 51.754764, 19.451397);
-        data.createBuilding(context.getString(R.string.building_a19), campusA, 19, 51.753797, 19.452048);
-        data.createBuilding(context.getString(R.string.building_a20), campusA, 20, 51.753360, 19.452204);
-        data.createBuilding(context.getString(R.string.building_a21), campusA, 21, 51.753025, 19.451643);
-        data.createBuilding(context.getString(R.string.building_a22), campusA, 22, 51.752673, 19.452375);
-        data.createBuilding(context.getString(R.string.building_a24), campusA, 24, 51.754491, 19.450863);
-        data.createBuilding(context.getString(R.string.building_a26), campusA, 26, 51.754118, 19.450718);
-        data.createBuilding(context.getString(R.string.building_a27), campusA, 27, 51.753904, 19.450934);
-        data.createBuilding(context.getString(R.string.building_a28), campusA, 28, 51.753604, 19.450957);
-        data.createBuilding(context.getString(R.string.building_a30), campusA, 30, 51.752613, 19.451285);
-        data.createBuilding(context.getString(R.string.building_a31), campusA, 31, 51.753833, 19.449636);
-        data.createBuilding(context.getString(R.string.building_a33), campusA, 33, 51.752786, 19.450030);
-    }
-
-    private void addCampusB(Data data) {
-        data.createBuilding(context.getString(R.string.building_b1), campusB, 1, 51.748690, 19.455298);
-        data.createBuilding(context.getString(R.string.building_b2), campusB, 2, 51.748952, 19.454548);
-        data.createBuilding(context.getString(R.string.building_b3), campusB, 3, 51.748577, 19.453160);
-        data.createBuilding(context.getString(R.string.building_b4), campusB, 4, 51.748030, 19.455846);
-        data.createBuilding(context.getString(R.string.building_b5), campusB, 5, 51.747973, 19.455376);
-        data.createBuilding(context.getString(R.string.building_b6), campusB, 6, 51.747708, 19.453017);
-        data.createBuilding(context.getString(R.string.building_b7), campusB, 7, 51.747590, 19.451438);
-        data.createBuilding(context.getString(R.string.building_b9), campusB, 9, 51.747278, 19.453800);
-        data.createBuilding(context.getString(R.string.building_b10), campusB, 10, 51.747304, 19.455375);
-        data.createBuilding(context.getString(R.string.building_b11), campusB, 11, 51.747361, 19.456006);
-        data.createBuilding(context.getString(R.string.building_b12), campusB, 12, 51.747128, 19.455393);
-        data.createBuilding(context.getString(R.string.building_b13), campusB, 13, 51.746810, 19.454276);
-        data.createBuilding(context.getString(R.string.building_b14), campusB, 14, 51.746507, 19.455333);
-        data.createBuilding(context.getString(R.string.building_b15), campusB, 15, 51.746598, 19.455795);
-        data.createBuilding(context.getString(R.string.building_b16), campusB, 16, 51.746403, 19.453270);
-        data.createBuilding(context.getString(R.string.building_b17), campusB, 17, 51.746021, 19.454671);
-        data.createBuilding(context.getString(R.string.building_b18), campusB, 18, 51.746043, 19.455606);
-        data.createBuilding(context.getString(R.string.building_b19), campusB, 19, 51.747120, 19.455917);
-        data.createBuilding(context.getString(R.string.building_b22), campusB, 22, 51.745635, 19.454747);
-        data.createBuilding(context.getString(R.string.building_b24_b25), campusB, 24, 51.745435, 19.451648);
-        data.createBuilding(context.getString(R.string.building_b24_b25), campusB, 25, 51.745395, 19.451339);
-    }
-
-    private void addCampusC(Data data) {
-        data.createBuilding(context.getString(R.string.building_c2), campusC, 2, 51.744607, 19.448511);
-        data.createBuilding(context.getString(R.string.building_c3), campusC, 3, 51.745112, 19.449972);
-        data.createBuilding(context.getString(R.string.building_c4), campusC, 4, 51.745486, 19.449312);
-        data.createBuilding(context.getString(R.string.building_c5), campusC, 5, 51.745644, 19.449862);
-        data.createBuilding(context.getString(R.string.building_c6), campusC, 6, 51.745836, 19.449239);
-        data.createBuilding(context.getString(R.string.building_c7), campusC, 7, 51.745812, 19.448823);
-        data.createBuilding(context.getString(R.string.building_c9), campusC, 9, 51.746113, 19.450128);
-        data.createBuilding(context.getString(R.string.building_c10), campusC, 10, 51.746336, 19.450206);
-        data.createBuilding(context.getString(R.string.building_c11), campusC, 11, 51.746682, 19.450141);
-        data.createBuilding(context.getString(R.string.building_c12), campusC, 12, 51.747406, 19.450000);
-        data.createBuilding(context.getString(R.string.building_c13), campusC, 13, 51.748220, 19.449792);
-        data.createBuilding(context.getString(R.string.building_c14), campusC, 14, 51.748662, 19.449630);
-        data.createBuilding(context.getString(R.string.building_c15), campusC, 15, 51.748965, 19.449445);
-        data.createBuilding(context.getString(R.string.building_c16), campusC, 16, 51.751432, 19.447811);
-    }
-
-    private void addCampusD(Data data) {
-        data.createBuilding(context.getString(R.string.building_d1), campusD, 1, 51.749538, 19.460980);
-    }
-
-    private void addOther(Data data) {
-        data.createBuilding(context.getString(R.string.building_e1), other, 1, 51.746912, 19.459785);
-        data.createBuilding(context.getString(R.string.building_e2), other, 2, 51.778973, 19.494322);
     }
 
 
@@ -717,5 +627,92 @@ public class DataCreator {
         data.createUnit(context.getString(R.string.other_35), other, 0,
                 "w-9@adm.p.lodz.pl", "42 631 37 51", "", "", 0,
                 tempBuildingsID);
+    }
+
+    private void addBuildings(Data data) {
+        addCampusA(data);
+        addCampusB(data);
+        addCampusC(data);
+        addCampusD(data);
+        addOther(data);
+    }
+
+    private void addCampusA(Data data) {
+        data.createBuilding(context.getString(R.string.building_a2), campusA, 2, 51.754678, 19.452766);
+        data.createBuilding(context.getString(R.string.building_a3), campusA, 3, 51.754739, 19.453269);
+        data.createBuilding(context.getString(R.string.building_a4), campusA, 4, 51.754540, 19.454675);
+        data.createBuilding(context.getString(R.string.building_a5), campusA, 5, 51.754258, 19.454889);
+        data.createBuilding(context.getString(R.string.building_a6), campusA, 6, 51.754135, 19.453981);
+        data.createBuilding(context.getString(R.string.building_a8), campusA, 8, 51.753540, 19.452974);
+        data.createBuilding(context.getString(R.string.building_a9), campusA, 9, 51.753489, 19.453387);
+        data.createBuilding(context.getString(R.string.building_a10), campusA, 10, 51.752597, 19.453177);
+        data.createBuilding(context.getString(R.string.building_a11), campusA, 11, 51.753129, 19.453547);
+        data.createBuilding(context.getString(R.string.building_a12), campusA, 12, 51.753058, 19.454687);
+        data.createBuilding(context.getString(R.string.building_a13), campusA, 13, 51.752442, 19.453767);
+        data.createBuilding(context.getString(R.string.building_a14), campusA, 14, 51.753094, 19.455118);
+        data.createBuilding(context.getString(R.string.building_a16), campusA, 16, 51.755109, 19.451514);
+        data.createBuilding(context.getString(R.string.building_a17), campusA, 17, 51.755100, 19.450621);
+        data.createBuilding(context.getString(R.string.building_a18), campusA, 18, 51.754764, 19.451397);
+        data.createBuilding(context.getString(R.string.building_a19), campusA, 19, 51.753797, 19.452048);
+        data.createBuilding(context.getString(R.string.building_a20), campusA, 20, 51.753360, 19.452204);
+        data.createBuilding(context.getString(R.string.building_a21), campusA, 21, 51.753025, 19.451643);
+        data.createBuilding(context.getString(R.string.building_a22), campusA, 22, 51.752673, 19.452375);
+        data.createBuilding(context.getString(R.string.building_a24), campusA, 24, 51.754491, 19.450863);
+        data.createBuilding(context.getString(R.string.building_a26), campusA, 26, 51.754118, 19.450718);
+        data.createBuilding(context.getString(R.string.building_a27), campusA, 27, 51.753904, 19.450934);
+        data.createBuilding(context.getString(R.string.building_a28), campusA, 28, 51.753604, 19.450957);
+        data.createBuilding(context.getString(R.string.building_a30), campusA, 30, 51.752613, 19.451285);
+        data.createBuilding(context.getString(R.string.building_a31), campusA, 31, 51.753833, 19.449636);
+        data.createBuilding(context.getString(R.string.building_a33), campusA, 33, 51.752786, 19.450030);
+    }
+
+    private void addCampusB(Data data) {
+        data.createBuilding(context.getString(R.string.building_b1), campusB, 1, 51.748690, 19.455298);
+        data.createBuilding(context.getString(R.string.building_b2), campusB, 2, 51.748952, 19.454548);
+        data.createBuilding(context.getString(R.string.building_b3), campusB, 3, 51.748577, 19.453160);
+        data.createBuilding(context.getString(R.string.building_b4), campusB, 4, 51.748030, 19.455846);
+        data.createBuilding(context.getString(R.string.building_b5), campusB, 5, 51.747973, 19.455376);
+        data.createBuilding(context.getString(R.string.building_b6), campusB, 6, 51.747708, 19.453017);
+        data.createBuilding(context.getString(R.string.building_b7), campusB, 7, 51.747590, 19.451438);
+        data.createBuilding(context.getString(R.string.building_b9), campusB, 9, 51.747278, 19.453800);
+        data.createBuilding(context.getString(R.string.building_b10), campusB, 10, 51.747304, 19.455375);
+        data.createBuilding(context.getString(R.string.building_b11), campusB, 11, 51.747361, 19.456006);
+        data.createBuilding(context.getString(R.string.building_b12), campusB, 12, 51.747128, 19.455393);
+        data.createBuilding(context.getString(R.string.building_b13), campusB, 13, 51.746810, 19.454276);
+        data.createBuilding(context.getString(R.string.building_b14), campusB, 14, 51.746507, 19.455333);
+        data.createBuilding(context.getString(R.string.building_b15), campusB, 15, 51.746598, 19.455795);
+        data.createBuilding(context.getString(R.string.building_b16), campusB, 16, 51.746403, 19.453270);
+        data.createBuilding(context.getString(R.string.building_b17), campusB, 17, 51.746021, 19.454671);
+        data.createBuilding(context.getString(R.string.building_b18), campusB, 18, 51.746043, 19.455606);
+        data.createBuilding(context.getString(R.string.building_b19), campusB, 19, 51.747120, 19.455917);
+        data.createBuilding(context.getString(R.string.building_b22), campusB, 22, 51.745635, 19.454747);
+        data.createBuilding(context.getString(R.string.building_b24_b25), campusB, 24, 51.745435, 19.451648);
+        data.createBuilding(context.getString(R.string.building_b24_b25), campusB, 25, 51.745395, 19.451339);
+    }
+
+    private void addCampusC(Data data) {
+        data.createBuilding(context.getString(R.string.building_c2), campusC, 2, 51.744607, 19.448511);
+        data.createBuilding(context.getString(R.string.building_c3), campusC, 3, 51.745112, 19.449972);
+        data.createBuilding(context.getString(R.string.building_c4), campusC, 4, 51.745486, 19.449312);
+        data.createBuilding(context.getString(R.string.building_c5), campusC, 5, 51.745644, 19.449862);
+        data.createBuilding(context.getString(R.string.building_c6), campusC, 6, 51.745836, 19.449239);
+        data.createBuilding(context.getString(R.string.building_c7), campusC, 7, 51.745812, 19.448823);
+        data.createBuilding(context.getString(R.string.building_c9), campusC, 9, 51.746113, 19.450128);
+        data.createBuilding(context.getString(R.string.building_c10), campusC, 10, 51.746336, 19.450206);
+        data.createBuilding(context.getString(R.string.building_c11), campusC, 11, 51.746682, 19.450141);
+        data.createBuilding(context.getString(R.string.building_c12), campusC, 12, 51.747406, 19.450000);
+        data.createBuilding(context.getString(R.string.building_c13), campusC, 13, 51.748220, 19.449792);
+        data.createBuilding(context.getString(R.string.building_c14), campusC, 14, 51.748662, 19.449630);
+        data.createBuilding(context.getString(R.string.building_c15), campusC, 15, 51.748965, 19.449445);
+        data.createBuilding(context.getString(R.string.building_c16), campusC, 16, 51.751432, 19.447811);
+    }
+
+    private void addCampusD(Data data) {
+        data.createBuilding(context.getString(R.string.building_d1), campusD, 1, 51.749538, 19.460980);
+    }
+
+    private void addOther(Data data) {
+        data.createBuilding(context.getString(R.string.building_e1), other, 1, 51.746912, 19.459785);
+        data.createBuilding(context.getString(R.string.building_e2), other, 2, 51.778973, 19.494322);
     }
 }

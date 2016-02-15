@@ -1,11 +1,11 @@
 package pl.inzynierka.monia.mapa.utils;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
+
+import java.util.List;
 
 import io.realm.Realm;
 import io.realm.RealmList;
-import io.realm.RealmResults;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 import pl.inzynierka.monia.mapa.models.Contact;
@@ -19,8 +19,6 @@ public class Data {
     private int buildingID;
     private int unitID;
     private Realm realm;
-    private RealmList<Unit> units = new RealmList<>();
-    private RealmList<Faculty> faculties = new RealmList<>();
 
     public Data(Context context) {
         this.facultyID = 0;
@@ -83,53 +81,8 @@ public class Data {
         unit.setFacultyID(facultyID);
         unit.setBuildingsIDs(buildingsID);
 
-        final RealmResults<Building> buildings = realm.where(Building.class).findAll();
-        Faculty unitFaculty = getFaculty(facultyID);
-
-        for (int i = 0; i < buildings.size(); i++) {
-            for (BuildingID id : buildingsID) {
-                if (buildings.get(i).getId() == id.getBuildingID()) {
-                    updateBuilding(unit, unitFaculty, buildings.get(i));
-                }
-            }
-        }
-
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(unit);
-        realm.commitTransaction();
-    }
-
-    @NonNull
-    private Faculty getFaculty(int facultyID) {
-        final RealmResults<Faculty> faculties = realm.where(Faculty.class).findAll();
-        Faculty unitFaculty = new Faculty();
-
-        for (Faculty faculty : faculties) {
-            if (faculty.getId() == facultyID) {
-                unitFaculty = faculty;
-            }
-        }
-        return unitFaculty;
-    }
-
-    private void updateBuilding(Unit unit, Faculty unitFaculty, Building building) {
-        final Building newBuilding = new Building();
-        final RealmList<Unit> tempUnits = building.getUnits();
-        final RealmList<Faculty> tempFaculties = building.getFaculties();
-
-        realm.beginTransaction();
-        newBuilding.setId(building.getId());
-        newBuilding.setIdentifier(building.getIdentifier());
-        newBuilding.setLatitude(building.getLatitude());
-        newBuilding.setLongitude(building.getLongitude());
-
-        tempUnits.add(unit);
-        newBuilding.setUnits(tempUnits);
-
-        tempFaculties.add(unitFaculty);
-        newBuilding.setFaculties(tempFaculties);
-
-        realm.copyToRealmOrUpdate(newBuilding);
         realm.commitTransaction();
     }
 
@@ -138,15 +91,48 @@ public class Data {
         buildingID++;
 
         final Building building = new Building();
+
         building.setId(buildingID);
         building.setIdentifier(createIdentifier(name, markLetter, markNumber));
         building.setLatitude(latitude);
         building.setLongitude(longitude);
-        building.setUnits(units);
-        building.setFaculties(faculties);
+
+        findAndSetUnitsAndFacultiesInBuilding(building);
 
         realm.beginTransaction();
         realm.copyToRealmOrUpdate(building);
         realm.commitTransaction();
+    }
+
+    private void findAndSetUnitsAndFacultiesInBuilding(Building building) {
+        final RealmList<Unit> unitsInBuilding = new RealmList<>();
+        final RealmList<Faculty> faculties = new RealmList<>();
+        final List<Unit> allUnits = realm.where(Unit.class).findAll();
+
+        for (Unit unit : allUnits) {
+            for (BuildingID buildingID : unit.getBuildingsIDs()) {
+                if (buildingID.getBuildingID() == building.getId()) {
+                    unitsInBuilding.add(unit);
+                    addFaculty(faculties, unit);
+                    break;
+                }
+            }
+        }
+
+        building.setUnits(unitsInBuilding);
+        building.setFaculties(faculties);
+    }
+
+    private void addFaculty(List<Faculty> faculties, Unit unit) {
+        final Faculty newFaculty = realm.where(Faculty.class).equalTo(
+                "id", unit.getFacultyID()).findFirst();
+
+        for (Faculty faculty : faculties) {
+            if (newFaculty.getId() == faculty.getId()) {
+                return;
+            }
+        }
+
+        faculties.add(newFaculty);
     }
 }

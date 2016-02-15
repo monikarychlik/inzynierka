@@ -4,6 +4,7 @@
     android:icon="@drawable/icon_campus"
     android:id="@+id/menuGroup">
 
+
     <group android:checkableBehavior="all">
 
         <!-- Kampusy -->

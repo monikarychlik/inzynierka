@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme" >
         <activity android:name=".MainActivity"
-            android:configChanges="layoutDirection|locale"
+            android:screenOrientation="portrait"
+            android:configChanges="layoutDirection|locale|orientation|keyboardHidden|screenLayout"
             android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

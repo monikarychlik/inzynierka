@@ -52,6 +52,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
+                android:layout_marginTop="4dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -143,6 +144,38 @@
                     android:text="@string/example_text"
                     android:textColor="@color/colorSecondaryText"
                     android:layout_margin="12dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/separator"
+                android:background="@color/colorAccent"
+                android:layout_margin="8dp"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:id="@+id/facultyLayout"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16sp"
+                    android:text="@string/faculty"
+                    android:textColor="@color/colorPrimaryText"
+                    android:layout_margin="12dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/textViewUnitFaculty"
+                    android:textSize="16sp"
+                    android:text="@string/example_text"
+                    android:textColor="@color/colorSecondaryText"
+                    android:layout_margin="12dp"/>
 
             </LinearLayout>
 

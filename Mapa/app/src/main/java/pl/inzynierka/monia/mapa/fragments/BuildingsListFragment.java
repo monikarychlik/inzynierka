@@ -38,6 +38,7 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
     private Searcher searcher;
     private MainActivityCallbacks mainActivityCallbacks;
     private Keyboard keyboard;
+    private LinearLayoutManager layoutManager;
 
     @SuppressWarnings("deprecation")
     @Override
@@ -50,6 +51,23 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
         setupAdapter();
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        clearSearching();
+        refreshAdapter();
+    }
+
+    private void clearSearching() {
+        editTextSearch.setText("");
+        buildingListLayout.requestFocus();
+    }
+
+    private void refreshAdapter() {
+        layoutManager.scrollToPosition(0);
     }
 
     private void initView() {
@@ -87,7 +105,8 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
     private void setupAdapter() {
         adapter = new BuildingsListAdapter(buildings, mainActivityCallbacks);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        layoutManager = new LinearLayoutManager(getActivity());
+        recyclerView.setLayoutManager(layoutManager);
         recyclerView.setBackgroundColor(getResources().getColor(R.color.cardview_light_background));
         recyclerView.setAdapter(adapter);
     }
@@ -97,7 +116,8 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
-        textViewSearchInfo.setVisibility(View.INVISIBLE);
+        textViewSearchInfo.setVisibility(View.GONE);
+        recyclerView.bringToFront();
 
         if (s.toString().isEmpty()) {
             findBuildings();
@@ -108,6 +128,7 @@ public class BuildingsListFragment extends Fragment implements TextWatcher, View
 
         if (buildings.isEmpty()) {
             textViewSearchInfo.setVisibility(View.VISIBLE);
+            textViewSearchInfo.bringToFront();
         }
     }
 

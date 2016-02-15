@@ -15,6 +15,7 @@ import io.realm.Realm;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
 import pl.inzynierka.monia.mapa.models.Contact;
+import pl.inzynierka.monia.mapa.models.Faculty;
 import pl.inzynierka.monia.mapa.models.Identifier;
 import pl.inzynierka.monia.mapa.models.Unit;
 import pl.inzynierka.monia.mapa.utils.Keyboard;
@@ -24,6 +25,8 @@ public class UnitInfoFragment extends Fragment {
     private int unitId;
     private Realm realm;
     private Unit chosenUnit;
+    private TextView textViewUnitFaculty;
+    private View separator;
     private TextView textViewUnitSign;
     private TextView textViewUnitName;
     private TextView textViewUnitEmail;
@@ -52,6 +55,9 @@ public class UnitInfoFragment extends Fragment {
         realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
 
+        textViewUnitFaculty = (TextView) view.findViewById(R.id.textViewUnitFaculty);
+        separator = view.findViewById(R.id.separator);
+
         textViewUnitSign = (TextView) view.findViewById(R.id.textViewTitleUnitSign);
         textViewUnitName = (TextView) view.findViewById(R.id.textViewTitleUnitName);
         textViewUnitEmail = (TextView) view.findViewById(R.id.textViewUnitEmail);
@@ -78,12 +84,36 @@ public class UnitInfoFragment extends Fragment {
         final String unitSign =
                 unitIdentifier.getMarkLetter().toUpperCase() + unitIdentifier.getMarkNumber();
 
+        setFaculty();
+
         textViewUnitSign.setText(unitSign);
         textViewUnitName.setText(unitIdentifier.getName());
         textViewUnitEmail.setText(unitContact.getEmail());
         textViewUnitPhone1.setText(unitContact.getPhoneNumber1());
         textViewUnitPhone2.setText(unitContact.getPhoneNumber2());
         textViewUnitFax.setText(unitContact.getFax());
+    }
+
+    private void setFaculty() {
+        final List<Faculty> faculties = realm.where(Faculty.class).findAll();
+
+        if (chosenUnit.getFacultyID() == 0) {
+            setVisibility(View.GONE);
+        } else {
+            setVisibility(View.VISIBLE);
+
+            for (Faculty faculty : faculties) {
+                if (chosenUnit.getFacultyID() == faculty.getId()) {
+                    textViewUnitFaculty.setText(faculty.getIdentifier().getName());
+                    break;
+                }
+            }
+        }
+    }
+
+    private void setVisibility(int visibility) {
+        view.findViewById(R.id.facultyLayout).setVisibility(visibility);
+        separator.setVisibility(visibility);
     }
 
     private void findUnit() {

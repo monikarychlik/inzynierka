@@ -52,6 +52,18 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        scrollSpinnersToTop();
+    }
+
+    private void scrollSpinnersToTop() {
+        spinnerPointA.setSelection(0);
+        spinnerPointB.setSelection(0);
+    }
+
     private void initView() {
         final Realm realm = Realm.getInstance(getActivity());
         mainActivityCallbacks = (MainActivityCallbacks) getActivity();
@@ -109,18 +121,17 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     }
 
     private void onButtonNavigateClick() {
+        final NetworkUtils networkUtils = new NetworkUtils();
         final LocationManager manager =
                 (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
-        if (isMyLocalizationChecked && !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            buildAlertMessageNoGps();
+        if (!networkUtils.hasWifiOrNetworkEnabled(getActivity())) {
+            buildAlertMessageNoInternet();
             return;
         }
 
-        final NetworkUtils networkUtils = new NetworkUtils();
-
-        if (!networkUtils.hasWifiOrNetworkEnabled(getActivity())) {
-            buildAlertMessageNoInternet();
+        if (isMyLocalizationChecked && !manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+            buildAlertMessageNoGps();
             return;
         }
 
@@ -129,7 +140,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 buildings.get(spinnerPointB.getSelectedItemPosition()));
         mainActivityCallbacks.changeToMapFragment("");
 
-        checkBoxMyLocalization.setChecked(false);
+        if (isMyLocalizationChecked) {
+            onCheckBoxClick();
+        }
     }
 
     private void buildAlertMessageNoInternet() {
