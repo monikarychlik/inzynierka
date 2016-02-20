@@ -8,4 +8,38 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:background="@color/transparentWhite"
+        android:orientation="vertical"
+        android:layout_gravity="bottom|end">
+
+        <ImageButton
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_margin="6dp"
+            android:id="@+id/imageButtonZoomIn"
+            android:background="@drawable/icon_plus"/>
+
+        <ImageButton
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_margin="6dp"
+            android:id="@+id/imageButtonZoomOut"
+            android:background="@drawable/icon_minus"/>
+
+        <ImageButton
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:id="@+id/imageButtonAnimateToMyLocation"
+            android:background="@drawable/icon_my_location"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginTop="20dp" />
+
+    </LinearLayout>
+
 </FrameLayout>

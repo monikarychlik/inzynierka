@@ -19,9 +19,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import org.osmdroid.api.IMapController;
 import org.osmdroid.bonuspack.overlays.InfoWindow;
+import org.osmdroid.bonuspack.overlays.MapEventsOverlay;
 import org.osmdroid.bonuspack.overlays.MapEventsReceiver;
 import org.osmdroid.bonuspack.overlays.Marker;
 import org.osmdroid.bonuspack.overlays.Polyline;
@@ -39,13 +41,15 @@ import java.util.List;
 import java.util.Locale;
 
 import io.realm.Realm;
+import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
 import pl.inzynierka.monia.mapa.utils.CustomInfoWindow;
 import pl.inzynierka.monia.mapa.R;
 import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.BuildingID;
 import pl.inzynierka.monia.mapa.models.Identifier;
 
-public class MapFragment extends Fragment implements MapEventsReceiver, LocationListener {
+public class MapFragment extends Fragment
+        implements MapEventsReceiver, LocationListener, View.OnClickListener {
     private static final GeoPoint defaultGeoPoint = new GeoPoint(51.753540, 19.452974);
     private static final String campusA = "a";
     private static final String campusB = "b";
@@ -73,6 +77,10 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
     private boolean isDrawerOpen = false;
     private Polyline oldRoadOverlay;
     private boolean updateLocation = true;
+    private GeoPoint defaultMyLocation;
+    private Location myLocation;
+    private IMapController mapController;
+    private MainActivityCallbacks mainActivityCallbacks;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -88,27 +96,64 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
             addAllMarkers();
         }
 
+        setViewOnPoint(map, defaultGeoPoint, ZOOM_LEVEL);
+
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (updateLocation) {
+            setViewOnPoint(map, getLastViewPoint(), map.getZoomLevel());
+        } else {
+            setViewOnPoint(map, defaultGeoPoint, map.getZoomLevel());
+        }
+    }
+
     private void initView() {
+        mainActivityCallbacks = (MainActivityCallbacks) getActivity();
         final Realm realm = Realm.getInstance(getActivity());
         buildings = realm.where(Building.class).findAll();
+
+        defaultMyLocation = new GeoPoint(51.753663, 19.451716);
+        setImageButton();
+
+        setMapButtons();
 
         setHasOptionsMenu(true);
         setMap();
         setViewOnPoint(map, defaultGeoPoint, ZOOM_LEVEL);
     }
 
+    private void setMapButtons() {
+        final ImageButton imageButtonAnimateToMyLocation =
+                (ImageButton) view.findViewById(R.id.imageButtonAnimateToMyLocation);
+        final ImageButton imageButtonZoomIn =
+                (ImageButton) view.findViewById(R.id.imageButtonZoomIn);
+        final ImageButton imageButtonZoomOut =
+                (ImageButton) view.findViewById(R.id.imageButtonZoomOut);
+
+        imageButtonAnimateToMyLocation.setOnClickListener(this);
+        imageButtonZoomIn.setOnClickListener(this);
+        imageButtonZoomOut.setOnClickListener(this);
+    }
+
+    private void setImageButton() {
+    }
+
     private void setMap() {
         map = (MapView) view.findViewById(R.id.map);
         map.setTileSource(TileSourceFactory.MAPNIK);
-        map.setBuiltInZoomControls(true);
         map.setMultiTouchControls(true);
+
+        final MapEventsOverlay mapEventsOverlay = new MapEventsOverlay(getActivity(), this);
+        map.getOverlays().add(0, mapEventsOverlay);
     }
 
     private void setViewOnPoint(MapView map, GeoPoint geoPoint, int zoomLevel) {
-        final IMapController mapController = map.getController();
+        mapController = map.getController();
         mapController.setZoom(zoomLevel);
         mapController.setCenter(geoPoint);
     }
@@ -177,7 +222,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
     private void addMarkersFromCampus(String markLetter) {
         for (Building building : buildings) {
             if (building.getIdentifier().getMarkLetter().equals(markLetter)) {
-                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker),
+                addMarker(building, getResources().getDrawable(R.drawable.icon_marker_dot_big),
                         false, true);
             }
         }
@@ -187,10 +232,11 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
     private void routing() {
         if (navigateFromMyLocation) {
             updateLocation = true;
+            animateToMyLocation();
             navigateFromMyLocation(null);
         } else {
             final GeoPoint startPoint = new GeoPoint(pointA.getLatitude(), pointA.getLongitude());
-            addBuildingMarker(pointA, getResources().getDrawable(R.drawable.icon_marker), false, false);
+            addMarker(pointA, getResources().getDrawable(R.drawable.icon_marker_dot_big), false, true);
 
             navigate(startPoint, true);
         }
@@ -209,9 +255,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
         final ArrayList<GeoPoint> wayPoints = new ArrayList<>();
 
         final GeoPoint endPoint = new GeoPoint(pointB.getLatitude(), pointB.getLongitude());
-        addBuildingMarker(pointB, getResources().getDrawable(R.drawable.icon_marker), false, false);
-
-        setViewOnPoint(map, startPoint, ZOOM_LEVEL);
+        addMarker(pointB, getResources().getDrawable(R.drawable.icon_marker_dot_big), false, true);
 
         wayPoints.add(startPoint);
         wayPoints.add(endPoint);
@@ -231,7 +275,6 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
             locationManager.requestLocationUpdates(
                     LocationManager.GPS_PROVIDER, MIN_TIME_TO_UPDATE, MIN_DISTANCE_TO_UPDATE, this);
 
-            Location myLocation;
             int trials = 0;
 
             while (trials != NUMBER_OF_TRIALS_GET_MY_LOCATION) {
@@ -249,7 +292,7 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
             }
         }
 
-        return new GeoPoint(51.753663, 19.451716);
+        return defaultMyLocation;
     }
 
     @Override
@@ -267,6 +310,24 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
 
     @Override
     public void onProviderDisabled(String provider) {}
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+
+            case R.id.imageButtonAnimateToMyLocation:
+                animateToMyLocation();
+                break;
+
+            case R.id.imageButtonZoomIn:
+                mapController.zoomIn();
+                break;
+
+            case R.id.imageButtonZoomOut:
+                mapController.zoomOut();
+                break;
+        }
+    }
 
     private class UpdateRoadTask extends AsyncTask<Object, Void, Road> {
         private ProgressDialog progressDialog;
@@ -335,10 +396,20 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
 
     @Override
     public boolean singleTapConfirmedHelper(GeoPoint p) {
-        //TODO: naprawić, bo nie działa
         InfoWindow.closeAllInfoWindowsOn(map);
         map.invalidate();
         return true;
+    }
+
+    private void animateToMyLocation(){
+        checkPermissionsAndGetMyLocation();
+        if (myLocation != null) {
+            final GeoPoint myLocationGeoPoint =
+                    new GeoPoint(myLocation.getLatitude(), myLocation.getLongitude());
+            if (myLocationGeoPoint != defaultGeoPoint) {
+                map.getController().animateTo(myLocationGeoPoint);
+            }
+        }
     }
 
     @Override
@@ -369,47 +440,47 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
                     }
                 }
             } else {
-                addBuildingMarker(building, getResources().getDrawable(R.drawable.icon_marker),
+                addMarker(building, getResources().getDrawable(R.drawable.icon_marker_dot_big),
                         false, true);
             }
         }
 
         for (Building chosenBuilding : chosenBuildings) {
-            addBuildingMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark),
+            addMarker(chosenBuilding, getResources().getDrawable(R.drawable.icon_marker_dark),
                     false, false);
         }
 
         if (buildingIDs != null ) buildingIDs.clear();
     }
 
-    private void addBuildingMarker(Building building, Drawable icon, boolean showInfoWindow,
-                                   boolean defaultPosition) {
+
+
+    private GeoPoint getLastViewPoint() {
+        GeoPoint lastGeoPoint = (GeoPoint) map.getMapCenter();
+
+        if (lastGeoPoint == null) {
+            lastGeoPoint = defaultGeoPoint;
+        }
+
+        return lastGeoPoint;
+    }
+
+    public void addMarker(Building building, Drawable icon, boolean showInfoWindow, boolean defaultPosition) {
+        final Marker marker = new Marker(map);
         final GeoPoint geoPoint = new GeoPoint(building.getLatitude(), building.getLongitude());
         final Identifier bIdentifier = building.getIdentifier();
         final String title = bIdentifier.getMarkLetter().toUpperCase() +
                 bIdentifier.getMarkNumber() + " " + bIdentifier.getName();
 
-        if (defaultPosition) {
-            addMarker(geoPoint, defaultGeoPoint, icon, title, "", showInfoWindow);
-        } else {
-            addMarker(geoPoint, geoPoint, icon, title, "", showInfoWindow);
-        }
-
-    }
-
-    @SuppressWarnings("deprecation")
-    public void addMarker(GeoPoint geoPoint, GeoPoint pointView, Drawable icon,
-                          String title, String description, boolean showInfoWindow) {
-        final Marker marker = new Marker(map);
-
-        setViewOnPoint(map, pointView, ZOOM_LEVEL);
-
+        setMarkerViewOnPoint(defaultPosition, geoPoint);
         marker.setPosition(geoPoint);
-        marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        setMarkerAnchor(icon, marker);
+
         marker.setIcon(icon);
         marker.setTitle(title);
-        marker.setSubDescription(description);
+        marker.setSubDescription(building.getId() + "");
         marker.setInfoWindow(new CustomInfoWindow(map));
+        setMarkerOnClickListener(marker);
 
         if (showInfoWindow) {
             marker.showInfoWindow();
@@ -418,6 +489,61 @@ public class MapFragment extends Fragment implements MapEventsReceiver, Location
 
         map.getOverlays().add(marker);
         map.invalidate();
+    }
+
+    @SuppressWarnings("deprecation")
+    private void setMarkerAnchor(Drawable icon, Marker marker) {
+        if (icon == getResources().getDrawable(R.drawable.icon_marker_dark)) {
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM);
+        } else {
+            marker.setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER);
+        }
+    }
+
+    private void setMarkerViewOnPoint(boolean defaultPosition, GeoPoint geoPoint) {
+        if (defaultPosition) {
+            setViewOnPoint(map, getLastViewPoint(), map.getZoomLevel());
+        } else {
+            setViewOnPoint(map, geoPoint, map.getZoomLevel());
+        }
+    }
+
+    private void setMarkerOnClickListener(Marker marker) {
+        marker.setOnMarkerClickListener(new Marker.OnMarkerClickListener() {
+            @Override
+            public boolean onMarkerClick(final Marker marker, final MapView mapView) {
+                InfoWindow.closeAllInfoWindowsOn(map);
+                marker.showInfoWindow();
+                setupInfoWindow(marker);
+                setBubbleListener(marker);
+
+                return true;
+            }
+        });
+    }
+
+    private void setBubbleListener(final Marker marker) {
+        view.findViewById(R.id.bubbleInfoWindow).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityCallbacks.passBuildingsIdToInfo(
+                        Integer.parseInt(marker.getSubDescription()));
+                mainActivityCallbacks.changeToBuildingInfoFragment("");
+            }
+        });
+    }
+
+    private void setupInfoWindow(final Marker marker) {
+        view.findViewById(R.id.bubble_description).setVisibility(View.GONE);
+        view.findViewById(R.id.bubble_subdescription).setVisibility(View.GONE);
+        view.findViewById(R.id.button_goto).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityCallbacks.passDataToNavigation(
+                        buildings.get(Integer.parseInt(marker.getSubDescription())-1));
+                mainActivityCallbacks.changeToNavigationFragment("");
+            }
+        });
     }
 
     public void passData(int buildingId) {

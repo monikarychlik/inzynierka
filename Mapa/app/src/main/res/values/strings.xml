@@ -252,4 +252,5 @@
     <string name="routing_message">Proszę czekać</string>
     <string name="faculty">Wydział:</string>
     <string name="no_units">Brak jednostek</string>
+    <string name="navigate_to_this">Wyznacz trasę</string>
 </resources>

@@ -28,7 +28,7 @@ public class UnitsListAdapter extends RecyclerView.Adapter<UnitsListAdapter.Cust
     @Override
     public CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        final View view = inflater.inflate(R.layout.fragment_list_row, parent, false);
+        final View view = inflater.inflate(R.layout.fragment_list_row_units, parent, false);
 
         return new CustomViewHolder(view);
     }
@@ -77,10 +77,10 @@ public class UnitsListAdapter extends RecyclerView.Adapter<UnitsListAdapter.Cust
 
         public CustomViewHolder(View view) {
             super(view);
-            this.textViewUnitSign = (TextView) view.findViewById(R.id.textViewSign);
-            this.textViewUnitName = (TextView) view.findViewById(R.id.textViewName);
-            this.imageViewShowOnMap = (ImageView) view.findViewById(R.id.imageViewShowOnMap);
-            this.unitItemLayout = (CardView) view.findViewById(R.id.itemLayout);
+            this.textViewUnitSign = (TextView) view.findViewById(R.id.textViewUnitSign);
+            this.textViewUnitName = (TextView) view.findViewById(R.id.textViewUnitName);
+            this.imageViewShowOnMap = (ImageView) view.findViewById(R.id.imageViewUnitShowOnMap);
+            this.unitItemLayout = (CardView) view.findViewById(R.id.itemLayoutUnit);
         }
     }
 }

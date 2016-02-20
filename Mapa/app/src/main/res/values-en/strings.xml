@@ -256,4 +256,5 @@
     <string name="routing_message">Please wait</string>
     <string name="faculty">Faculty of:</string>
     <string name="no_units">No units</string>
+    <string name="navigate_to_this">Navigate</string>
 </resources>

@@ -32,7 +32,6 @@ import pl.inzynierka.monia.mapa.callbacks.MainActivityCallbacks;
 import pl.inzynierka.monia.mapa.fragments.AboutFragment;
 import pl.inzynierka.monia.mapa.fragments.BuildingInfoFragment;
 import pl.inzynierka.monia.mapa.fragments.BuildingsListFragment;
-import pl.inzynierka.monia.mapa.fragments.LessonPlanFragment;
 import pl.inzynierka.monia.mapa.fragments.MapFragment;
 import pl.inzynierka.monia.mapa.fragments.NavigationFragment;
 import pl.inzynierka.monia.mapa.fragments.UnitInfoFragment;
@@ -49,7 +48,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
     private MapFragment mapFragment;
     private BuildingsListFragment buildingsListFragment;
     private UnitsListFragment unitsListFragment;
-    private LessonPlanFragment lessonPlanFragment;
     private AboutFragment aboutFragment;
     private BuildingInfoFragment buildingInfoFragment;
     private UnitInfoFragment unitInfoFragment;
@@ -103,7 +101,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
         buildingsListFragment = new BuildingsListFragment();
         unitsListFragment = new UnitsListFragment();
         buildingInfoFragment = new BuildingInfoFragment();
-        lessonPlanFragment = new LessonPlanFragment();
         aboutFragment = new AboutFragment();
         unitInfoFragment = new UnitInfoFragment();
         navigationFragment = new NavigationFragment();
@@ -135,8 +132,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
                 getString(R.string.building_list), R.drawable.icon_building));
         drawerItems.add(new DrawerItem(getString(R.string.units),
                 getString(R.string.unit_list), R.drawable.icon_unit));
-        drawerItems.add(new DrawerItem(getString(R.string.plan),
-                getString(R.string.your_lesson_plan), R.drawable.icon_calendar));
         drawerItems.add(new DrawerItem(getString(R.string.about),
                 getString(R.string.app_info), R.drawable.icon_about));
 
@@ -301,10 +296,12 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
 
         switch (position){
             case 0:
+                mapFragment.passData(-1, false, null, null);
                 changeToMapFragment(getString(R.string.map));
                 break;
 
             case 1:
+                navigationFragment.passData(null);
                 changeToNavigationFragment(getString(R.string.navigation));
                 break;
 
@@ -317,10 +314,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
                 break;
 
             case 4:
-                changeToLessonPlanFragment(getString(R.string.plan));
-                break;
-
-            case 5:
                 changeToAboutFragment(getString(R.string.about));
                 break;
         }
@@ -353,7 +346,7 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
         stopNavigation();
 
         if (title.isEmpty()) {
-            setTitle(getString(R.string.map));
+            setTitle(getString(R.string.navigation));
         } else {
             setTitle(title);
         }
@@ -362,6 +355,11 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
         transaction.replace(R.id.container, navigationFragment);
         transaction.addToBackStack(null);
         transaction.commit();
+    }
+
+    @Override
+    public void passDataToNavigation(Building building) {
+        navigationFragment.passData(building);
     }
 
     public void changeToUnitsListFragment(String title) {
@@ -421,21 +419,6 @@ public class MainActivity extends AppCompatActivity implements MainActivityCallb
 
         final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.container, buildingInfoFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
-    }
-
-    public void changeToLessonPlanFragment(String title){
-        stopNavigation();
-
-        if (title.isEmpty()) {
-            setTitle(getString(R.string.plan));
-        } else {
-            setTitle(title);
-        }
-
-        final FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.container, lessonPlanFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

@@ -54,6 +54,13 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
                 mainActivityCallbacks.changeToMapFragment("");
             }
         });
+        customViewHolder.imageViewNavigate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mainActivityCallbacks.passDataToNavigation(building);
+                mainActivityCallbacks.changeToNavigationFragment("");
+            }
+        });
         customViewHolder.buildingItemLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -72,6 +79,7 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
         protected TextView textViewBuildingSign;
         protected TextView textViewBuildingName;
         protected ImageView imageViewShowOnMap;
+        protected ImageView imageViewNavigate;
         protected CardView buildingItemLayout;
 
         public CustomViewHolder(View view) {
@@ -79,6 +87,7 @@ public class BuildingsListAdapter extends RecyclerView.Adapter<BuildingsListAdap
             this.textViewBuildingSign = (TextView) view.findViewById(R.id.textViewSign);
             this.textViewBuildingName = (TextView) view.findViewById(R.id.textViewName);
             this.imageViewShowOnMap = (ImageView) view.findViewById(R.id.imageViewShowOnMap);
+            this.imageViewNavigate = (ImageView) view.findViewById(R.id.imageViewNavigate);
             this.buildingItemLayout = (CardView) view.findViewById(R.id.itemLayout);
         }
     }

@@ -16,7 +16,8 @@ public interface MainActivityCallbacks {
     void changeToMapFragment(String title);
     void changeToBuildingsListFragment(String title);
     void changeToAboutFragment(String title);
-    void changeToLessonPlanFragment(String title);
     void changeToUnitInfoFragment(String title);
     void changeToNavigationFragment(String title);
+
+    void passDataToNavigation(Building building);
 }

@@ -39,6 +39,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     private MainActivityCallbacks mainActivityCallbacks;
     private List<Building> buildings;
     private boolean isMyLocalizationChecked = false;
+    private Building chosenBuilding;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,7 +57,16 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
     public void onResume() {
         super.onResume();
 
-        scrollSpinnersToTop();
+        if (chosenBuilding != null) {
+            setDataToNavigation();
+            return;
+        }
+
+        if (isMyLocalizationChecked) {
+            onCheckBoxClick();
+            scrollSpinnersToTop();
+        }
+
     }
 
     private void scrollSpinnersToTop() {
@@ -139,10 +149,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 isMyLocalizationChecked, buildings.get(spinnerPointA.getSelectedItemPosition()),
                 buildings.get(spinnerPointB.getSelectedItemPosition()));
         mainActivityCallbacks.changeToMapFragment("");
-
-        if (isMyLocalizationChecked) {
-            onCheckBoxClick();
-        }
     }
 
     private void buildAlertMessageNoInternet() {
@@ -199,5 +205,15 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         } else {
             spinnerPointA.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void passData(Building chosenBuilding) {
+        this.chosenBuilding = chosenBuilding;
+    }
+
+    private void setDataToNavigation() {
+        isMyLocalizationChecked = false;
+        onCheckBoxClick();
+        spinnerPointB.setSelection(chosenBuilding.getId() - 1);
     }
 }
