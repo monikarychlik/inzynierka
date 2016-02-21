@@ -124,11 +124,15 @@ public class Data {
     }
 
     private void addFaculty(List<Faculty> faculties, Unit unit) {
+        if (unit.getFacultyID() == 0) {
+            return;
+        }
+
         final Faculty newFaculty = realm.where(Faculty.class).equalTo(
                 "id", unit.getFacultyID()).findFirst();
 
         for (Faculty faculty : faculties) {
-            if (newFaculty.getId() == faculty.getId()) {
+            if (newFaculty != null && newFaculty.getId() == faculty.getId()) {
                 return;
             }
         }
