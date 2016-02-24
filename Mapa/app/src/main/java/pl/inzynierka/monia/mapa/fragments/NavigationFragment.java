@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioGroup;
@@ -28,7 +29,7 @@ import pl.inzynierka.monia.mapa.models.Building;
 import pl.inzynierka.monia.mapa.models.Identifier;
 import pl.inzynierka.monia.mapa.utils.NetworkUtils;
 
-public class NavigationFragment extends Fragment implements View.OnClickListener {
+public class NavigationFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private View view;
     private CheckBox checkBoxMyLocalization;
@@ -66,7 +67,6 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
             onCheckBoxClick();
             scrollSpinnersToTop();
         }
-
     }
 
     private void scrollSpinnersToTop() {
@@ -93,7 +93,9 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
                 new BuildingSpinnerAdapter(getContext(), R.layout.fragment_building_unit, list);
 
         spinnerPointA.setAdapter(buildingSpinnerAdapter);
+        spinnerPointA.setOnItemSelectedListener(this);
         spinnerPointB.setAdapter(buildingSpinnerAdapter);
+        spinnerPointB.setOnItemSelectedListener(this);
     }
 
     @NonNull
@@ -135,6 +137,8 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         final LocationManager manager =
                 (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
 
+        chosenBuilding = buildings.get(spinnerPointB.getSelectedItemPosition());
+
         if (!networkUtils.hasWifiOrNetworkEnabled(getActivity())) {
             buildAlertMessageNoInternet();
             return;
@@ -147,7 +151,7 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
 
         mainActivityCallbacks.passDataToMap(radioGroupTypeOfTravel.getCheckedRadioButtonId(),
                 isMyLocalizationChecked, buildings.get(spinnerPointA.getSelectedItemPosition()),
-                buildings.get(spinnerPointB.getSelectedItemPosition()));
+                chosenBuilding);
         mainActivityCallbacks.changeToMapFragment("");
     }
 
@@ -216,4 +220,12 @@ public class NavigationFragment extends Fragment implements View.OnClickListener
         onCheckBoxClick();
         spinnerPointB.setSelection(chosenBuilding.getId() - 1);
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        chosenBuilding = buildings.get(spinnerPointB.getSelectedItemPosition());
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {}
 }

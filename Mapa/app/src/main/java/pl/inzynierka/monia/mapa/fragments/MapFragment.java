@@ -239,6 +239,7 @@ public class MapFragment extends Fragment
             addMarker(pointA, getResources().getDrawable(R.drawable.icon_marker_dot_big), false, true);
 
             navigate(startPoint, true);
+            radioButtonTypeOfTravelId = -1;
         }
     }
 
@@ -389,8 +390,6 @@ public class MapFragment extends Fragment
                     this.progressDialog.isShowing()) {
                 this.progressDialog.dismiss();
             }
-
-            radioButtonTypeOfTravelId = -1;
         }
     }
 
